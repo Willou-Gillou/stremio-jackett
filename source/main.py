@@ -104,7 +104,7 @@ async def get_manifest():
         "resources": ["stream"],
         "types": ["movie", "series"],
         "name": "Jackett-wg" + (" Community" if COMMUNITY_VERSION else "") + (" (Dev)" if isDev else ""),
-        "description": "Willou Elevate your Stremio experience with seamless access to Jackett torrent links, effortlessly "
+        "description": "Willou2 Elevate your Stremio experience with seamless access to Jackett torrent links, effortlessly "
                        "fetching torrents for your selected movies within the Stremio interface.",
         "behaviorHints": {
             "configurable": True,

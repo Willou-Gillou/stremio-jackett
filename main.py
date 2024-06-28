@@ -1,3 +1,4 @@
+# Importation des modules nécessaires
 import asyncio
 import base64
 import json
@@ -7,6 +8,7 @@ import re
 import shutil
 import zipfile
 
+# Importation de modules spécifiques
 import requests
 import starlette.status as status
 from aiocron import crontab
@@ -16,6 +18,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 
+# Importation des constantes et des fonctions utilitaires
 from constants import NO_RESULTS
 from debrid.alldebrid import get_stream_link_ad
 from debrid.premiumize import get_stream_link_pm
@@ -28,17 +31,20 @@ from utils.jackett import search
 from utils.logger import setup_logger
 from utils.process_results import process_results
 
+# Chargement des variables d'environnement
 load_dotenv()
 
+# Configuration du chemin racine de l'application
 root_path = os.environ.get("ROOT_PATH", None)
 if root_path and not root_path.startswith("/"):
     root_path = "/" + root_path
 app = FastAPI(root_path=root_path)
 
+# Définition de la version de l'application
 VERSION = "3.0.14"
 isDev = os.getenv("NODE_ENV") == "development"
 
-
+# Middleware pour filtrer les logs
 class LogFilterMiddleware:
     def __init__(self, app):
         self.app = app
@@ -50,7 +56,7 @@ class LogFilterMiddleware:
         logger.info(f"{request.method} - {sensible_path}")
         return await self.app(scope, receive, send)
 
-
+# Ajout du middleware CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -59,29 +65,32 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Ajout du middleware de filtrage des logs en production
 if not isDev:
     app.add_middleware(LogFilterMiddleware)
 
+# Configuration du moteur de templates
 templates = Jinja2Templates(directory=".")
 
+# Initialisation du logger
 logger = setup_logger(__name__)
 
-
+# Route racine qui redirige vers la page de configuration
 @app.get("/")
 async def root():
     return RedirectResponse(url="/configure")
 
-
+# Route pour la page de configuration
 @app.get("/configure")
 async def configure(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-
+# Route pour la page de configuration avec un paramètre de configuration
 @app.get("/{config}/configure")
 async def configure(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-
+# Route pour récupérer le manifest JSON
 @app.get("/{params}/manifest.json")
 async def get_manifest():
     return {
@@ -99,13 +108,13 @@ async def get_manifest():
         }
     }
 
-
+# Configuration du formatter pour le logger
 formatter = logging.Formatter('[%(asctime)s] p%(process)s {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s',
                               '%m-%d %H:%M:%S')
 
 logger.info("Started Jackett Addon")
 
-
+# Route pour obtenir les résultats de streaming
 @app.get("/{config}/stream/{stream_type}/{stream_id}")
 async def get_results(config: str, stream_type: str, stream_id: str):
     stream_id = stream_id.replace(".json", "")
@@ -171,7 +180,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
             return NO_RESULTS
         return {"streams": stream_list}
 
-
+# Route pour obtenir le lien de lecture
 @app.get("/playback/{config}/{query}/{title}")
 async def get_playback(config: str, query: str, title: str, request: Request):
     try:
@@ -204,7 +213,7 @@ async def get_playback(config: str, query: str, title: str, request: Request):
         logger.error('An error occured %s', 'division', exc_info=e)
         raise HTTPException(status_code=500, detail="An error occurred while processing the request.")
 
-
+# Fonction de mise à jour de l'application
 async def update_app():
     try:
         if not isDev:
@@ -245,17 +254,17 @@ async def update_app():
     except Exception as e:
         logger.error(f"Error during update: {e}")
 
-
+# Tâche planifiée pour mettre à jour l'application toutes les minutes
 @crontab("* * * * *", start=not isDev)
 async def schedule_task():
     await update_app()
 
-
+# Fonction principale pour exécuter les tâches asynchrones
 async def main():
     await asyncio.gather(
         schedule_task()
     )
 
-
+# Point d'entrée principal de l'application
 if __name__ == "__main__":
     asyncio.run(main())

@@ -59,8 +59,12 @@ def results_per_quality(items, config):
 
 def sort_quality_and_size(item):
     order = {"4k": 0, "1080p": 1, "720p": 2, "480p": 3}
-    quality_order = order.get(item.get("quality"), float('inf'))
-    size = int(item.get("size", 0))
+    quality = item.get("quality", "").lower()
+    quality_order = order.get(quality, float('inf'))
+    try:
+        size = int(item.get("size", 0))
+    except ValueError:
+        size = 0
     return (quality_order, -size)  # sort by quality, then by size in descending order
 
 def items_sort(items, config):

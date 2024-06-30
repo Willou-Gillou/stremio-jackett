@@ -64,7 +64,7 @@ def process_stream(stream, cached, stream_type, season, episode, config):
     if availability:
         indexer = stream.get('indexer', 'Cached')
         #name = f"+{indexer} ({detect_quality(stream['title'])} - {detect_quality_spec(stream['title'])})"
-        name = f"{service} YGG-wg \n({detect_quality(stream['title'])} - {detect_quality_spec(stream['title'])})"
+        name = f"{service}\n YGG-wg ({detect_quality(stream['title'])}"
     else:
         indexer = stream.get('indexer', 'Cached')
         name = f"-{indexer} ({detect_quality(stream['title'])} - {detect_quality_spec(stream['title'])})"

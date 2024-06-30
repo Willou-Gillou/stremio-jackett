@@ -53,7 +53,14 @@ def process_stream(stream, cached, stream_type, season, episode, config):
                 "url": "#"
         }
     
-    service = config['service']
+    match config['service']:
+        case "realdebrid":
+            service = "[RD+]"
+        case "alldebrid":
+            service = "[AD+]"
+        case "premiumize":
+            service = "[PREM+]"
+            
     if availability:
         indexer = stream.get('indexer', 'Cached')
         #name = f"+{indexer} ({detect_quality(stream['title'])} - {detect_quality_spec(stream['title'])})"

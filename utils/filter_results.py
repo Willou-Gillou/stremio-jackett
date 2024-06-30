@@ -39,7 +39,20 @@ def detect_quality_spec(torrent_name):
 
 def filter_language(torrents, language):
     logger.info(f"Filtering torrents by language: {language}")
-    return torrents
+    filtered_torrents = []
+    for torrent in torrents:
+        if type(torrent) is str:
+            logger.error(f"Torrent is a string: {torrent}")
+            continue
+        if not torrent['language']:
+            continue
+        if torrent['language'] == language:
+            filtered_torrents.append(torrent)
+        if torrent['language'] == "multi":
+            filtered_torrents.append(torrent)
+        if torrent['language'] == "no":
+            filtered_torrents.append(torrent)
+    return filtered_torrents
 
 def max_size(items, config):
     logger.info("Started filtering size")
@@ -47,11 +60,40 @@ def max_size(items, config):
 
 def exclusion_keywords(streams, config):
     logger.info("Started filtering exclusion keywords")
-    return streams
+    filtered_items = []
+    excluded_keywords = [keyword.upper() for keyword in config['exclusionKeywords']]
+    for stream in streams:
+        for keyword in excluded_keywords:
+            if keyword in stream['title'].upper():
+                break
+        else:
+            filtered_items.append(stream)
+    return filtered_items
 
 def quality_exclusion(streams, config):
     logger.info("Started filtering quality")
-    return streams
+    RIPS = ["HDRIP", "BRRIP", "BDRIP", "WEBRIP", "TVRIP", "VODRIP", "HDRIP"]
+    CAMS = ["CAM", "TS", "TC", "R5", "DVDSCR", "HDTV", "PDTV", "DSR", "WORKPRINT", "VHSRIP", "HDCAM"]
+
+    filtered_items = []
+    excluded_qualities = [quality.upper() for quality in config['exclusion']]
+    rips = "RIPS" in excluded_qualities
+    cams = "CAM" in excluded_qualities
+
+    for stream in streams:
+        if stream['quality'].upper() not in excluded_qualities:
+            detection = detect_quality_spec(stream['title'])
+            if detection is not None:
+                for item in detection:
+                    if rips and item.upper() in RIPS:
+                        break
+                    if cams and item.upper() in CAMS:
+                        break
+                else:
+                    filtered_items.append(stream)
+            else:
+                filtered_items.append(stream)
+    return filtered_items
 
 def results_per_quality(items, config):
     logger.info(f"Started filtering results per quality ({config['resultsPerQuality']} results per quality)")

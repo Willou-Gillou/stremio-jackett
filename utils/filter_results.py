@@ -39,19 +39,6 @@ def detect_quality_spec(torrent_name):
 
 def filter_language(torrents, language):
     logger.info(f"Filtering torrents by language: {language}")
-    filtered_torrents = []
-    for torrent in torrents:
-        if type(torrent) is str:
-            logger.error(f"Torrent is a string: {torrent}")
-            continue
-        if not torrent['language']:
-            continue
-        if torrent['language'] == language:
-            filtered_torrents.append(torrent)
-        if torrent['language'] == "multi":
-            filtered_torrents.append(torrent)
-        if torrent['language'] == "no":
-            filtered_torrents.append(torrent)
     return filtered_torrents
 
 def max_size(items, config):
@@ -99,9 +86,11 @@ def results_per_quality(items, config):
     logger.info(f"Started filtering results per quality ({config['resultsPerQuality']} results per quality)")
     return items
 
-def sort_quality(item):
+def sort_quality_and_size(item):
     order = {"4k": 0, "1080p": 1, "720p": 2, "480p": 3}
-    return order.get(item.get("quality"), float('inf'))
+    quality_order = order.get(item.get("quality"), float('inf'))
+    size = int(item.get("size", 0))
+    return (quality_order, -size)  # sort by quality, then by size in descending order
 
 def items_sort(items, config):
     logger.info(f"Started sorting items by quality")

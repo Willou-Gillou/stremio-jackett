@@ -47,7 +47,15 @@ def max_size(items, config):
 
 def exclusion_keywords(streams, config):
     logger.info("Started filtering exclusion keywords")
-    return streams
+    filtered_items = []
+    excluded_keywords = [keyword.upper() for keyword in config['exclusionKeywords']]
+    for stream in streams:
+        for keyword in excluded_keywords:
+            if keyword in stream['title'].upper():
+                break
+        else:
+            filtered_items.append(stream)
+    return filtered_items
 
 def quality_exclusion(streams, config):
     logger.info("Started filtering quality")

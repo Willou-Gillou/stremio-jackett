@@ -63,7 +63,7 @@ def get_stream_link_rd(query, source_ip, config):
         tries = 0
         while True:
             if tries > 0:
-                return "https://github.com/aymene69/stremio-jackett/raw/main/nocache.mp4"
+                return "https://github.com/Willou-Gillou/stremio-jackett/raw/main/nocache.mp4"
             logger.info("Getting link")
             url = "https://api.real-debrid.com/rest/1.0/torrents/info/" + torrent_id
             response = requests.get(url, headers=headers)

@@ -70,7 +70,7 @@ def get_emoji(language):
 
 def detect_language(torrent_name):
     language_patterns = {
-        "fr": r'\b(FRENCH|FR|VF|VF2|VFF|TRUEFRENCH|VFQ|FRA)\b',
+        "fr": r'\b(FRENCH|FR|VF|VF2|VFF|VOF|TRUEFRENCH|VFQ|FRA)\b',
         "en": r'\b(ENGLISH|EN|ENG)\b',
         "es": r'\b(SPANISH|ES|ESP)\b',
         "de": r'\b(GERMAN|DE|GER)\b',

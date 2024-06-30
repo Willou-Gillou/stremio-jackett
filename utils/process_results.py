@@ -52,10 +52,12 @@ def process_stream(stream, cached, stream_type, season, episode, config):
                 "title": "New connection on AllDebrid.\r\nPlease authorize the connection\r\non your email",
                 "url": "#"
         }
+    
+    service = config['service']
     if availability:
         indexer = stream.get('indexer', 'Cached')
         #name = f"+{indexer} ({detect_quality(stream['title'])} - {detect_quality_spec(stream['title'])})"
-        name = f"[RD+] GG Tweak" /n + "({detect_quality(stream['title'])} - {detect_quality_spec(stream['title'])})"
+        name = f"[RD+] GG Tweak \n({detect_quality(stream['title'])} - {detect_quality_spec(stream['title'])})"
     else:
         indexer = stream.get('indexer', 'Cached')
         name = f"-{indexer} ({detect_quality(stream['title'])} - {detect_quality_spec(stream['title'])})"

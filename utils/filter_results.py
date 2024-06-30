@@ -50,11 +50,10 @@ def exclusion_keywords(streams, config):
     filtered_items = []
     excluded_keywords = [keyword.upper() for keyword in config['exclusionKeywords']]
     for stream in streams:
-        for keyword in excluded_keywords:
-            if keyword in stream['title'].upper():
-                break
-        else:
-            filtered_items.append(stream)
+        title = stream.get('title', '').upper()
+        if any(keyword in title for keyword in excluded_keywords):
+            continue
+        filtered_items.append(stream)
     return filtered_items
 
 def quality_exclusion(streams, config):

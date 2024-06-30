@@ -62,8 +62,8 @@ def sort_quality(item):
     return order.get(item.get("quality"), float('inf'))
 
 def items_sort(items, config):
-    logger.info(f"Started sorting items by {config['sort']}")
-    return items
+    logger.info(f"Started sorting items by quality")
+    return sorted(items, key=sort_quality)
 
 def filter_season_episode(items, season, episode, config):
     logger.info("Started filtering by season and episode")
@@ -71,6 +71,7 @@ def filter_season_episode(items, season, episode, config):
 
 def filter_items(items, item_type=None, config=None, cached=False, season=None, episode=None):
     logger.info("Started filtering torrents")
+    items = items_sort(items, config)
     return items
 
 def series_file_filter(files, season, episode):

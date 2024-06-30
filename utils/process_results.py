@@ -52,7 +52,7 @@ def process_stream(stream, cached, stream_type, season, episode, config):
                 "title": "New connection on AllDebrid.\r\nPlease authorize the connection\r\non your email",
                 "url": "#"
         }
-    
+
     match config['service']:
         case "realdebrid":
             service = "[RD+]"

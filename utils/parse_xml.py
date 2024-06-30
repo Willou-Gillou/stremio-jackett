@@ -101,7 +101,8 @@ def parse_xml(xml_content, query, config):
     for item in root.findall('.//item'):
 
         title = item.find('title').text
-        name = item.find('jackettindexer').text + " - " + detect_quality(title) + " " + detect_quality_spec(title)
+        #name = item.find('jackettindexer').text + " - " + detect_quality(title) + " " + detect_quality_spec(title)
+        name =  "[RD]GG Tweak - " + detect_quality(title) + " " + detect_quality_spec(title)
         size = item.find('size').text
         link = item.find('link').text
         indexer = item.find('jackettindexer').text

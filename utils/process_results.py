@@ -60,11 +60,11 @@ def process_stream(stream, cached, stream_type, season, episode, config):
             service = "[AD+]"
         case "premiumize":
             service = "[PREM+]"
-            
+
     if availability:
         indexer = stream.get('indexer', 'Cached')
         #name = f"+{indexer} ({detect_quality(stream['title'])} - {detect_quality_spec(stream['title'])})"
-        name = f"[{service}] GG Tweak \n({detect_quality(stream['title'])} - {detect_quality_spec(stream['title'])})"
+        name = f"{service} YGG-wg \n({detect_quality(stream['title'])} - {detect_quality_spec(stream['title'])})"
     else:
         indexer = stream.get('indexer', 'Cached')
         name = f"-{indexer} ({detect_quality(stream['title'])} - {detect_quality_spec(stream['title'])})"

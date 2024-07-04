@@ -1,4 +1,4 @@
-#009
+#009s
 #
 
 import asyncio
@@ -67,38 +67,38 @@ async def configure(request: Request):
 
 @app.get("/{config}/stream/{stream_type}/{stream_id}")
 async def get_results(config: str, stream_type: str, stream_id: str):
-    logger.info(f"Received config: {config}")
-    logger.info(f"Received stream_type: {stream_type}")
-    logger.info(f"Received stream_id: {stream_id}")
+    logger.info(f"1 - Received config: {config}")
+    logger.info(f"2 - Received stream_type: {stream_type}")
+    logger.info(f"3 - Received stream_id: {stream_id}")
     
     stream_id = stream_id.replace(".json", "")
-    logger.info(f"Processed stream_id: {stream_id}")
+    logger.info(f"4 - Processed stream_id: {stream_id}")
 
     config = json.loads(base64.b64decode(config).decode('utf-8'))
-    logger.info(f"Decoded config: {config}")
+    logger.info(f"5 - Decoded config: {config}")
     
     
-    logger.info(f"{stream_type} request")
-    logger.info("Getting name and properties")
+    logger.info(f"6 - {stream_type} request")
+    logger.info("7 - Getting name and properties")
     name = get_name(stream_id, stream_type, config=config)
-    logger.info(f"Got name and properties: {name}")
+    logger.info(f"8 - Got name and properties: {name}")
     
-    logger.info("Getting cached results")
+    logger.info("9 - Getting cached results")
     cached_results = search_cache(name)
-    logger.info(f"Got {len(cached_results)} cached results: {cached_results['title']}")
+    logger.info(f"10 - Got {len(cached_results)} cached results: {cached_results['title']}")
     
-    logger.info("Filtering cached results")
+    logger.info("11 - Filtering cached results")
     filtered_cached_results = filter_items(cached_results, stream_type, config=config, cached=True,
                                            season=name['season'] if stream_type == "series" else None,
                                            episode=name['episode'] if stream_type == "series" else None)
-    logger.info(f"Filtered cached results: {len(filtered_cached_results)}")
+    logger.info(f"12 - Filtered cached results: {len(filtered_cached_results)}")
     
-    logger.info("Cached results found")
-    logger.info("Processing cached results")
+    logger.info("13 - Cached results found")
+    logger.info("14 - Processing cached results")
     stream_list = process_results(filtered_cached_results, True, stream_type,
                                   name['season'] if stream_type == "series" else None,
                                   name['episode'] if stream_type == "series" else None, config=config)
-    logger.info(f"Processed cached results (total results: {len(stream_list)})")
+    logger.info(f"15 - Processed cached results (total results: {len(stream_list)})")
 
     if len(stream_list) == 0:
         logger.info("No results found")

@@ -1,4 +1,4 @@
-#0011
+#0012
 #
 
 import asyncio
@@ -100,11 +100,46 @@ async def get_results(config: str, stream_type: str, stream_id: str):
                                   name['episode'] if stream_type == "series" else None, config=config)
     logger.info(f"15 - Processed cached results (total results: {len(stream_list)})")
 
+ 
+
     if len(stream_list) == 0:
         logger.info("No results found")
         return NO_RESULTS
 
     return {"streams": stream_list}
+
+@app.get("/playback/{config}/{query}/{title}")
+async def get_playback(config: str, query: str, title: str, request: Request):
+    try:
+        if not query or not title:
+            raise HTTPException(status_code=400, detail="Query and title are required.")
+        config = json.loads(base64.b64decode(config).decode('utf-8'))
+        logger.info("Decoding query")
+        query = base64.b64decode(query).decode('utf-8')
+        logger.info(query)
+        logger.info("Decoded query")
+
+        service = config['service']
+        if service == "realdebrid":
+            logger.info("Getting Real-Debrid link")
+            source_ip = request.client.host
+            link = get_stream_link_rd(query, source_ip, config=config)
+        elif service == "alldebrid":
+            logger.info("Getting All-Debrid link")
+            link = get_stream_link_ad(query, config=config)
+        elif service == "premiumize":
+            logger.info("Getting Premiumize link")
+            link = get_stream_link_pm(query, config=config)
+        else:
+            raise HTTPException(status_code=500, detail="Invalid service configuration.")
+
+        logger.info("Got link: " + link)
+        return RedirectResponse(url=link, status_code=status.HTTP_301_MOVED_PERMANENTLY)
+
+    except Exception as e:
+        logger.error('An error occured %s', 'division', exc_info=e)
+        raise HTTPException(status_code=500, detail="An error occurred while processing the request.")
+
 
 async def main():
     await asyncio.gather()

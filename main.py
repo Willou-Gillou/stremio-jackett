@@ -65,8 +65,8 @@ async def configure(request: Request):
 
 @app.get("/{config}/stream/{stream_type}/{stream_id}")
 async def get_results(config: str, stream_type: str, stream_id: str):
-    config = {'addonHost': 'https://ujfunz.zapto.org', 'jackettHost': 'http://89.168.62.5:9117', 'jackettApiKey': '9cqkfb7wrliof8hjdicmvuicp2rwp5iv', 'service': 'realdebrid', 'debridKey': 'RI3UVG63HPRZOT5LSTA2L7IDEBMDZDS2OZZVHOQ6IAFREDFRYMPA', 'maxSize': 0, 'exclusionKeywords': ['DTS'], 'language': 'en', 'sort': 'quality', 'resultsPerQuality': 10, 'maxResults': '6', 'exclusion': ['720p', '480p', 'rips', 'cam'], 'tmdbApi': '7e6f1a2af572373fcf7eb1e4a6d90ad3', 'cache': True}
-
+    config['language'] = 'en'  # Change the language parameter to 'en'
+    
     logger.info(f"Received config: {config}")
     logger.info(f"Received stream_type: {stream_type}")
     logger.info(f"Received stream_id: {stream_id}")

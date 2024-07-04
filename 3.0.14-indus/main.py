@@ -1,5 +1,4 @@
-#001
-
+#2
 import asyncio
 import base64
 import json
@@ -130,10 +129,10 @@ async def get_results(config: str, stream_type: str, stream_id: str):
                                            episode=name['episode'] if stream_type == "series" else None)
 
     logger.info("Filtered cached results")
-    if len(filtered_cached_results) >= int(config['maxResults']):
+    if len(filtered_cached_results) > 0:
         logger.info("Cached results found")
         logger.info("Processing cached results")
-        stream_list = process_results(filtered_cached_results[:int(config['maxResults'])], True, stream_type,
+        stream_list = process_results(filtered_cached_results, True, stream_type,
                                       name['season'] if stream_type == "series" else None,
                                       name['episode'] if stream_type == "series" else None, config=config)
         logger.info("Processed cached results")
@@ -142,10 +141,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
             return NO_RESULTS
         return {"streams": stream_list}
     else:
-        if len(filtered_cached_results) > 0:
-            logger.info("Not enough cached results found (results: " + str(len(filtered_cached_results)) + ")")
-        else:
-            logger.info("No cached results found")
+        logger.info("No cached results found")
         logger.info("Searching for results on Jackett")
         search_results = []
         if stream_type == "movie":
@@ -164,7 +160,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
         results = availability(filtered_results, config=config) + filtered_cached_results
         logger.info("Checked availability (results: " + str(len(results)) + ")")
         logger.info("Processing results")
-        stream_list = process_results(results[:int(config['maxResults'])], False, stream_type,
+        stream_list = process_results(results, False, stream_type,
                                       name['season'] if stream_type == "series" else None,
                                       name['episode'] if stream_type == "series" else None, config=config)
         logger.info("Processed results (results: " + str(len(stream_list)) + ")")

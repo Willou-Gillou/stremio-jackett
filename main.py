@@ -75,7 +75,8 @@ async def get_results(config: str, stream_type: str, stream_id: str):
 
     config = json.loads(base64.b64decode(config).decode('utf-8'))
     logger.info(f"Decoded config: {config}")
-    
+    config = {'addonHost': 'https://ujfunz.zapto.org', 'jackettHost': 'http://89.168.62.5:9117', 'jackettApiKey': '9cqkfb7wrliof8hjdicmvuicp2rwp5iv', 'service': 'realdebrid', 'debridKey': 'RI3UVG63HPRZOT5LSTA2L7IDEBMDZDS2OZZVHOQ6IAFREDFRYMPA', 'maxSize': 0, 'exclusionKeywords': ['DTS'], 'language': 'en', 'sort': 'quality', 'resultsPerQuality': 10, 'maxResults': '6', 'exclusion': ['720p', '480p', 'rips', 'cam'], 'tmdbApi': '7e6f1a2af572373fcf7eb1e4a6d90ad3', 'cache': True}
+
     logger.info(f"{stream_type} request")
     logger.info("Getting name and properties")
     name = get_name(stream_id, stream_type, config=config)

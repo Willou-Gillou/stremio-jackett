@@ -5,7 +5,7 @@ import logging
 import os
 import re
 
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -80,17 +80,16 @@ async def get_results(config: str, stream_type: str, stream_id: str):
                                            episode=name['episode'] if stream_type == "series" else None)
     
     logger.info("Filtered cached results")
-    if len(filtered_cached_results) >= int(config['maxResults']):
-        logger.info("Cached results found")
-        logger.info("Processing cached results")
-        stream_list = process_results(filtered_cached_results[:int(config['maxResults'])], True, stream_type,
-                                      name['season'] if stream_type == "series" else None,
-                                      name['episode'] if stream_type == "series" else None, config=config)
-        logger.info("Processed cached results")
-        if len(stream_list) == 0:
-            logger.info("No results found")
-            return NO_RESULTS
-        return {"streams": stream_list}
+    logger.info("Cached results found")
+    logger.info("Processing cached results")
+    stream_list = process_results(filtered_cached_results, True, stream_type,
+                                  name['season'] if stream_type == "series" else None,
+                                  name['episode'] if stream_type == "series" else None, config=config)
+    logger.info(f"Processed cached results (total results: {len(stream_list)})")
+    if len(stream_list) == 0:
+        logger.info("No results found")
+        return NO_RESULTS
+    return {"streams": stream_list}
 
 async def main():
     await asyncio.gather()

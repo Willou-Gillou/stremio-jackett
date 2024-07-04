@@ -68,6 +68,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     config = json.loads(base64.b64decode(config).decode('utf-8'))
     logger.info(stream_type + " request")
     logger.info("Getting name and properties")
+    logger.info("stream_id= {stream_id}, stream_type= {stream_type}, config= {config}" )
     name = get_name(stream_id, stream_type, config=config)
     logger.info("Got name and properties: " + str(name['title']))
     logger.info("Getting cached results")

@@ -65,8 +65,8 @@ async def configure(request: Request):
 
 @app.get("/{config}/stream/{stream_type}/{stream_id}")
 async def get_results(config: str, stream_type: str, stream_id: str):
-    config['language'] = 'en'  # Change the language parameter to 'en'
-    
+    #config['language'] = 'en'  # Change the language parameter to 'en'
+
     logger.info(f"Received config: {config}")
     logger.info(f"Received stream_type: {stream_type}")
     logger.info(f"Received stream_id: {stream_id}")

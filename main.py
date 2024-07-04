@@ -1,3 +1,5 @@
+#1714
+
 import asyncio
 import base64
 import json
@@ -16,7 +18,6 @@ from utils.get_content import get_name
 from utils.get_cached import search_cache
 from utils.filter_results import filter_items
 from utils.process_results import process_results
-from utils.get_availability import availability
 from utils.logger import setup_logger
 
 load_dotenv()
@@ -65,7 +66,6 @@ async def configure(request: Request):
 
 @app.get("/{config}/stream/{stream_type}/{stream_id}")
 async def get_results(config: str, stream_type: str, stream_id: str):
-    
     logger.info(f"Received config: {config}")
     logger.info(f"Received stream_type: {stream_type}")
     logger.info(f"Received stream_id: {stream_id}")
@@ -75,7 +75,8 @@ async def get_results(config: str, stream_type: str, stream_id: str):
 
     config = json.loads(base64.b64decode(config).decode('utf-8'))
     logger.info(f"Decoded config: {config}")
-    
+    config = {'addonHost': 'https://ujfunz.zapto.org', 'jackettHost': 'http://89.168.62.5:9117', 'jackettApiKey': '9cqkfb7wrliof8hjdicmvuicp2rwp5iv', 'service': 'realdebrid', 'debridKey': 'RI3UVG63HPRZOT5LSTA2L7IDEBMDZDS2OZZVHOQ6IAFREDFRYMPA', 'maxSize': 0, 'exclusionKeywords': ['DTS'], 'language': 'en', 'sort': 'quality', 'resultsPerQuality': 10, 'maxResults': '6', 'exclusion': ['720p', '480p', 'rips', 'cam'], 'tmdbApi': '7e6f1a2af572373fcf7eb1e4a6d90ad3', 'cache': True}
+
     logger.info(f"{stream_type} request")
     logger.info("Getting name and properties")
     name = get_name(stream_id, stream_type, config=config)
@@ -91,12 +92,9 @@ async def get_results(config: str, stream_type: str, stream_id: str):
                                            episode=name['episode'] if stream_type == "series" else None)
     logger.info(f"Filtered cached results: {filtered_cached_results}")
     
-    logger.info("Checking availability of cached results")
-    available_cached_results = availability(filtered_cached_results, config=config)
-    logger.info(f"Available cached results: {available_cached_results}")
-    
-    logger.info("Processing available cached results")
-    stream_list = process_results(available_cached_results, True, stream_type,
+    logger.info("Cached results found")
+    logger.info("Processing cached results")
+    stream_list = process_results(filtered_cached_results, True, stream_type,
                                   name['season'] if stream_type == "series" else None,
                                   name['episode'] if stream_type == "series" else None, config=config)
     logger.info(f"Processed cached results (total results: {len(stream_list)}): {stream_list}")

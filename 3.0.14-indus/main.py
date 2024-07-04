@@ -85,7 +85,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     
     logger.info("9 - Getting cached results")
     cached_results = search_cache(name)
-    logger.info(f"10 - Got {len(cached_results)} cached results: {cached_results['title']}")
+    logger.info(f"10 - Got {len(cached_results)} cached results")
     
     logger.info("11 - Filtering cached results")
     filtered_cached_results = filter_items(cached_results, stream_type, config=config, cached=True,

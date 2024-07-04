@@ -75,7 +75,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
 
     config = json.loads(base64.b64decode(config).decode('utf-8'))
     logger.info(f"Decoded config: {config}")
-    config['language'] = 'en'  # Change the language parameter to 'en'
+    
     
     logger.info(f"{stream_type} request")
     logger.info("Getting name and properties")

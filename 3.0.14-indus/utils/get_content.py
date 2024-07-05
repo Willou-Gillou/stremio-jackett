@@ -39,14 +39,14 @@ def get_name(id, type, config):
         url = f"https://api.themoviedb.org/3/find/{full_id[0]}?api_key={config['tmdbApi']}&external_source=imdb_id&language={config['language']}"
         response = requests.get(url)
         data = response.json()
-        logger.info("03a - themoviedb response:" + data) 
+        logger.info("03a - themoviedb response:" + str(data)) 
         result = {
             "title": replace_weird_characters(data["movie_results"][0]["title"]),
             "year": data["movie_results"][0]["release_date"][:4],
             "type": "movie",
             "language": config['language']
         }
-        logger.info("03b - reformating result:" + result) 
+        logger.info("03b - reformating result:" + str(result)) 
         return result
     else:
         full_id = id.split(":")

@@ -48,7 +48,7 @@ class LogFilterMiddleware:
         request = Request(scope, receive)
         path = request.url.path
         sensible_path = re.sub(r'/ey.*?/', '/<SENSITIVE_DATA>/', path)
-        logger.info(f"{request.method} - {sensible_path}")
+        logger.info(f"02 - Stremio request with IMDB link: {request.method} - {sensible_path}")
         return await self.app(scope, receive, send)
 
 
@@ -104,19 +104,20 @@ async def get_manifest():
 formatter = logging.Formatter('[%(asctime)s] p%(process)s {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s',
                               '%m-%d %H:%M:%S')
 
-logger.info("Started Jackett Addon")
+logger.info("01 - Started Jackett Addon")
 
 
 @app.get("/{config}/stream/{stream_type}/{stream_id}")
 async def get_results(config: str, stream_type: str, stream_id: str):
+    logger.info("02 - Function get_results: Receive info from Stremio")
+    logger.info("02a - stream_id: "+ stream_id)
+    logger.info("02b - stream type: "+ stream_type)
+    logger.info("02c - Config: "+ config)
     stream_id = stream_id.replace(".json", "")
     config = json.loads(base64.b64decode(config).decode('utf-8'))
-    logger.info(stream_type + " request")
-    logger.info("Getting name and properties")
+    logger.info("02d - uncrypted Config: "+ config)
     name = get_name(stream_id, stream_type, config=config)
-    logger.info("Got name and properties: " + str(name['title']))
-    logger.info("Getting config")
-    logger.info("Got config")
+    logger.info("02e - Title: " + str(name['title']))
     logger.info("Getting cached results")
     if config['cache']:
         cached_results = search_cache(name)

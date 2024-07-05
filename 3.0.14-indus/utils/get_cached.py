@@ -8,7 +8,6 @@ logger = setup_logger(__name__)
 
 def search_cache(query):
     logger.info(query)
-    query['language'] = 'en'
     logger.info("tweaked query : " + str(query))  # Convertir le dictionnaire en chaîne de caractères
     logger.info("Searching for cached " + query['type'] + " results")
     url = CACHER_URL + "getResult/" + query['type'] + "/"

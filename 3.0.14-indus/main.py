@@ -1,4 +1,4 @@
-#4
+#5
 import asyncio
 import base64
 import json
@@ -123,10 +123,10 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     "02a - stream_id: "+ stream_id + "\n" +
     "02b - stream type: "+ stream_type + "\n" +
     "02c - Config: "+ config1 + "\n" +
-    "02d - uncrypted Config: "+ str(config)\n)
+    "02d - uncrypted Config: "+ str(config)+ "\n" )
 
     name = get_name(stream_id, stream_type, config=config)
-    
+
     logger.info("02e - Title: " + str(name['title']))
     logger.info("Getting cached results")
     if config['cache']:

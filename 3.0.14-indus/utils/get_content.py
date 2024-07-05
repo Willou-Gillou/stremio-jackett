@@ -32,20 +32,21 @@ def replace_weird_characters(string):
 
 
 def get_name(id, type, config):
-    logger.info("Getting metadata for " + type + " with id " + id)
+    logger.info("03 - Function get_name - Getting metadata for stream type" + type + " with stream id " + id + "and with language from config " + str(config['language']) )
 
     if type == "movie":
         full_id = id.split(":")
         url = f"https://api.themoviedb.org/3/find/{full_id[0]}?api_key={config['tmdbApi']}&external_source=imdb_id&language={config['language']}"
         response = requests.get(url)
         data = response.json()
+        logger.info("03a - themoviedb response:" + data) 
         result = {
             "title": replace_weird_characters(data["movie_results"][0]["title"]),
             "year": data["movie_results"][0]["release_date"][:4],
             "type": "movie",
             "language": config['language']
         }
-        logger.info("Got metadata for " + type + " with id " + id)
+        logger.info("03b - reformating result:" + result) 
         return result
     else:
         full_id = id.split(":")

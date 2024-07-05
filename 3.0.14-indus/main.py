@@ -1,4 +1,4 @@
-#5
+#6
 import asyncio
 import base64
 import json
@@ -119,15 +119,19 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     config = json.loads(base64.b64decode(config).decode('utf-8'))
 
     logger.info("\n" + 
-    "{BOLD}02 - Function get_results: Received info from Stremio\n{RESET}" +
+    "{BOLD}02 - function get_results launched, info received by Stremio{RESET}\n" +
     "02a - stream_id: "+ stream_id + "\n" +
-    "02b - stream type: "+ stream_type + "\n" +
+    "02b - stream_type: "+ stream_type + "\n" +
     "02c - Config: "+ config1 + "\n" +
-    "02d - uncrypted Config: "+ str(config)+ "\n" )
+    "02d - decrypted Config: "+ str(config)+ "\n" 
+    "Launching Get_name function with stream_id,stream_type and decrypted config \n")
 
     name = get_name(stream_id, stream_type, config=config)
 
-    logger.info("02e - Title: " + str(name['title']))
+    logger.info("\n" + 
+    "02e - Title: " + str(name['title'])+ "\n" +
+    "Getting cached results")
+    
     logger.info("Getting cached results")
     if config['cache']:
         cached_results = search_cache(name)

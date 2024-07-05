@@ -1,4 +1,4 @@
-#3
+#4
 import asyncio
 import base64
 import json
@@ -107,19 +107,26 @@ formatter = logging.Formatter('[%(asctime)s] p%(process)s {%(pathname)s:%(lineno
 logger.info("01 - Started Jackett Addon")
 
 
+# Code d'échappement ANSI pour le texte en gras
+BOLD = '\033[1m'
+RESET = '\033[0m'
+
 @app.get("/{config}/stream/{stream_type}/{stream_id}")
 async def get_results(config: str, stream_type: str, stream_id: str):
-    logger.info("\n" + 
-    "02 - Function get_results: Received info from Stremio\n" +
-    "02a - stream_id: "+ stream_id + "\n" +
-    "02b - stream type: "+ stream_type + "\n" +
-    "02c - Config: "+ config + "\n")
     
-
+    config=config1
     stream_id = stream_id.replace(".json", "")
     config = json.loads(base64.b64decode(config).decode('utf-8'))
-    logger.info("02d - uncrypted Config: "+ str(config))
+
+    logger.info("\n" + 
+    "{BOLD}02 - Function get_results: Received info from Stremio\n{RESET}" +
+    "02a - stream_id: "+ stream_id + "\n" +
+    "02b - stream type: "+ stream_type + "\n" +
+    "02c - Config: "+ config1 + "\n" +
+    "02d - uncrypted Config: "+ str(config)\n)
+
     name = get_name(stream_id, stream_type, config=config)
+    
     logger.info("02e - Title: " + str(name['title']))
     logger.info("Getting cached results")
     if config['cache']:

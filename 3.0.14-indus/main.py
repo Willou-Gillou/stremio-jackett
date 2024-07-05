@@ -109,13 +109,16 @@ logger.info("01 - Started Jackett Addon")
 
 @app.get("/{config}/stream/{stream_type}/{stream_id}")
 async def get_results(config: str, stream_type: str, stream_id: str):
-    logger.info("02 - Function get_results: Receive info from Stremio")
-    logger.info("02a - stream_id: "+ stream_id)
-    logger.info("02b - stream type: "+ stream_type)
-    logger.info("02c - Config: "+ config)
+    logger.info("\n" + 
+    "02 - Function get_results: Received info from Stremio\n" +
+    "02a - stream_id: "+ stream_id + "\n" +
+    "02b - stream type: "+ stream_type + "\n" +
+    "02c - Config: "+ config + "\n")
+    
+
     stream_id = stream_id.replace(".json", "")
     config = json.loads(base64.b64decode(config).decode('utf-8'))
-    logger.info("02d - uncrypted Config: "+ config)
+    logger.info("02d - uncrypted Config: "+ str(config))
     name = get_name(stream_id, stream_type, config=config)
     logger.info("02e - Title: " + str(name['title']))
     logger.info("Getting cached results")

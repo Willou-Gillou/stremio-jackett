@@ -28,8 +28,7 @@ def filter_items(items, item_type=None, config=None, cached=False, season=None, 
     items = items_sort(items, config)
     return items
 
-"""
+
 def series_file_filter(files, season, episode):
     logger.info("Started filtering series files")
     return files
-"""

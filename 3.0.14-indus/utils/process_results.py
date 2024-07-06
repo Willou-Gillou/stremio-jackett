@@ -5,6 +5,7 @@ import urllib.parse
 
 from utils.get_availability import get_availability_cached
 from utils.get_quality import detect_quality, detect_quality_spec
+from utils.logger import setup_logger
 
 logger = setup_logger(__name__)
 
@@ -30,6 +31,13 @@ def filter_by_availability(item):
 
 
 def process_stream(stream, cached, stream_type, season, episode, config):
+        logger.info("\n" + 
+        "--------------------------------------------------------------------------" + "\n" +
+        "14 - PROCESS_STREAM function launched, calling PROCESS_STREAM function" + "\n" +
+        "--------------------------------------------------------------------------" + "\n" +
+        "******* stream : " + str(stream) + "\n" +
+        "******* cached : " + str(cached) + "\n" +
+        "******* config : " + str(config) + "\n")
     try:
         if "availability" not in stream and not cached:
             return None
@@ -81,11 +89,16 @@ def process_stream(stream, cached, stream_type, season, episode, config):
 
 def process_results(items, cached, stream_type, season=None, episode=None, config=None):
     stream_list = []
-    logger.info("dans process_results")
+        logger.info("\n" + 
+        "---------------------------------------------------------------------------" + "\n" +
+        "13 - PROCESS_RESULTS function launched, calling PROCESS_STREAM function" + "\n" +
+        "---------------------------------------------------------------------------" + "\n\n")
     with concurrent.futures.ThreadPoolExecutor() as executor:
         results = executor.map(process_stream, items, [cached] * len(items), [stream_type] * len(items),
                                [season] * len(items), [episode] * len(items), [config] * len(items))
-
+        logger.info("\n" + 
+        "******* $results :" + str(results) + "\n")
+        
         for result in results:
             if result is not None:
                 stream_list.append(result)

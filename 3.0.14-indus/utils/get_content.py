@@ -1,9 +1,9 @@
-#1
+#2
 import requests
 
 from utils.logger import setup_logger
 
-logger = setup_logger(__name__)
+#logger = setup_logger(__name__)
 
 
 def replace_weird_characters(string):
@@ -33,8 +33,7 @@ def replace_weird_characters(string):
 
 
 def get_name(id, type, config):
-    logger.info("\n 03 - Function get_name - Getting metadata for stream type" + type + " with stream id " + id + "and with language from config " + str(config['language']) + "\n")
-
+    
     if type == "movie":
         full_id = id.split(":")
         url = f"https://api.themoviedb.org/3/find/{full_id[0]}?api_key={config['tmdbApi']}&external_source=imdb_id&language={config['language']}"
@@ -47,8 +46,15 @@ def get_name(id, type, config):
             "type": "movie",
             "language": config['language']
         }
-        logger.info("\n 03b - reformating result:" + str(result) + "\n") 
+        logger.info("\n" + 
+            "05 - GET_NAME function launched, data used for getting metadata from TheMovieDataBase :\n" +
+            "******* stream_type: "+ type + "\n" +
+            "******* stream_id: "+ id + "\n" +
+            "******* language from config: "+ str(config['language']) + "\n" +
+            "******* response from TheMovieDataBase : " + str(result) + "\n" *
+            "returning result to main.py \n\n") 
         return result
+    
     else:
         full_id = id.split(":")
         url = f"https://api.themoviedb.org/3/find/{full_id[0]}?api_key={config['tmdbApi']}&external_source=imdb_id&language={config['language']}"
@@ -61,5 +67,11 @@ def get_name(id, type, config):
             "type": "series",
             "language": config['language']
         }
-        logger.info("Got metadata for " + type + " with id " + id)
+        logger.info("\n" + 
+            "05 - GET_NAME function launched, data used for getting metadata from TheMovieDataBase :\n" +
+            "******* stream_type: "+ type + "\n" +
+            "******* stream_id: "+ id + "\n" +
+            "******* language from config: "+ str(config['language']) + "\n" +
+            "******* response from TheMovieDataBase : " + str(result) + "\n" *
+            "returning result to main.py \n\n") 
         return result

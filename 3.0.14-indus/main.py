@@ -48,7 +48,7 @@ class LogFilterMiddleware:
         request = Request(scope, receive)
         path = request.url.path
         sensible_path = re.sub(r'/ey.*?/', '/<SENSITIVE_DATA>/', path)
-        logger.info(f"\n01 - Info recieved from Addon, middleware set up : \n******* {request.method} - {sensible_path}\n******* Initial path: " + str(path) + "\n\n")
+        logger.info(f"\n01 - Info recieved from Addon, middleware set up : \n******* {request.method} - {sensible_path}\n******* Initial path: " + str(path) + "\n")
         return await self.app(scope, receive, send)
 
 
@@ -126,7 +126,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     "03 - Decrypting config :" + "\n" +
     "******* decrypted Config: "+ str(config)+ "\n\n" +
     
-    "04 - GET_NAME function launched with stream_id,stream_type and decrypted config \n")
+    "04 - Calling GET_NAME function located in get_content.py with stream_id,stream_type and decrypted config info \n\n")
 
     name = get_name(stream_id, stream_type, config=config)
 

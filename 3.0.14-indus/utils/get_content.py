@@ -55,10 +55,10 @@ def get_name(id, type, config):
             "******* response from TheMovieDataBase : " + str(data) + "\n\n" +
             
             "-------------------------------------------------------------------------" + "\n" +
-            "06 - Formating result for returning only Title, year, type and Language :\n" +
+            "06 - Extracting only Title, year, type and Language values  :\n" +
             "-------------------------------------------------------------------------" + "\n" +
             "******* result : " + str(result) + "\n" +
-            "******* returning result to main.py \n\n") 
+            "******* returning result as $name in main.py \n\n") 
         return result
     
     else:
@@ -83,8 +83,8 @@ def get_name(id, type, config):
             "******* response from TheMovieDataBase : " + str(data) + "\n\n" +
             
             "-------------------------------------------------------------------------" + "\n" +
-            "06 - Formating result for returning only Title, year, type and Language :\n" +
+            "06 - Extracting only Title, year, type and Language values  :\n" +
             "-------------------------------------------------------------------------" + "\n" +
             "******* result : " + str(result) + "\n" +
-            "******* returning result to main.py \n\n") 
+            "******* returning result as $name in main.py \n\n") 
         return result

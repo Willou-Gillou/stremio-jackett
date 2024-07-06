@@ -125,19 +125,19 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     "******* config: "+ config1[:20] + "...\n\n" +
     
     "------------------------" + "\n" +
-    "03 - Decrypting config :" + "\n" +
+    "03 - Decrypting $config :" + "\n" +
     "------------------------" + "\n" +
     "******* decrypted Config: "+ str(config)+ "\n\n" +
     
     "-----------------------------------------------------------------------------------------------------------------------" + "\n" +
-    "04 - Calling GET_NAME function located in ./utils/get_content.py with stream_id,stream_type and decrypted config info \n" +
+    "04 - Calling GET_NAME function located in ./utils/get_content.py with $stream_id,$stream_type and decrypted $config info \n" +
     "-----------------------------------------------------------------------------------------------------------------------" + "\n\n")
     name = get_name(stream_id, stream_type, config=config)
     
     if config['cache']:
         logger.info("\n" + 
         "---------------------------------------------------------------------------------------------------------------" + "\n" +
-        "07 - Calling SEARCH_CACHE function located in ./utils/get_cached.py with name (title, year, type and language) " + "\n" +
+        "07 - Calling SEARCH_CACHE function located in ./utils/get_cached.py with $name (title, year, type and language) " + "\n" +
         "---------------------------------------------------------------------------------------------------------------" + "\n")
         cached_results = search_cache(name)
     else:

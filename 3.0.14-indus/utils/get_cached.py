@@ -28,7 +28,7 @@ def search_cache(query):
     "******* recall of $query value : "+ str(query)+ "\n" + 
     "******* sending request : requests.get(url, json=query)"+ "\n" +
     "******* number of matches : "+ str(num_results) + "\n" +
-    "******* full response from cacher.elfhosted : "+ str(cache_results) + "\n" +
+    "******* full response from cacher.elfhosted : \n"+ str(cache_results) + "\n" +
     "******* returning response to main.py \n\n")
 
     return cache_results

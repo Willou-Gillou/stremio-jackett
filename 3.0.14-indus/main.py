@@ -115,7 +115,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     config1=config
     stream_id = stream_id.replace(".json", "")
     config = json.loads(base64.b64decode(config).decode('utf-8'))
-
+    config['exclusion'].append('unknown')
     logger.info("\n" + 
     "---------------------------------------------------" + "\n" +
     "02 - GET_RESULT function launched, data collected :\n" +

@@ -1,3 +1,5 @@
+#1
+
 import requests
 import bencode
 import hashlib
@@ -22,9 +24,7 @@ def get_availability_cached(stream, type, seasonEpisode=None, config=None):
         }
         response = requests.get(url, headers=headers)
         data = response.json()
-        results = next(iter(data.items()))[1]
- #       if results:
-            
+        results = next(iter(data.items()))[1]            
         logger.info("\n" + 
         "******* stream: "+ str(stream['magnet']) + "\n" +
         "******* hash: "+ str(hash) + "\n" +

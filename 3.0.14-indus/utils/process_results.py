@@ -97,8 +97,8 @@ def process_results(items, cached, stream_type, season=None, episode=None, confi
         results = list(executor.map(process_stream, items, [cached] * len(items), [stream_type] * len(items),
                                [season] * len(items), [episode] * len(items), [config] * len(items)))
     
-    logger.info("\n" + 
-    "******* $results :" + str(results) + "\n")
+    results_log = "\n******* $results :\n" + "\n".join([str(result) for result in results])
+    logger.info(results_log + "\n")
         
     for result in results:
         if result is not None:

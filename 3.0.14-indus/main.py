@@ -1,4 +1,4 @@
-#6
+#7
 import asyncio
 import base64
 import json
@@ -104,27 +104,28 @@ async def get_manifest():
 formatter = logging.Formatter('[%(asctime)s] p%(process)s {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s',
                               '%m-%d %H:%M:%S')
 
-logger.info("01 - Started Jackett Addon")
-
-
-# Code d'échappement ANSI pour le texte en gras
-BOLD = '\033[1m'
-RESET = '\033[0m'
+logger.info("\n" + 
+"-------------------------------"+ "\n" +
+"->   Jackett Addon started   <-"+ "\n" +
+"-------------------------------"+ "\n")
 
 @app.get("/{config}/stream/{stream_type}/{stream_id}")
 async def get_results(config: str, stream_type: str, stream_id: str):
     
-    config=config1
+    config1=config
     stream_id = stream_id.replace(".json", "")
     config = json.loads(base64.b64decode(config).decode('utf-8'))
 
     logger.info("\n" + 
-    "{BOLD}02 - function get_results launched, info received by Stremio{RESET}\n" +
-    "02a - stream_id: "+ stream_id + "\n" +
-    "02b - stream_type: "+ stream_type + "\n" +
-    "02c - Config: "+ config1 + "\n" +
-    "02d - decrypted Config: "+ str(config)+ "\n" 
-    "Launching Get_name function with stream_id,stream_type and decrypted config \n")
+    "01 - Info received from Jackett Addon, GET_RESULT function launched :\n" +
+    "******* stream_id: "+ stream_id + "\n" +
+    "******* stream_type: "+ stream_type + "\n" +
+    "******* config: "+ config1[:20] + "...\n\n" +
+    
+    "02 - Decrypting config :" + "\n" +
+    "******* decrypted Config: "+ str(config)+ "\n\n" +
+    
+    "03 - GET_NAME function launched with stream_id,stream_type and decrypted config \n")
 
     name = get_name(stream_id, stream_type, config=config)
 

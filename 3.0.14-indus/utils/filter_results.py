@@ -2,7 +2,7 @@ import re
 from utils.logger import setup_logger
 
 logger = setup_logger(__name__)
-
+"""
 def detect_quality_spec(torrent_name):
     quality_patterns = {
         "HDR": r'\b(HDR|HDR10|HDR10PLUS)\b',
@@ -64,7 +64,7 @@ def quality_exclusion(streams, config):
 def results_per_quality(items, config):
     logger.info(f"Started filtering results per quality ({config['resultsPerQuality']} results per quality)")
     return items
-
+"""
 def sort_quality_and_size(item):
     order = {"4k": 0, "1080p": 1, "720p": 2, "480p": 3}
     quality = item.get("quality", "").lower()
@@ -84,7 +84,7 @@ def filter_season_episode(items, season, episode, config):
     return items
 
 def filter_items(items, item_type=None, config=None, cached=False, season=None, episode=None):
-    logger.info("Started filtering torrents")
+    logger.info("Started filtering torrents in filter_items")
     items = items_sort(items, config)
     return items
 

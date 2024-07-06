@@ -22,6 +22,10 @@ def get_availability_cached(stream, type, seasonEpisode=None, config=None):
         }
         response = requests.get(url, headers=headers)
         data = response.json()
+        logger.info("\n" + 
+        "---------------------------------------------------------------------------" + "\n" +
+        "14 - GET_AVAILIBILITY_CACHE function launched," + "\n" +
+        "---------------------------------------------------------------------------" + "\n\n")
         results = next(iter(data.items()))[1]
         if len(results) > 0:
             if type == "movie":
@@ -35,10 +39,7 @@ def get_availability_cached(stream, type, seasonEpisode=None, config=None):
             return True
         else:
             return False
-    logger.info("\n" + 
-    "---------------------------------------------------------------------------" + "\n" +
-    "14 - GET_AVAILIBILITY_CACHE function launched," + "\n" +
-    "---------------------------------------------------------------------------" + "\n\n")
+    
     if config["service"] == "alldebrid":
         url = "https://api.alldebrid.com/v4/magnet/instant?agent=jackett&apikey=" + config[
             'debridKey'] + "&magnets[]=" + stream['magnet']

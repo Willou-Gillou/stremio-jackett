@@ -152,10 +152,13 @@ async def get_results(config: str, stream_type: str, stream_id: str):
                                            season=name['season'] if stream_type == "series" else None,
                                            episode=name['episode'] if stream_type == "series" else None)
 
-    logger.info("Filtered cached results")
+
     if len(filtered_cached_results) > 0:
-        logger.info("Cached results found")
-        logger.info("Processing cached results")
+        logger.info("\n" + 
+            "-----------------------------------------------------------------------------------------------------------------------------------------------------------" + "\n" +
+            "12 - Calling PROCESS_RESULTS function located in ./utils/process_results.py with $filtered_cached_results, $stream_type +  $season & $episode only if serie" + "\n" +
+            "-----------------------------------------------------------------------------------------------------------------------------------------------------------" + "\n")
+
         stream_list = process_results(filtered_cached_results, True, stream_type,
                                       name['season'] if stream_type == "series" else None,
                                       name['episode'] if stream_type == "series" else None, config=config)

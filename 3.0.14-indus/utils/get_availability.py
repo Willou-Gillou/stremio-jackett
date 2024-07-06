@@ -1,4 +1,4 @@
-#2
+#3
 
 import requests
 import bencode
@@ -34,19 +34,31 @@ def get_availability_cached(stream, type, seasonEpisode=None, config=None):
         "******* data: "+ str(data) + "\n" +
         "******* len(results): "+ str(len(results)) + "\n" +
         "******* results: "+ str(results) + "\n\n")
-        
         if len(results) > 0:
-            if type == "movie":
-                return True
-            if type == "series":
-                for result in results['rd']:
-                    for file in result.items():
-                        if seasonEpisode in file[1]['filename']:
-                            return True
-                return False
+        logger.info("Results length is greater than 0")
+        
+        if type == "movie":
+            logger.info("Type is movie, returning True")
             return True
-        else:
+        
+        if type == "series":
+            logger.info("Type is series, iterating over results")
+            for result in results['rd']:
+                for file in result.items():
+                    if seasonEpisode in file[1]['filename']:
+                        logger.info(f"Found match for seasonEpisode {seasonEpisode}, returning True")
+                        return True
+            
+            logger.info(f"No match found for seasonEpisode {seasonEpisode}, returning False")
             return False
+        
+        logger.info("Type is neither movie nor series, returning True")
+        return True
+    
+    else:
+        logger.info("Results length is 0, returning False")
+        return False
+
 
 def is_valid_magnet(magnet, config):
     if config["service"] == "realdebrid":

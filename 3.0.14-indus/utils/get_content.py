@@ -39,7 +39,6 @@ def get_name(id, type, config):
         url = f"https://api.themoviedb.org/3/find/{full_id[0]}?api_key={config['tmdbApi']}&external_source=imdb_id&language={config['language']}"
         response = requests.get(url)
         data = response.json()
-        logger.info("\n 03a - themoviedb response:" + str(data) + "\n") 
         result = {
             "title": replace_weird_characters(data["movie_results"][0]["title"]),
             "year": data["movie_results"][0]["release_date"][:4],
@@ -48,10 +47,13 @@ def get_name(id, type, config):
         }
         logger.info("\n" + 
             "05 - GET_NAME function launched, data used for getting metadata from TheMovieDataBase :\n" +
-            "******* stream_type: "+ type + "\n" +
-            "******* stream_id: "+ id + "\n" +
-            "******* language from config: "+ str(config['language']) + "\n" +
-            "******* response from TheMovieDataBase : " + str(result) + "\n" *
+            "******* stream_type: " + type + "\n" +
+            "******* stream_id: " + id + "\n" +
+            "******* language from config: " + str(config['language']) + "\n" +
+            "******* response from TheMovieDataBase : " + str(result) + "\n\n" +
+            
+            "06 - formating result for returning Title, year, type from TheMovieDataBase and adding Language from config :\n" +
+            "******* result : " + str(result) + "\n" +
             "returning result to main.py \n\n") 
         return result
     
@@ -69,9 +71,12 @@ def get_name(id, type, config):
         }
         logger.info("\n" + 
             "05 - GET_NAME function launched, data used for getting metadata from TheMovieDataBase :\n" +
-            "******* stream_type: "+ type + "\n" +
-            "******* stream_id: "+ id + "\n" +
-            "******* language from config: "+ str(config['language']) + "\n" +
-            "******* response from TheMovieDataBase : " + str(result) + "\n" *
+            "******* stream_type: " + type + "\n" +
+            "******* stream_id: " + id + "\n" +
+            "******* language from config: " + str(config['language']) + "\n" +
+            "******* response from TheMovieDataBase : " + str(result) + "\n\n" +
+            
+            "06 - formating result for returning Title, year, type from TheMovieDataBase and adding Language from config :\n" +
+            "******* result : " + str(result) + "\n" +
             "returning result to main.py \n\n") 
         return result

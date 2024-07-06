@@ -81,14 +81,17 @@ def process_results(items, cached, stream_type, season=None, episode=None, confi
         results = list(executor.map(process_stream, items, [cached] * len(items), [stream_type] * len(items),
                                [season] * len(items), [episode] * len(items), [config] * len(items)))
     
-    results_log = "\n******* $results :\n" + "\n\n".join([str(result) for result in results])
-    logger.info(results_log + "\n")
     
+
     #filtered_results = [result for result in all_results if result is not None]
     #logger.info(filtered_results + "\n")
 
     for result in results:
         if result is not None:
             stream_list.append(result)
+
+    results_log = "\n******* $results :\n" + "\n\n".join([str(result) for result in results])
+    logger.info(results_log + "\n")
+ #   logger.info(stream_list)
 
     return sorted(stream_list, key=filter_by_availability)

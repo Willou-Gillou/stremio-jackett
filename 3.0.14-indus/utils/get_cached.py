@@ -14,9 +14,10 @@ def search_cache(query):
     "---------------------------------------------------------------------------------------------------------------" + "\n" +
     "08 - SEARCH_CACHE function launched, sending request to https://stremio-jackett-cacher.elfhosted.com/ " + "\n" +
     "---------------------------------------------------------------------------------------------------------------" + "\n" +
-    "******* formated URL for request : "+ str(url)+ "\n" +
-    "******* number results : "+ query['type'] + "\n" +
-    "******* full response : "+ str(response)+ "\n" +
-    "******* returning result to main.py : ")
+    "******* formating & storing cache URL in $url: "+ str(url)+ "\n" + 
+    "******* recall of $query value : "+ str(query)+ "\n" + 
+    "******* sending request : requests.get(url, json=query)"+ "\n" +
+    "******* server response : "+ response + "\n" +
+    "******* returning response to main.py : ")
 
     return response.json()

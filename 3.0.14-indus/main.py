@@ -1,4 +1,4 @@
-#11
+#12
 import asyncio
 import base64
 import json
@@ -48,7 +48,7 @@ class LogFilterMiddleware:
         request = Request(scope, receive)
         path = request.url.path
         sensible_path = re.sub(r'/ey.*?/', '/<SENSITIVE_DATA>/', path)
-        logger.info(f"\n---------------------------------------------------\n01 - Info recieved from Addon, middleware set up : \n---------------------------------------------------\n******* Data received : {request.method} - " + str(path) + "\n")
+        logger.info(f"\n---------------------------------------------------\n01 - Info recieved from Addon, middleware initiated : \n---------------------------------------------------\n******* Data received : {request.method} - " + str(path) + "\n")
         return await self.app(scope, receive, send)
 
 
@@ -130,13 +130,14 @@ async def get_results(config: str, stream_type: str, stream_id: str):
         "******* decrypted Config: "+ str(config)+ "\n\n" +
     
     "-----------------------------------------------------------------------------------------------------------------------" + "\n" +
-    "04 - Calling GET_NAME function located in get_content.py with stream_id,stream_type and decrypted config info \n" +
+    "04 - Calling GET_NAME function located in ./utils/get_content.py with stream_id,stream_type and decrypted config info \n" +
     "-----------------------------------------------------------------------------------------------------------------------" + "\n\n")
     name = get_name(stream_id, stream_type, config=config)
 
-    logger.info("\n" + 
-    "02e - Title: " + str(name['title'])+ "\n" +
-    "Getting cached results")
+     logger.info("\n" + 
+    "-----------------------------------------------------------------------------------------------------" + "\n" +
+    "07 - Calling SEARCH_CACHE function located in ./utils/get_cached with Title, year, type and Language :\n" +
+    "-----------------------------------------------------------------------------------------------------" + "\n" +
     
     logger.info("Getting cached results")
     if config['cache']:

@@ -32,6 +32,7 @@ def get_availability_cached(stream, type, seasonEpisode=None, config=None):
         "******* headers: "+ str(headers["Authorization"]) + "\n" +
         "******* sending request : requests.get(url, headers=headers)\n" +
         "******* data: "+ str(data) + "\n" +
+        "******* len(results): "+ str(len(results)) + "\n" +
         "******* results: "+ str(results) + "\n\n")
         
  #       if len(results) > 0:

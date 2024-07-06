@@ -24,10 +24,11 @@ def get_availability_cached(stream, type, seasonEpisode=None, config=None):
         data = response.json()
         results = next(iter(data.items()))[1]
         logger.info("\n" + 
+        "******* stream: "+ str(stream['magnet']) + "\n" +
         "******* hash: "+ str(hash) + "\n" +
         "******* url: "+ str(url) + "\n" +
         "******* headers: "+ str(headers["Authorization"]) + "\n" +
-        "******* sending request : requests.get(url, headers=headers)" +
+        "******* sending request : requests.get(url, headers=headers)\n" +
         "******* data: "+ str(data) + "\n" +
         "******* results: "+ str(results) + "\n\n")
         

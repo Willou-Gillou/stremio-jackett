@@ -22,11 +22,14 @@ def get_availability_cached(stream, type, seasonEpisode=None, config=None):
         }
         response = requests.get(url, headers=headers)
         data = response.json()
+        results = next(iter(data.items()))[1]
         logger.info("\n" + 
         "---------------------------------------------------------------------------" + "\n" +
         "14 - GET_AVAILIBILITY_CACHE function launched," + "\n" +
-        "---------------------------------------------------------------------------" + "\n\n")
-        results = next(iter(data.items()))[1]
+        "---------------------------------------------------------------------------" + "\n" +
+        "******* data: "+ data + "\n" +
+        "******* results: "+ results + "\n\n")
+        
         if len(results) > 0:
             if type == "movie":
                 return True

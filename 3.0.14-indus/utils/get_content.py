@@ -1,4 +1,4 @@
-#4
+#5
 import requests
 
 from utils.logger import setup_logger
@@ -35,37 +35,37 @@ def replace_weird_characters(string):
 def get_name(id, type, config):
     
     if type == "movie":
-    full_id = id.split(":")
-    url = f"https://api.themoviedb.org/3/find/{full_id[0]}?api_key={config['tmdbApi']}&external_source=imdb_id&language={config['language']}"
-    response = requests.get(url)
-    data = response.json()
-    result = {
-        "title": replace_weird_characters(data["movie_results"][0]["title"]),
-        "year": data["movie_results"][0]["release_date"][:4],
-        "type": "movie",
-        "language": config['language']
-    }
-    
-    # Logging each key-value pair in data
-    data_log = ""
-    for key, value in data.items():
-        data_log += str(key) + ": " + str(value) + "\n"
-    
-    logger.info("\n" + 
-        "----------------------------------------------------------------------" + "\n" +
-        "05 - GET_NAME function launched, sending request to TheMovieDataBase API :\n" +
-        "----------------------------------------------------------------------" + "\n" +
-        "******* stream_type: " + type + "\n" +
-        "******* stream_id: " + id + "\n" +
-        "******* language from config: " + str(config['language']) + "\n" +
-        "******* response from TheMovieDataBase : \n" + data_log +
+        full_id = id.split(":")
+        url = f"https://api.themoviedb.org/3/find/{full_id[0]}?api_key={config['tmdbApi']}&external_source=imdb_id&language={config['language']}"
+        response = requests.get(url)
+        data = response.json()
+        result = {
+            "title": replace_weird_characters(data["movie_results"][0]["title"]),
+            "year": data["movie_results"][0]["release_date"][:4],
+            "type": "movie",
+            "language": config['language']
+        }
+        # Logging each key-value pair in data
+        data_log = ""
+        for key, value in data.items():
+            data_log += str(key) + ": " + str(value) + "\n"
         
-        "-------------------------------------------------------------------------" + "\n" +
-        "06 - Extracting only Title, year, type and Language values  :\n" +
-        "-------------------------------------------------------------------------" + "\n" +
-        "******* result : " + str(result) + "\n" +
-        "******* returning result as $name in main.py \n\n") 
-    return result
+        #data_log = "\n******* $results :\n" + "\n\n".join(str(key) + " " + [str(data) for key, value in data.items()])
+        logger.info("\n" + 
+            "----------------------------------------------------------------------" + "\n" +
+            "05 - GET_NAME function launched, sending request to TheMovieDataBase API :\n" +
+            "----------------------------------------------------------------------" + "\n" +
+            "******* stream_type: " + type + "\n" +
+            "******* stream_id: " + id + "\n" +
+            "******* language from config: " + str(config['language']) + "\n" +
+            "******* response from TheMovieDataBase : " + data_log + "\n\n" +
+            
+            "-------------------------------------------------------------------------" + "\n" +
+            "06 - Extracting only Title, year, type and Language values  :\n" +
+            "-------------------------------------------------------------------------" + "\n" +
+            "******* result : " + str(result) + "\n" +
+            "******* returning result as $name in main.py \n\n") 
+        return result
     
     else:
         full_id = id.split(":")

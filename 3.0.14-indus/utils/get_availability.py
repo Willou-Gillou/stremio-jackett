@@ -23,6 +23,8 @@ def get_availability_cached(stream, type, seasonEpisode=None, config=None):
         response = requests.get(url, headers=headers)
         data = response.json()
         results = next(iter(data.items()))[1]
+ #       if results:
+            
         logger.info("\n" + 
         "******* stream: "+ str(stream['magnet']) + "\n" +
         "******* hash: "+ str(hash) + "\n" +
@@ -32,44 +34,18 @@ def get_availability_cached(stream, type, seasonEpisode=None, config=None):
         "******* data: "+ str(data) + "\n" +
         "******* results: "+ str(results) + "\n\n")
         
-        if len(results) > 0:
-            if type == "movie":
-                return True
-            if type == "series":
-                for result in results['rd']:
-                    for file in result.items():
-                        if seasonEpisode in file[1]['filename']:
-                            return True
-                return False
-            return True
-        else:
-            return False
-    
-    if config["service"] == "alldebrid":
-        url = "https://api.alldebrid.com/v4/magnet/instant?agent=jackett&apikey=" + config[
-            'debridKey'] + "&magnets[]=" + stream['magnet']
-        response = requests.get(url)
-        data = response.json()
-        if data['status'] == "error":
-            if data['error']['code'] == "AUTH_BLOCKED":
-                return "AUTH_BLOCKED"
-        if data["data"]["magnets"][0]["instant"]:
-            if type == "movie":
-                return True
-            if type == "series":
-                for file in data["data"]["magnets"][0]["files"]:
-                    if seasonEpisode in file["n"]:
-                        return True
-                return False
-            return True
-    if config["service"] == "premiumize":
-        url = "https://www.premiumize.me/api/cache/check?items%5B%5D=" + stream['magnet'] + "&type=torrent&apikey=" + config['debridKey']
-        response = requests.get(url)
-        data = response.json()
-        if data['response'][0]:
-                return True
-        else:
-            return False
+ #       if len(results) > 0:
+ #           if type == "movie":
+ #               return True
+ #           if type == "series":
+ #               for result in results['rd']:
+ #                   for file in result.items():
+ #                       if seasonEpisode in file[1]['filename']:
+ #                           return True
+ #               return False
+ #           return True
+ #       else:
+ #           return False
 
 def is_valid_magnet(magnet, config):
     if config["service"] == "realdebrid":
@@ -83,20 +59,8 @@ def is_valid_magnet(magnet, config):
         if response.status_code != 200:
             return False
 
-    if config["service"] == "alldebrid":
-        url = "https://api.alldebrid.com/v4/magnet/instant?agent=jackett&apikey=" + config['debridKey'] + "&magnets[]=" + magnet
-        response = requests.get(url)
+    
 
-        if response.status_code != 200:
-            return False
-    
-    if config["service"] == "premiumize":
-        url = "https://www.premiumize.me/api/cache/check?items%5B%5D=" + magnet + "&type=torrent&apikey=" + config['debridKey']
-        response = requests.get(url)
-        if response.status_code != 200:
-            return False
-    
-    return True
 
 
 def is_available(magnet, type, seasonEpisode=None, config=None):
@@ -119,27 +83,6 @@ def is_available(magnet, type, seasonEpisode=None, config=None):
                             return True
                 return False
             return True
-        else:
-            return False
-    if config["service"] == "alldebrid":
-        url = "https://api.alldebrid.com/v4/magnet/instant?agent=jackett&apikey=" + config['debridKey'] + "&magnets[]=" + magnet
-        response = requests.get(url)
-        data = response.json()
-        if data["data"]["magnets"][0]["instant"]:
-            if type == "movie":
-                return True
-            if type == "series":
-                for file in data["data"]["magnets"][0]["files"]:
-                    if seasonEpisode in file["n"]:
-                        return True
-                return False
-            return True
-    if config["service"] == "premiumize":
-        url = "https://www.premiumize.me/api/cache/check?items%5B%5D=" + magnet + "&type=torrent&apikey=" + config['debridKey']
-        response = requests.get(url)
-        data = response.json()
-        if data['response'][0]:
-                return True
         else:
             return False
 

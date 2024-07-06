@@ -1,4 +1,4 @@
-#10
+#11
 import asyncio
 import base64
 import json
@@ -48,7 +48,7 @@ class LogFilterMiddleware:
         request = Request(scope, receive)
         path = request.url.path
         sensible_path = re.sub(r'/ey.*?/', '/<SENSITIVE_DATA>/', path)
-        logger.info(f"\n---------------------------------------------------\n01 - Info recieved from Addon, middleware set up : \n---------------------------------------------------\n******* {request.method} - {sensible_path}\n******* Initial path: " + str(path) + "\n")
+        logger.info(f"\n---------------------------------------------------\n01 - Info recieved from Addon, middleware set up : \n---------------------------------------------------\n******* Data received : {request.method} - " + str(path) + "\n")
         return await self.app(scope, receive, send)
 
 

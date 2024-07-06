@@ -45,23 +45,15 @@ def get_name(id, type, config):
             "type": "movie",
             "language": config['language']
         }
-        #logger.info("\n" + 
-            #"----------------------------------------------------------------------" + "\n" +
-            #"05 - GET_NAME function launched, sending request to TheMovieDataBase API :\n" +
-            #"----------------------------------------------------------------------" + "\n" +
-            #"******* stream_type: " + type + "\n" +
-            #"******* stream_id: " + id + "\n" +
-            #"******* language from config: " + str(config['language']) + "\n" +
-            #"******* response from TheMovieDataBase : " + str(data) + "\n\n" +
+        data_log = "\n******* $results :\n" + "\n\n".join(str(key) + " " + [str(data) for key, value in data.items()])
         logger.info("\n" + 
             "----------------------------------------------------------------------" + "\n" +
             "05 - GET_NAME function launched, sending request to TheMovieDataBase API :\n" +
             "----------------------------------------------------------------------" + "\n" +
-            f"******* stream_type: {type}\n" +
-            f"******* stream_id: {id}\n" +
-            f"******* language from config: {config['language']}\n" +
-            "******* response from TheMovieDataBase :\n" +
-            f"{json.dumps(data, indent=2)}\n\n" +   
+            "******* stream_type: " + type + "\n" +
+            "******* stream_id: " + id + "\n" +
+            "******* language from config: " + str(config['language']) + "\n" +
+            "******* response from TheMovieDataBase : " + str(data_log) + "\n\n" +
             
             "-------------------------------------------------------------------------" + "\n" +
             "06 - Extracting only Title, year, type and Language values  :\n" +

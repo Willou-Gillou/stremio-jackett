@@ -48,7 +48,7 @@ class LogFilterMiddleware:
         request = Request(scope, receive)
         path = request.url.path
         sensible_path = re.sub(r'/ey.*?/', '/<SENSITIVE_DATA>/', path)
-        logger.info(f"02 - Stremio request with IMDB link: {request.method} - {sensible_path}")
+        #logger.info(f"Stremio request with IMDB link: {request.method} - {sensible_path}")
         return await self.app(scope, receive, send)
 
 
@@ -117,15 +117,17 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     config = json.loads(base64.b64decode(config).decode('utf-8'))
 
     logger.info("\n" + 
-    "01 - Info received from Jackett Addon, GET_RESULT function launched :\n" +
+    f"01 - Info received from Jackett Addon :\n ******* Method : {request.method} \n ******* Formated path :\n - {sensible_path} \n\n" +
+    
+    "02 - Info received from Jackett Addon, GET_RESULT function launched :\n" +
     "******* stream_id: "+ stream_id + "\n" +
     "******* stream_type: "+ stream_type + "\n" +
     "******* config: "+ config1[:20] + "...\n\n" +
     
-    "02 - Decrypting config :" + "\n" +
+    "03 - Decrypting config :" + "\n" +
     "******* decrypted Config: "+ str(config)+ "\n\n" +
     
-    "03 - GET_NAME function launched with stream_id,stream_type and decrypted config \n")
+    "04 - GET_NAME function launched with stream_id,stream_type and decrypted config \n")
 
     name = get_name(stream_id, stream_type, config=config)
 

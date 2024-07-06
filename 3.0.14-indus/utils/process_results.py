@@ -31,13 +31,6 @@ def filter_by_availability(item):
 
 
 def process_stream(stream, cached, stream_type, season, episode, config):
-    logger.info("\n" + 
-    "--------------------------------------------------------------------------" + "\n" +
-    "14 - PROCESS_STREAM function launched, calling PROCESS_STREAM function" + "\n" +
-    "--------------------------------------------------------------------------" + "\n" +
-    "******* stream : " + str(stream) + "\n" +
-    "******* cached : " + str(cached) + "\n" +
-    "******* config : " + str(config) + "\n")
     try:
         if "availability" not in stream and not cached:
             return None
@@ -97,7 +90,7 @@ def process_results(items, cached, stream_type, season=None, episode=None, confi
         results = list(executor.map(process_stream, items, [cached] * len(items), [stream_type] * len(items),
                                [season] * len(items), [episode] * len(items), [config] * len(items)))
     
-    results_log = "\n******* $results :\n" + "\n".join([str(result) for result in results])
+    results_log = "\n******* $results :\n" + "\n\n".join([str(result) for result in results])
     logger.info(results_log + "\n")
         
     for result in results:

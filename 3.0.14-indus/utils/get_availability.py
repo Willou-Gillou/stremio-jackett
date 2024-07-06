@@ -22,29 +22,28 @@ def get_availability_cached(stream, type, seasonEpisode=None, config=None):
         }
         response = requests.get(url, headers=headers)
         data = response.json()
-        if results:
-            results = next(iter(data.items()))[1]
-            logger.info("\n" + 
-            "******* stream: "+ str(stream['magnet']) + "\n" +
-            "******* hash: "+ str(hash) + "\n" +
-            "******* url: "+ str(url) + "\n" +
-            "******* headers: "+ str(headers["Authorization"]) + "\n" +
-            "******* sending request : requests.get(url, headers=headers)\n" +
-            "******* data: "+ str(data) + "\n" +
-            "******* results: "+ str(results) + "\n\n")
+        results = next(iter(data.items()))[1]
+        logger.info("\n" + 
+        "******* stream: "+ str(stream['magnet']) + "\n" +
+        "******* hash: "+ str(hash) + "\n" +
+        "******* url: "+ str(url) + "\n" +
+        "******* headers: "+ str(headers["Authorization"]) + "\n" +
+        "******* sending request : requests.get(url, headers=headers)\n" +
+        "******* data: "+ str(data) + "\n" +
+        "******* results: "+ str(results) + "\n\n")
         
- #       if len(results) > 0:
- #           if type == "movie":
- #               return True
- #           if type == "series":
- #               for result in results['rd']:
- #                   for file in result.items():
- #                       if seasonEpisode in file[1]['filename']:
- #                           return True
- #               return False
- #           return True
- #       else:
- #           return False
+        if len(results) > 0:
+            if type == "movie":
+                return True
+            if type == "series":
+                for result in results['rd']:
+                    for file in result.items():
+                        if seasonEpisode in file[1]['filename']:
+                            return True
+                return False
+            return True
+        else:
+            return False
     
     if config["service"] == "alldebrid":
         url = "https://api.alldebrid.com/v4/magnet/instant?agent=jackett&apikey=" + config[

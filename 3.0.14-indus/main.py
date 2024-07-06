@@ -135,7 +135,10 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     name = get_name(stream_id, stream_type, config=config)
     
     if config['cache']:
-        logger.info("Calling SEARCH_CACHE function located in ./utils/get_cached.py")
+        logger.info("\n" + 
+        "----------------------------------------------------------------------------------------------------------" + "\n" +
+        "07 - Calling SEARCH_CACHE function located in ./utils/get_cached.py with name (title, year, type and language) " + "\n" +
+        "----------------------------------------------------------------------------------------------------------" + "\n")
         cached_results = search_cache(name)
     else:
         cached_results = []

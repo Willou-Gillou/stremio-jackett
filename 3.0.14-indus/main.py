@@ -1,4 +1,4 @@
-#14
+#15
 import asyncio
 import base64
 import json
@@ -162,7 +162,8 @@ async def get_results(config: str, stream_type: str, stream_id: str):
         stream_list = process_results(filtered_cached_results, True, stream_type,
                                       name['season'] if stream_type == "series" else None,
                                       name['episode'] if stream_type == "series" else None, config=config)
-        logger.info("Processed cached results : \n" + stream_list)
+        stream_list_str = json.dumps(stream_list, indent=4)
+        logger.info("Processed cached results : \n" + stream_list_str)
         if len(stream_list) == 0:
             logger.info("No results found")
             return NO_RESULTS

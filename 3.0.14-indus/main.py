@@ -1,4 +1,4 @@
-#13
+#14
 import asyncio
 import base64
 import json
@@ -127,19 +127,15 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     "------------------------" + "\n" +
     "03 - Decrypting config :" + "\n" +
     "------------------------" + "\n" +
-        "******* decrypted Config: "+ str(config)+ "\n\n" +
+    "******* decrypted Config: "+ str(config)+ "\n\n" +
     
     "-----------------------------------------------------------------------------------------------------------------------" + "\n" +
     "04 - Calling GET_NAME function located in ./utils/get_content.py with stream_id,stream_type and decrypted config info \n" +
     "-----------------------------------------------------------------------------------------------------------------------" + "\n\n")
     name = get_name(stream_id, stream_type, config=config)
-
-     logger.info("\n" + 
-    "-----------------------------------------------------------------------------------------------------" + "\n" +
-    "07 - Calling SEARCH_CACHE function located in ./utils/get_cached with Title, year, type and Language :\n" +
-    "-----------------------------------------------------------------------------------------------------" + "\n")
     
     if config['cache']:
+        logger.info("Calling SEARCH_CACHE function located in ./utils/get_cached.py")
         cached_results = search_cache(name)
     else:
         cached_results = []

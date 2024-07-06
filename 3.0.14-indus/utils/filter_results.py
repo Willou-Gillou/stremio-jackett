@@ -14,7 +14,11 @@ def sort_quality_and_size(item):
     return (quality_order, -size)  # sort by quality, then by size in descending order
 
 def items_sort(items, config):
-    logger.info("Started sorting items by quality and size")
+    logger.info("\n" + 
+    "-------------------------------------------------------------" + "\n" +
+    "11 - ITEMS_SORT launched, sorting $items by quality_and_size " + "\n" +
+    "-------------------------------------------------------------" + "\n" +
+    "******* returning result as $filtered_cached_results in main" + "\n")
     return sorted(items, key=sort_quality_and_size)
 
 """
@@ -24,7 +28,10 @@ def filter_season_episode(items, season, episode, config):
 """
 
 def filter_items(items, item_type=None, config=None, cached=False, season=None, episode=None):
-    logger.info("Started filtering torrents in filter_items")
+    logger.info("\n" + 
+    "----------------------------------------------------------------" + "\n" +
+    "10 - FILTER_ITEMS function launched, calling ITEMS_SORT function" + "\n" +
+    "----------------------------------------------------------------" + "\n")
     items = items_sort(items, config)
     return items
 

@@ -27,6 +27,7 @@ def get_availability_cached(stream, type, seasonEpisode=None, config=None):
         "******* hash: "+ str(hash) + "\n" +
         "******* url: "+ str(url) + "\n" +
         "******* headers: "+ str(headers["Authorization"]) + "\n" +
+        "******* sending request : requests.get(url, headers=headers)" +
         "******* data: "+ str(data) + "\n" +
         "******* results: "+ str(results) + "\n\n")
         

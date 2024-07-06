@@ -7,7 +7,7 @@ logger = setup_logger(__name__)
 
 
 def search_cache(query):
-    logger.info(query)
+    #logger.info(query)
     url = CACHER_URL + "getResult/" + query['type'] + "/"
     response = requests.get(url, json=query)
 
@@ -28,7 +28,7 @@ def search_cache(query):
     "******* recall of $query value : "+ str(query)+ "\n" + 
     "******* sending request : requests.get(url, json=query)"+ "\n" +
     "******* number of matches : "+ str(num_results) + "\n" +
-    "******* server full response : "+ str(cache_results) + "\n" +
-    "******* returning response to main.py : ")
+    "******* full response from cacher.elfhosted : "+ str(cache_results) + "\n" +
+    "******* returning response to main.py \n\n")
 
     return cache_results

@@ -14,5 +14,6 @@ curl -o main.py https://raw.githubusercontent.com/Willou-Gillou/stremio-jackett/
 cd utils
 curl -o get_content.py https://raw.githubusercontent.com/Willou-Gillou/stremio-jackett/main/3.0.14-indus/utils/get_content.py
 curl -o get_cached.py https://raw.githubusercontent.com/Willou-Gillou/stremio-jackett/main/3.0.14-indus/utils/get_cached.py
+curl -o filter_results.py https://raw.githubusercontent.com/Willou-Gillou/stremio-jackett/main/3.0.14-indus/utils/filter_results.py
 cd ..
-#echo "Update completed!"
+echo "Update completed!"

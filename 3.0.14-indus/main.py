@@ -1,4 +1,4 @@
-#12
+#13
 import asyncio
 import base64
 import json
@@ -137,9 +137,8 @@ async def get_results(config: str, stream_type: str, stream_id: str):
      logger.info("\n" + 
     "-----------------------------------------------------------------------------------------------------" + "\n" +
     "07 - Calling SEARCH_CACHE function located in ./utils/get_cached with Title, year, type and Language :\n" +
-    "-----------------------------------------------------------------------------------------------------" + "\n" +
+    "-----------------------------------------------------------------------------------------------------" + "\n")
     
-    logger.info("Getting cached results")
     if config['cache']:
         cached_results = search_cache(name)
     else:

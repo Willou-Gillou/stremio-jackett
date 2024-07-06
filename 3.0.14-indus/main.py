@@ -1,4 +1,4 @@
-#9
+#10
 import asyncio
 import base64
 import json
@@ -48,7 +48,7 @@ class LogFilterMiddleware:
         request = Request(scope, receive)
         path = request.url.path
         sensible_path = re.sub(r'/ey.*?/', '/<SENSITIVE_DATA>/', path)
-        logger.info(f"\n01 - Info recieved from Addon, middleware set up : \n******* {request.method} - {sensible_path}\n******* Initial path: " + str(path) + "\n")
+        logger.info(f"\n---------------------------------------------------\n01 - Info recieved from Addon, middleware set up : \n---------------------------------------------------\n******* {request.method} - {sensible_path}\n******* Initial path: " + str(path) + "\n")
         return await self.app(scope, receive, send)
 
 
@@ -117,17 +117,21 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     config = json.loads(base64.b64decode(config).decode('utf-8'))
 
     logger.info("\n" + 
-
+    "---------------------------------------------------" + "\n" +
     "02 - GET_RESULT function launched, data collected :\n" +
+    "---------------------------------------------------" + "\n" +
     "******* stream_id: "+ stream_id + "\n" +
     "******* stream_type: "+ stream_type + "\n" +
     "******* config: "+ config1[:20] + "...\n\n" +
     
+    "------------------------" + "\n" +
     "03 - Decrypting config :" + "\n" +
-    "******* decrypted Config: "+ str(config)+ "\n\n" +
+    "------------------------" + "\n" +
+        "******* decrypted Config: "+ str(config)+ "\n\n" +
     
-    "04 - Calling GET_NAME function located in get_content.py with stream_id,stream_type and decrypted config info \n\n")
-
+    "-----------------------------------------------------------------------------------------------------------------------" + "\n" +
+    "04 - Calling GET_NAME function located in get_content.py with stream_id,stream_type and decrypted config info \n" +
+    "-----------------------------------------------------------------------------------------------------------------------" + "\n\n")
     name = get_name(stream_id, stream_type, config=config)
 
     logger.info("\n" + 

@@ -26,7 +26,7 @@ def get_availability_cached(stream, type, seasonEpisode=None, config=None):
         logger.info("\n" + 
         "******* hash: "+ str(hash) + "\n" +
         "******* url: "+ str(url) + "\n" +
-        "******* header: "+ str(header) + "\n" +
+        "******* headers: "+ str(headers["Authorization"]) + "\n" +
         "******* data: "+ str(data) + "\n" +
         "******* results: "+ str(results) + "\n\n")
         

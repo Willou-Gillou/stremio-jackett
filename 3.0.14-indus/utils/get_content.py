@@ -45,7 +45,11 @@ def get_name(id, type, config):
             "type": "movie",
             "language": config['language']
         }
-        data_log = "\n******* $results :\n" + "\n\n".join(str(key) + " " + [str(data) for key, value in data.items()])
+        # Logging each key-value pair in data
+        for key, value in data.items():
+            data_log += str(key) + ": " + str(value) + "\n"
+        
+        #data_log = "\n******* $results :\n" + "\n\n".join(str(key) + " " + [str(data) for key, value in data.items()])
         logger.info("\n" + 
             "----------------------------------------------------------------------" + "\n" +
             "05 - GET_NAME function launched, sending request to TheMovieDataBase API :\n" +

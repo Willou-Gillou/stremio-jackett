@@ -1,4 +1,4 @@
-#3
+#4
 
 import requests
 import bencode
@@ -33,12 +33,12 @@ def get_availability_cached(stream, type, seasonEpisode=None, config=None):
         "******* sending request : requests.get(url, headers=headers)\n" +
         "******* data: "+ str(data) + "\n" +
         "******* len(results): "+ str(len(results)) + "\n" +
-        "******* results: "+ str(results) + "\n\n")
+        "******* results: "+ str(results) + "\n")
         if len(results) > 0:
-        logger.info("Results length is greater than 0")
+            logger.info("Results length is greater than 0")
         
         if type == "movie":
-            logger.info("Type is movie, returning True")
+            logger.info("Type is movie, returning True\n\n")
             return True
         
         if type == "series":
@@ -56,7 +56,7 @@ def get_availability_cached(stream, type, seasonEpisode=None, config=None):
         return True
     
     else:
-        logger.info("Results length is 0, returning False")
+        logger.info("Results length is 0, returning False \n\n")
         return False
 
 

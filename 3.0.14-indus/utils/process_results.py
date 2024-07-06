@@ -1,3 +1,4 @@
+#1
 import concurrent.futures
 import base64
 import json
@@ -83,12 +84,14 @@ def process_results(items, cached, stream_type, season=None, episode=None, confi
     
     
 
-    #filtered_results = [result for result in all_results if result is not None]
-    #logger.info(filtered_results + "\n")
+    if len(results) > 0:
+        for result in results:
+            if result is not None:
+                stream_list.append(result)
 
-    for result in results:
-        if result is not None:
-            stream_list.append(result)
+ #   for result in results:
+ #       if result is not None:
+ #           stream_list.append(result)
 
     results_log = "\n******* $results :\n" + "\n\n".join([str(result) for result in results])
     logger.info(results_log + "\n")

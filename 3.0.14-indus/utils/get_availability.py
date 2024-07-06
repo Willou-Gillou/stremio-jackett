@@ -35,6 +35,10 @@ def get_availability_cached(stream, type, seasonEpisode=None, config=None):
             return True
         else:
             return False
+    logger.info("\n" + 
+    "---------------------------------------------------------------------------" + "\n" +
+    "14 - GET_AVAILIBILITY_CACHE function launched," + "\n" +
+    "---------------------------------------------------------------------------" + "\n\n")
     if config["service"] == "alldebrid":
         url = "https://api.alldebrid.com/v4/magnet/instant?agent=jackett&apikey=" + config[
             'debridKey'] + "&magnets[]=" + stream['magnet']

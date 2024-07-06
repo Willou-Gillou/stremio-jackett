@@ -84,8 +84,8 @@ def process_results(items, cached, stream_type, season=None, episode=None, confi
     results_log = "\n******* $results :\n" + "\n\n".join([str(result) for result in results])
     logger.info(results_log + "\n")
     
-    filtered_results = [result for result in all_results if result is not None]
-    logger.info(filtered_results + "\n")
+    #filtered_results = [result for result in all_results if result is not None]
+    #logger.info(filtered_results + "\n")
 
     for result in results:
         if result is not None:

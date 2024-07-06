@@ -162,7 +162,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
         stream_list = process_results(filtered_cached_results, True, stream_type,
                                       name['season'] if stream_type == "series" else None,
                                       name['episode'] if stream_type == "series" else None, config=config)
-        logger.info("Processed cached results")
+        logger.info("Processed cached results : \n" + stream_list)
         if len(stream_list) == 0:
             logger.info("No results found")
             return NO_RESULTS

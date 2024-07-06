@@ -68,7 +68,6 @@ def get_name(id, type, config):
             "-------------------------------------------------------------------------" + "\n" +
             "******* result : " + str(result) + "\n" +
             "******* returning result as $name in main.py \n\n") 
-            "******* returning result as $name in main.py \n\n") 
         return result
     
     else:

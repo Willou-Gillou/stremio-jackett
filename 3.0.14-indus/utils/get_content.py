@@ -1,9 +1,9 @@
-#2
+#3
 import requests
 
 from utils.logger import setup_logger
 
-#logger = setup_logger(__name__)
+logger = setup_logger(__name__)
 
 
 def replace_weird_characters(string):
@@ -46,13 +46,15 @@ def get_name(id, type, config):
             "language": config['language']
         }
         logger.info("\n" + 
-            "05 - GET_NAME function launched, data used for getting metadata from TheMovieDataBase :\n" +
+            "05 - GET_NAME function launched, sending request to TheMovieDataBase API :\n" +
+            "----------------------------------------------------------------------" +
             "******* stream_type: " + type + "\n" +
             "******* stream_id: " + id + "\n" +
             "******* language from config: " + str(config['language']) + "\n" +
-            "******* response from TheMovieDataBase : " + str(result) + "\n\n" +
+            "******* response from TheMovieDataBase : " + str(data) + "\n\n" +
             
-            "06 - formating result for returning Title, year, type from TheMovieDataBase and adding Language from config :\n" +
+            "06 - Formating result for returning only Title, year, type and Language :\n" +
+            "-------------------------------------------------------------------------" +
             "******* result : " + str(result) + "\n" +
             "returning result to main.py \n\n") 
         return result
@@ -70,13 +72,15 @@ def get_name(id, type, config):
             "language": config['language']
         }
         logger.info("\n" + 
-            "05 - GET_NAME function launched, data used for getting metadata from TheMovieDataBase :\n" +
+            "05 - GET_NAME function launched, sending request to TheMovieDataBase API :\n" +
+            "----------------------------------------------------------------------" +
             "******* stream_type: " + type + "\n" +
             "******* stream_id: " + id + "\n" +
             "******* language from config: " + str(config['language']) + "\n" +
-            "******* response from TheMovieDataBase : " + str(result) + "\n\n" +
+            "******* response from TheMovieDataBase : " + str(data) + "\n\n" +
             
-            "06 - formating result for returning Title, year, type from TheMovieDataBase and adding Language from config :\n" +
+            "06 - Formating result for returning only Title, year, type and Language :\n" +
+            "-------------------------------------------------------------------------" +
             "******* result : " + str(result) + "\n" +
             "returning result to main.py \n\n") 
         return result

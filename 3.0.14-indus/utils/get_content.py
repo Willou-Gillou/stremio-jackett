@@ -58,7 +58,7 @@ def get_name(id, type, config):
             "06 - Formating result for returning only Title, year, type and Language :\n" +
             "-------------------------------------------------------------------------" + "\n" +
             "******* result : " + str(result) + "\n" +
-            "returning result to main.py \n\n") 
+            "******* returning result to main.py \n\n") 
         return result
     
     else:
@@ -86,5 +86,5 @@ def get_name(id, type, config):
             "06 - Formating result for returning only Title, year, type and Language :\n" +
             "-------------------------------------------------------------------------" + "\n" +
             "******* result : " + str(result) + "\n" +
-            "returning result to main.py \n\n") 
+            "******* returning result to main.py \n\n") 
         return result

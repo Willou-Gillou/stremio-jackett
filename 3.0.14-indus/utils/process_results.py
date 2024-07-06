@@ -54,19 +54,9 @@ def process_stream(stream, cached, stream_type, season, episode, config):
                 "title": "New connection on AllDebrid.\r\nPlease authorize the connection\r\non your email",
                 "url": "#"
         }
-
-    match config['service']:
-        case "realdebrid":
-            service = "[RD+]"
-        case "alldebrid":
-            service = "[AD+]"
-        case "premiumize":
-            service = "[PREM+]"
-
     if availability:
         indexer = stream.get('indexer', 'Cached')
-        #name = f"+{indexer} ({detect_quality(stream['title'])} - {detect_quality_spec(stream['title'])})"
-        name = f"{service} \r\n YGG-wg {detect_quality(stream['title'])}"
+        name = f"+{indexer} ({detect_quality(stream['title'])} - {detect_quality_spec(stream['title'])})"
     else:
         indexer = stream.get('indexer', 'Cached')
         name = f"-{indexer} ({detect_quality(stream['title'])} - {detect_quality_spec(stream['title'])})"
@@ -78,6 +68,7 @@ def process_stream(stream, cached, stream_type, season, episode, config):
                  f"{round(int(stream['size']) / 1024 / 1024 / 1024, 2)}GB",
         "url": f"{config['addonHost']}/playback/{configb64}/{queryb64}/{urllib.parse.quote_plus(stream['title'].replace(' ', '.'))}"
     }
+
 
 
 def process_results(items, cached, stream_type, season=None, episode=None, config=None):

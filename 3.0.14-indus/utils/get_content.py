@@ -58,7 +58,7 @@ def get_name(id, type, config):
             "******* stream_type: " + type + "\n" +
             "******* stream_id: " + id + "\n" +
             "******* language from config: " + str(config['language']) + "\n" +
-            "******* response from TheMovieDataBase : " + data_log + "\n\n" +
+            "******* response from TheMovieDataBase :\n " + data_log + "\n\n" +
             
             "-------------------------------------------------------------------------" + "\n" +
             "06 - Extracting only Title, year, type and Language values  :\n" +

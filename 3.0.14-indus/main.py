@@ -48,7 +48,7 @@ class LogFilterMiddleware:
         request = Request(scope, receive)
         path = request.url.path
         sensible_path = re.sub(r'/ey.*?/', '/<SENSITIVE_DATA>/', path)
-        logger.info(f"\n 01 - Middleware set up & info recieved from Addon : \n {request.method} - {sensible_path}\n Initial path: {path}\n\n")
+        logger.info(f"\n01 - Info recieved from Addon, middleware set up : \n******* {request.method} - {sensible_path}\n******* Initial path: " + str(path) + "\n\n")
         return await self.app(scope, receive, send)
 
 
@@ -118,7 +118,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
 
     logger.info("\n" + 
 
-    "02 - Info received from Jackett Addon, GET_RESULT function launched :\n" +
+    "02 - GET_RESULT function launched, data collected :\n" +
     "******* stream_id: "+ stream_id + "\n" +
     "******* stream_type: "+ stream_type + "\n" +
     "******* config: "+ config1[:20] + "...\n\n" +

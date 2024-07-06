@@ -6,6 +6,7 @@ import urllib.parse
 from utils.get_availability import get_availability_cached
 from utils.get_quality import detect_quality, detect_quality_spec
 
+logger = setup_logger(__name__)
 
 def get_emoji(language):
     emoji_dict = {
@@ -80,11 +81,7 @@ def process_stream(stream, cached, stream_type, season, episode, config):
 
 def process_results(items, cached, stream_type, season=None, episode=None, config=None):
     stream_list = []
-    logger.info("\n" + 
-    "------------------------------------------------------------------------" + "\n" +
-    "12 - PROCESS_RESULTS function launched, calling PROCESS_STREAM function " + "\n" +
-    "------------------------------------------------------------------------" + "\n")
-
+    logger.info("dans process_results")
     with concurrent.futures.ThreadPoolExecutor() as executor:
         results = executor.map(process_stream, items, [cached] * len(items), [stream_type] * len(items),
                                [season] * len(items), [episode] * len(items), [config] * len(items))

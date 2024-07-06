@@ -18,7 +18,7 @@ def items_sort(items, config):
     "-------------------------------------------------------------" + "\n" +
     "11 - ITEMS_SORT launched, sorting $items by quality_and_size " + "\n" +
     "-------------------------------------------------------------" + "\n" +
-    "******* returning result as $filtered_cached_results in main" + "\n")
+    "******* returning result as $filtered_cached_results to main" + "\n")
     return sorted(items, key=sort_quality_and_size)
 
 """

@@ -1,4 +1,4 @@
-#3
+#4
 import requests
 
 from utils.logger import setup_logger
@@ -46,15 +46,17 @@ def get_name(id, type, config):
             "language": config['language']
         }
         logger.info("\n" + 
+            "----------------------------------------------------------------------" + "\n" +
             "05 - GET_NAME function launched, sending request to TheMovieDataBase API :\n" +
-            "----------------------------------------------------------------------" +
+            "----------------------------------------------------------------------" + "\n" +
             "******* stream_type: " + type + "\n" +
             "******* stream_id: " + id + "\n" +
             "******* language from config: " + str(config['language']) + "\n" +
             "******* response from TheMovieDataBase : " + str(data) + "\n\n" +
             
+            "-------------------------------------------------------------------------" + "\n" +
             "06 - Formating result for returning only Title, year, type and Language :\n" +
-            "-------------------------------------------------------------------------" +
+            "-------------------------------------------------------------------------" + "\n" +
             "******* result : " + str(result) + "\n" +
             "returning result to main.py \n\n") 
         return result
@@ -72,15 +74,17 @@ def get_name(id, type, config):
             "language": config['language']
         }
         logger.info("\n" + 
+            "----------------------------------------------------------------------" + "\n" +
             "05 - GET_NAME function launched, sending request to TheMovieDataBase API :\n" +
-            "----------------------------------------------------------------------" +
+            "----------------------------------------------------------------------" + "\n" +
             "******* stream_type: " + type + "\n" +
             "******* stream_id: " + id + "\n" +
             "******* language from config: " + str(config['language']) + "\n" +
             "******* response from TheMovieDataBase : " + str(data) + "\n\n" +
             
+            "-------------------------------------------------------------------------" + "\n" +
             "06 - Formating result for returning only Title, year, type and Language :\n" +
-            "-------------------------------------------------------------------------" +
+            "-------------------------------------------------------------------------" + "\n" +
             "******* result : " + str(result) + "\n" +
             "returning result to main.py \n\n") 
         return result

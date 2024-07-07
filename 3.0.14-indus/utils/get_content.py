@@ -79,6 +79,10 @@ def get_name(id, type, config):
             "type": "series",
             "language": config['language']
         }
+        # Logging each key-value pair in data
+        data_log = ""
+        for key, value in data.items():
+            data_log += str(key) + ": " + str(value) + "\n"
         logger.info("\n" + 
             "----------------------------------------------------------------------" + "\n" +
             "05 - GET_NAME function launched, sending request to TheMovieDataBase API :\n" +

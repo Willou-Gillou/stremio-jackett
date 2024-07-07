@@ -45,10 +45,13 @@ def search_cache(query):
 
     # Extraire uniquement les titres
     titles = [result.get('title', 'No Title') for result in cache_results]
+    
+    # Chemin complet vers le fichier dans le répertoire /utils/
+    file_path = os.path.join(os.getcwd(), 'utils', 'cache_results.txt')
 
     # Écrire les titres dans un fichier .txt
     try:
-        with open('cache_results.txt', 'w') as file:
+        with open(file_path, 'w') as file:
             for title in titles:
                 file.write(title + '\n')
         logger.info("Cache results successfully written to cache_results.txt")

@@ -10,6 +10,7 @@ logger = setup_logger(__name__)
 
 def search_cache(query):
     #logger.info(query)
+    query = {'title': '*', 'year': '2024', 'type': 'movie', 'language': 'fr'}
     url = CACHER_URL + "getResult/" + query['type'] + "/"
     response = requests.get(url, json=query)
 

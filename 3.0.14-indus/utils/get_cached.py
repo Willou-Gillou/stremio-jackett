@@ -31,4 +31,12 @@ def search_cache(query):
     "******* full response from cacher.elfhosted : \n"+ str(cache_results) + "\n" +
     "******* returning response to main.py \n\n")
 
+# Écrire les résultats dans un fichier .txt
+    try:
+        with open('cache_results.txt', 'w') as file:
+            file.write(json.dumps(cache_results, indent=4))
+        logger.info("Cache results successfully written to cache_results.txt")
+    except IOError as e:
+        logger.error(f"Failed to write cache results to file: {e}")
+        
     return cache_results

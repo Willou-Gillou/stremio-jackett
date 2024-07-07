@@ -132,15 +132,9 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     "-----------------------------------------------------------------------------------------------------------------------" + "\n" +
     "04 - Calling GET_NAME function located in ./utils/get_content.py with $stream_id,$stream_type and decrypted $config info \n" +
     "-----------------------------------------------------------------------------------------------------------------------" + "\n\n")
-    config_fr = copy.deepcopy(config)
-    config_fr['language'] = 'fr'
     
-    config_en = copy.deepcopy(config)
-    config_en['language'] = 'en'
+    name_fr = get_name(stream_id, stream_type, config=config)
 
-    name_fr = get_name(stream_id, stream_type, config=config_fr)
-    name_en = get_name(stream_id, stream_type, config=config_en)
-    name = name_fr
     if config['cache']:
         logger.info("\n" + 
         "---------------------------------------------------------------------------------------------------------------" + "\n" +

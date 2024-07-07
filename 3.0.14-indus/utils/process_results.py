@@ -83,11 +83,16 @@ def process_results(items, cached, stream_type, season=None, episode=None, confi
                                [season] * len(items), [episode] * len(items), [config] * len(items)))
     
     
-
     if len(results) > 0:
-        for result in results:
-            if result is not None:
-                stream_list.append(result)
+    for result in results:
+        if result is not None:
+            logger.info(f"Appending result: {result}")  # Utilise le logger pour afficher la valeur de result
+            stream_list.append(result)
+
+ #   if len(results) > 0:
+ #       for result in results:
+ #           if result is not None:
+ #               stream_list.append(result)
 
  #   for result in results:
  #       if result is not None:

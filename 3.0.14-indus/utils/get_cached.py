@@ -1,3 +1,4 @@
+#1
 import requests
 import json  # Assurez-vous d'importer json pour gérer le fichier .txt
 
@@ -52,5 +53,5 @@ def search_cache(query):
         logger.info("Cache results successfully written to cache_results.txt")
     except IOError as e:
         logger.error(f"Failed to write cache results to file: {e}") 
-              
+
     return cache_results

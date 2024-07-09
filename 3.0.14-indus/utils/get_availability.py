@@ -1,4 +1,4 @@
-#6
+#7
 
 import requests
 import bencode
@@ -36,21 +36,21 @@ def get_availability_cached(stream, type, seasonEpisode=None, config=None):
         "******* results: "+ str(results) + "\n")
         if len(results) > 0:
             logger.info("Results length is greater than 0")
-        
-            if type == "movie":
-                logger.info("Type is movie, returning True\n\n")
-                return True
-            
-            if type == "series":
-                logger.info("Type is series, iterating over results")
-                for result in results['rd']:
-                    for file in result.items():
-                        if seasonEpisode in file[1]['filename']:
-                            logger.info(f"Found match for seasonEpisode {seasonEpisode}, returning True")
-                            return True
-                
-                logger.info(f"No match found for seasonEpisode {seasonEpisode}, returning False")
-                return False
+            return True
+ #           if type == "movie":
+ #               logger.info("Type is movie, returning True\n\n")
+ #               return True
+ #           
+ #           if type == "series":
+ #               logger.info("Type is series, iterating over results")
+ #               for result in results['rd']:
+ #                   for file in result.items():
+ #                       if seasonEpisode in file[1]['filename']:
+ #                           logger.info(f"Found match for seasonEpisode {seasonEpisode}, returning True")
+ #                           return True
+ #               
+ #               logger.info(f"No match found for seasonEpisode {seasonEpisode}, returning False")
+ #               return False
     
         else:
             logger.info("Results length is 0, returning False \n\n")

@@ -1,4 +1,4 @@
-#15
+#16
 import asyncio
 import base64
 import json
@@ -116,6 +116,9 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     stream_id = stream_id.replace(".json", "")
     config = json.loads(base64.b64decode(config).decode('utf-8'))
     config['exclusion'].append('unknown')
+    config_en=config.copy()
+    config_en['language'] = 'en'
+
     logger.info("\n" + 
     "---------------------------------------------------" + "\n" +
     "02 - GET_RESULT function launched, data collected :\n" +
@@ -134,6 +137,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     "-----------------------------------------------------------------------------------------------------------------------" + "\n\n")
     
     name = get_name(stream_id, stream_type, config=config)
+    name_en = get_name(stream_id, stream_type, config=config_en)
 
     if config['cache']:
         logger.info("\n" + 
@@ -141,6 +145,9 @@ async def get_results(config: str, stream_type: str, stream_id: str):
         "07 - Calling SEARCH_CACHE function located in ./utils/get_cached.py with $name (title, year, type and language) " + "\n" +
         "---------------------------------------------------------------------------------------------------------------" + "\n")
         cached_results = search_cache(name)
+        cached_results_en = search_cache(name_en)
+        cached_results_all= cached_results + cached_results_en
+        
     else:
         cached_results = []
     
@@ -149,7 +156,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     "09 - Calling FILTER_ITEMS function located in ./utils/filter_results.py with $cache_results, $stream_type, $config +  $season & $episode only if serie" + "\n" +
     "------------------------------------------------------------------------------------------------------------------------------------------------------" + "\n")
 
-    filtered_cached_results = filter_items(cached_results, stream_type, config=config, cached=True,
+    filtered_cached_results = filter_items(cached_results_all, stream_type, config=config, cached=True,
                                            season=name['season'] if stream_type == "series" else None,
                                            episode=name['episode'] if stream_type == "series" else None)
 

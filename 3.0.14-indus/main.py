@@ -133,7 +133,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     "04 - Calling GET_NAME function located in ./utils/get_content.py with $stream_id,$stream_type and decrypted $config info \n" +
     "-----------------------------------------------------------------------------------------------------------------------" + "\n\n")
     
-    name_fr = get_name(stream_id, stream_type, config=config)
+    name = get_name(stream_id, stream_type, config=config)
 
     if config['cache']:
         logger.info("\n" + 

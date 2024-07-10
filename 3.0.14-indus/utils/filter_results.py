@@ -4,7 +4,7 @@ from utils.logger import setup_logger
 logger = setup_logger(__name__)
 
 def sort_quality_and_size(item):
-    order = {"4k": 0, "1080p": 1, "720p": 2, "480p": 3}
+    order = {"4k": 0, "1080p": 1, "720p": 2, "480p": 3, "Unknown": 4}
     quality = item.get("quality", "").lower()
     quality_order = order.get(quality, float('inf'))
     try:
@@ -32,8 +32,14 @@ def filter_items(items, item_type=None, config=None, cached=False, season=None, 
     "----------------------------------------------------------------" + "\n" +
     "10 - FILTER_ITEMS function launched, calling ITEMS_SORT function" + "\n" +
     "----------------------------------------------------------------" + "\n")
-    items = items_sort(items, config)
+    if stream_type == "series":
+        filtered_items = [item for item in results if item['type'] == 'series' and item.get('season') == season and item.get('episode') == episode]
+        items = items_sort(filtered_items, config)
+    else:
+        items = items_sort(items, config)
     return items
+#    items = items_sort(items, config)
+#    return items
 
 
 def series_file_filter(files, season, episode):

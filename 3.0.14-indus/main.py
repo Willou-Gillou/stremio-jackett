@@ -176,8 +176,6 @@ async def get_results(config: str, stream_type: str, stream_id: str):
             logger.info("No results found")
             return NO_RESULTS
         return {"streams": stream_list}
-    
-    return NO_RESULTS
 #    else:
 #        logger.info("No cached results found")
 #        logger.info("Searching for results on Jackett")

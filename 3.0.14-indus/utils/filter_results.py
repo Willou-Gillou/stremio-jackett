@@ -41,12 +41,13 @@ def filter_items(items, item_type=None, config=None, cached=False, season=None, 
     "----------------------------------------------------------------" + "\n" +
     "10 - FILTER_ITEMS function launched, calling ITEMS_SORT function" + "\n" +
     "----------------------------------------------------------------" + "\n")
-    if cached and item_type == "series":
-        logger.info("Started filtering series")
-        items = filter_season_episode(items, season, episode, config)
-    if config['exclusion'] is not None:
-        items = quality_exclusion(items, config)
-    items = items_sort(items, config)
+    if cached :
+        if item_type == "series":
+            logger.info("Started filtering series")
+            items = filter_season_episode(items, season, episode, config)
+        if config['exclusion'] is not None:
+            items = quality_exclusion(items, config)
+        items = items_sort(items, config)
     return items
 
 

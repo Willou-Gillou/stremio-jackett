@@ -156,12 +156,10 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     "09 - Calling FILTER_ITEMS function located in ./utils/filter_results.py with $cache_results, $stream_type, $config +  $season & $episode only if serie" + "\n" +
     "------------------------------------------------------------------------------------------------------------------------------------------------------" + "\n")
 
-    if cached_results = []:
-        return NO_RESULTS
-    else:
-        filtered_cached_results = filter_items(cached_results_all, stream_type, config=config, cached=True,
+    filtered_cached_results = filter_items(cached_results_all, stream_type, config=config, cached=True,
                                            season=name['season'] if stream_type == "series" else None,
                                            episode=name['episode'] if stream_type == "series" else None)
+
 
     if len(filtered_cached_results) > 0:
         logger.info("\n" + 

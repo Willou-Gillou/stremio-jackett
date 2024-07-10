@@ -40,7 +40,9 @@ def filter_items(items, item_type=None, config=None, cached=False, season=None, 
     logger.info("\n" + 
     "----------------------------------------------------------------" + "\n" +
     "10 - FILTER_ITEMS function launched, calling ITEMS_SORT function" + "\n" +
-    "----------------------------------------------------------------" + "\n")
+    "----------------------------------------------------------------" + "\n" +
+    " len(str(item)): " + len(str(items)))
+
     if cached :
         if item_type == "series":
             logger.info("Started filtering series")

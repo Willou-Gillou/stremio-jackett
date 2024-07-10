@@ -44,8 +44,8 @@ def filter_items(items, item_type=None, config=None, cached=False, season=None, 
     if cached and item_type == "series":
         logger.info("Started filtering series")
         items = filter_season_episode(items, season, episode, config)
-    if config['resultsPerQuality'] is not None and int(config['resultsPerQuality']) > 0:
-        items = results_per_quality(items, config)
+    if config['exclusion'] is not None:
+        items = quality_exclusion(items, config)
     items = items_sort(items, config)
     return items
 
@@ -54,18 +54,61 @@ def series_file_filter(files, season, episode):
     logger.info("Started filtering series files")
     return files
 
-def results_per_quality(items, config):
-    logger.info("Started filtering results per quality (" + str(config['resultsPerQuality']) + " results per quality)")
-    filtered_items = []
-    quality_count = {}
-    for item in items:
-        if item['quality'] not in quality_count:
-            quality_count[item['quality']] = 1
-            filtered_items.append(item)
-        else:
-            if quality_count[item['quality']] < int(config['resultsPerQuality']):
-                quality_count[item['quality']] += 1
-                filtered_items.append(item)
+def quality_exclusion(streams, config):
+    logger.info("Started filtering quality")
+    RIPS = ["HDRIP", "BRRIP", "BDRIP", "WEBRIP", "TVRIP", "VODRIP", "HDRIP"]
+    CAMS = ["CAM", "TS", "TC", "R5", "DVDSCR", "HDTV", "PDTV", "DSR", "WORKPRINT", "VHSRIP", "HDCAM"]
 
-    logger.info("Item count changed from " + str(len(items)) + " to " + str(len(filtered_items)))
+    filtered_items = []
+    excluded_qualities = [quality.upper() for quality in config['exclusion']]
+    rips = "RIPS" in excluded_qualities
+    cams = "CAM" in excluded_qualities
+
+    for stream in streams:
+        if stream['quality'].upper() not in excluded_qualities:
+            detection = detect_quality_spec(stream['title'])
+            if detection is not None:
+                for item in detection:
+                    if rips and item.upper() in RIPS:
+                        break
+                    if cams and item.upper() in CAMS:
+                        break
+                else:
+                    filtered_items.append(stream)
+            else:
+                filtered_items.append(stream)
     return filtered_items
+
+def detect_quality_spec(torrent_name):
+    quality_patterns = {
+        "HDR": r'\b(HDR|HDR10|HDR10PLUS|HDR10PLUS|HDR10PLUS)\b',
+        "DTS": r'\b(DTS|DTS-HD)\b',
+        "DDP": r'\b(DDP|DDP5.1|DDP7.1)\b',
+        "DD": r'\b(DD|DD5.1|DD7.1)\b',
+        "SDR": r'\b(SDR|SDRIP)\b',
+        "WEBDL": r'\b(WEBDL|WEB-DL|WEB)\b',
+        "BLURAY": r'\b(BLURAY|BLU-RAY|BD)\b',
+        "DVDRIP": r'\b(DVDRIP|DVDR)\b',
+        "CAM": r'\b(CAM|CAMRIP|CAM-RIP)\b',
+        "TS": r'\b(TS|TELESYNC|TELESYNC)\b',
+        "TC": r'\b(TC|TELECINE|TELECINE)\b',
+        "R5": r'\b(R5|R5LINE|R5-LINE)\b',
+        "DVDSCR": r'\b(DVDSCR|DVD-SCR)\b',
+        "HDTV": r'\b(HDTV|HDTVRIP|HDTV-RIP)\b',
+        "PDTV": r'\b(PDTV|PDTVRIP|PDTV-RIP)\b',
+        "DSR": r'\b(DSR|DSRRIP|DSR-RIP)\b',
+        "WORKPRINT": r'\b(WORKPRINT|WP)\b',
+        "VHSRIP": r'\b(VHSRIP|VHS-RIP)\b',
+        "VODRIP": r'\b(VODRIP|VOD-RIP)\b',
+        "TVRIP": r'\b(TVRIP|TV-RIP)\b',
+        "WEBRIP": r'\b(WEBRIP|WEB-RIP)\b',
+        "BRRIP": r'\b(BRRIP|BR-RIP)\b',
+        "BDRIP": r'\b(BDRIP|BD-RIP)\b',
+        "HDCAM": r'\b(HDCAM|HD-CAM)\b',
+        "HDRIP": r'\b(HDRIP|HD-RIP)\b',
+    }
+    qualities = []
+    for quality, pattern in quality_patterns.items():
+        if re.search(pattern, torrent_name, re.IGNORECASE):
+            qualities.append(quality)
+    return qualities if qualities else None

@@ -47,6 +47,9 @@ def filter_items(items, item_type=None, config=None, cached=False, season=None, 
             items = filter_season_episode(items, season, episode, config)
         if config['exclusion'] is not None:
             items = quality_exclusion(items, config)
+         if config['exclusionKeywords'] is not None and len(config['exclusionKeywords']) > 0:
+            logger.info(f"Exclusion keywords: {config['exclusionKeywords']}")
+            items = exclusion_keywords(items, config)
         items = items_sort(items, config)
     return items
 
@@ -113,3 +116,15 @@ def detect_quality_spec(torrent_name):
         if re.search(pattern, torrent_name, re.IGNORECASE):
             qualities.append(quality)
     return qualities if qualities else None
+
+def exclusion_keywords(streams, config):
+    logger.info("Started filtering exclusion keywords")
+    filtered_items = []
+    excluded_keywords = [keyword.upper() for keyword in config['exclusionKeywords']]
+    for stream in streams:
+        for keyword in excluded_keywords:
+            if keyword in stream['title'].upper():
+                break
+        else:
+            filtered_items.append(stream)
+    return filtered_items

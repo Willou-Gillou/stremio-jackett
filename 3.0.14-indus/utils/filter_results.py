@@ -35,11 +35,11 @@ def filter_items(items, item_type=None, config=None, cached=False, season=None, 
     if stream_type == "series":
         filtered_items = [item for item in results if item['type'] == 'series' and item.get('season') == season and item.get('episode') == episode]
         items = items_sort(filtered_items, config)
-    else:
+ #   else:
         items = items_sort(items, config)
-    return items
+ #   return items
 #    items = items_sort(items, config)
-#    return items
+    return items
 
 
 def series_file_filter(files, season, episode):

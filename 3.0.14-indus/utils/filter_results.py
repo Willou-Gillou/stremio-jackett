@@ -47,7 +47,7 @@ def filter_items(items, item_type=None, config=None, cached=False, season=None, 
             items = filter_season_episode(items, season, episode, config)
         if config['exclusion'] is not None:
             items = quality_exclusion(items, config)
-         if config['exclusionKeywords'] is not None and len(config['exclusionKeywords']) > 0:
+        if config['exclusionKeywords'] is not None and len(config['exclusionKeywords']) > 0:
             logger.info(f"Exclusion keywords: {config['exclusionKeywords']}")
             items = exclusion_keywords(items, config)
         items = items_sort(items, config)

@@ -118,7 +118,7 @@ def detect_quality_spec(torrent_name):
     return qualities if qualities else None
 
 def exclusion_keywords(streams, config):
-    logger.info("Started filtering exclusion keywords")
+#    logger.info("Started filtering exclusion keywords")
     filtered_items = []
     excluded_keywords = [keyword.upper() for keyword in config['exclusionKeywords']]
     for stream in streams:

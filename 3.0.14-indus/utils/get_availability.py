@@ -25,17 +25,17 @@ def get_availability_cached(stream, type, seasonEpisode=None, config=None):
         response = requests.get(url, headers=headers)
         data = response.json()
         results = next(iter(data.items()))[1]            
-        logger.info("\n" + 
-        "******* stream: "+ str(stream['magnet']) + "\n" +
-        "******* hash: "+ str(hash) + "\n" +
-        "******* url: "+ str(url) + "\n" +
-        "******* headers: "+ str(headers["Authorization"]) + "\n" +
-        "******* sending request : requests.get(url, headers=headers)\n" +
-        "******* data: "+ str(data) + "\n" +
-        "******* len(results): "+ str(len(results)) + "\n" +
-        "******* results: "+ str(results) + "\n")
+    #    logger.info("\n" + 
+    #    "******* stream: "+ str(stream['magnet']) + "\n" +
+    #    "******* hash: "+ str(hash) + "\n" +
+    #    "******* url: "+ str(url) + "\n" +
+    #    "******* headers: "+ str(headers["Authorization"]) + "\n" +
+    #    "******* sending request : requests.get(url, headers=headers)\n" +
+    #    "******* data: "+ str(data) + "\n" +
+    #    "******* len(results): "+ str(len(results)) + "\n" +
+    #    "******* results: "+ str(results) + "\n")
         if len(results) > 0:
-            logger.info("Results length is greater than 0")
+    #        logger.info("Results length is greater than 0")
             return True
  #           if type == "movie":
  #               logger.info("Type is movie, returning True\n\n")
@@ -53,7 +53,7 @@ def get_availability_cached(stream, type, seasonEpisode=None, config=None):
  #               return False
     
         else:
-            logger.info("Results length is 0, returning False \n\n")
+    #        logger.info("Results length is 0, returning False \n\n")
             return False
 
 

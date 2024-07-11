@@ -18,7 +18,7 @@ def search_cache2(query, config):
         'limit': 10  # Limite de résultats, vous pouvez ajuster ce nombre
     }
     response = requests.get('https://api.real-debrid.com/rest/1.0/torrents/search', headers=headers, params=params)
-
+    
     if response.status_code == 200:
         return response.json()
     else:

@@ -144,6 +144,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
         "---------------------------------------------------------------------------------------------------------------" + "\n" +
         "07 - Calling SEARCH_CACHE function located in ./utils/get_cached.py with $name (title, year, type and language) " + "\n" +
         "---------------------------------------------------------------------------------------------------------------" + "\n")
+        name = 'Inception 2010'
         cached_results = search_cache2(name, config)
         cached_results_en = search_cache2(name_en, config)
         cached_results_all= cached_results + cached_results_en

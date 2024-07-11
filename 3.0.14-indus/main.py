@@ -142,14 +142,50 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     logger.info("********** Titles0:" + titles[0])
     now = datetime.now()
     date_time = now.strftime("%Y-%m-%d %H:%M:%S")
+    content_to_add = f"{date_time} - {titles[0]}\n"
+
+    # URL du Gist et token d'accès personnel
+    gist_url = 'https://gist.githubusercontent.com/Willou-Gillou/e03bbdf0b12eee7903c622e988527b7c/raw/6d0afd4a177388a5e2bda751cfe3e68761a184c8/gistfile1.txt'
+    api_url = 'https://api.github.com/gists/e03bbdf0b12eee7903c622e988527b7c'
+    token = ''
+
+    # Récupérer le contenu actuel du Gist
+    response = requests.get(gist_url)
+    if response.status_code == 200:
+        current_content = response.text
+    else:
+        print(f"Erreur lors de la récupération du Gist: {response.status_code}")
+        current_content = ""
+    
+    # Ajouter le nouveau contenu
+    new_content = current_content + content_to_add
+
+    # Préparer les données pour la mise à jour du Gist
+    headers = {
+        "Authorization": f"token {token}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+    data = {
+        "files": {
+            "gistfile1.txt": {
+                "content": new_content
+            }
+        }
+    }
+    # Mettre à jour le Gist
+    update_response = requests.patch(api_url, headers=headers, json=data)
+    if update_response.status_code == 200:
+        print("Le Gist a été mis à jour avec succès.")
+    else:
+        print(f"Erreur lors de la mise à jour du Gist: {update_response.status_code} - {update_response.json()}")
+    
     # Écrire les titres dans un fichier .txt
-    try:
-        with open('cache_results.txt', 'a') as file:
-            file.write(date_time + ' - ' + titles[0] + '\n')
-#            file.write(titles[0] + '\n')
-        logger.info("Cache results successfully written to cache_results.txt")
-    except IOError as e:
-        logger.error(f"Failed to write cache results to file: {e}") 
+#    try:
+#        with open('cache_results.txt', 'a') as file:
+#            file.write(date_time + ' - ' + titles[0] + '\n')
+#        logger.info("Cache results successfully written to cache_results.txt")
+#    except IOError as e:
+#        logger.error(f"Failed to write cache results to file: {e}") 
 
    # if config['cache']:
     logger.info("\n" + 

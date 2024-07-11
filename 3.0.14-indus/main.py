@@ -23,8 +23,7 @@ from debrid.premiumize import get_stream_link_pm
 from debrid.realdebrid import get_stream_link_rd
 from utils.filter_results import filter_items
 from utils.get_availability import availability
-#from utils.get_cached import search_cache
-from utils.get_cached import search_cache2
+from utils.get_cached import search_cache
 from utils.get_content import get_name
 from utils.jackett import search
 from utils.logger import setup_logger
@@ -144,9 +143,8 @@ async def get_results(config: str, stream_type: str, stream_id: str):
         "---------------------------------------------------------------------------------------------------------------" + "\n" +
         "07 - Calling SEARCH_CACHE function located in ./utils/get_cached.py with $name (title, year, type and language) " + "\n" +
         "---------------------------------------------------------------------------------------------------------------" + "\n")
-        name = 'Inception 2010'
-        cached_results = search_cache2(name, config)
-        cached_results_en = search_cache2(name_en, config)
+        cached_results = search_cache(name)
+        cached_results_en = search_cache(name_en)
         cached_results_all= cached_results + cached_results_en
         
         if len(cached_results_all) == 0:

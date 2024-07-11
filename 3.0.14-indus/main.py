@@ -16,7 +16,7 @@ from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
-
+from datetime import datetime
 from constants import NO_RESULTS
 from debrid.alldebrid import get_stream_link_ad
 from debrid.premiumize import get_stream_link_pm
@@ -135,16 +135,18 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     
     name = get_name(stream_id, stream_type, config=config)
     name_en = get_name(stream_id, stream_type, config=config_en)
-
   
     # Extraire uniquement les titres
-    titles = [result.get('title', 'No Title') for result in name]
-    
+    titles = [name.get('title', 'No Title') for result in name]
+    logger.info("********** Titles :" + str(titles))
+    logger.info("********** Titles0:" + titles[0])
+    now = datetime.now()
+    date_time = now.strftime("%Y-%m-%d %H:%M:%S")
     # Écrire les titres dans un fichier .txt
     try:
-        with open('cache_results.txt', 'w') as file:
-            for title in titles:
-                file.write(title + '\n')
+        with open('cache_results.txt', 'a') as file:
+            file.write(date_time + ' - ' + titles[0] + '\n')
+#            file.write(titles[0] + '\n')
         logger.info("Cache results successfully written to cache_results.txt")
     except IOError as e:
         logger.error(f"Failed to write cache results to file: {e}") 

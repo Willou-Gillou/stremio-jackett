@@ -92,7 +92,7 @@ async def get_manifest():
         "catalogs": [],
         "resources": ["stream"],
         "types": ["movie", "series"],
-        "name": "WG-Cached",
+        "name": "WG-Cacher",
         "description": "Search for available links from https://stremio-jackett-cacher.elfhosted.com/ .",
         "behaviorHints": {
             "configurable": True,

@@ -109,7 +109,6 @@ logger.info("\n" +
 
 @app.get("/{config}/stream/{stream_type}/{stream_id}")
 async def get_results(config: str, stream_type: str, stream_id: str):
-    curl user:pass -x PUT -d "id=wihhji3n&title=Stremio&content=Nouveau film!." https://anotepad.com/api/notes
     config1=config
     stream_id = stream_id.replace(".json", "")
     config = json.loads(base64.b64decode(config).decode('utf-8'))

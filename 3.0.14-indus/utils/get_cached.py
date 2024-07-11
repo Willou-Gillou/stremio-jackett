@@ -13,6 +13,9 @@ def search_cache2(query, config):
     headers = {
         "Authorization": f"Bearer {config['debridKey']}"
     }
+    logger.info("RD: " + config['debridKey'])
+    logger.info("Query: " + query)
+    
     params = {
         'query': query,
         'limit': 10  # Limite de résultats, vous pouvez ajuster ce nombre

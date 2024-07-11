@@ -45,7 +45,9 @@ def process_stream(stream, cached, stream_type, season, episode, config):
             availability = get_availability_cached(stream, stream_type, season + episode, config=config)
     else:
         availability = stream.get('availability', False)
-
+    if not availability:
+        return None
+    
     query = {"magnet": stream['magnet'], "type": stream_type}
     if stream_type == "series":
         query['season'] = season
@@ -55,9 +57,9 @@ def process_stream(stream, cached, stream_type, season, episode, config):
                 "title": "New connection on AllDebrid.\r\nPlease authorize the connection\r\non your email",
                 "url": "#"
         }
-    if availability:
-        indexer = stream.get('indexer', 'Cached')
-        name = f"+{indexer} ({detect_quality(stream['title'])} - {detect_quality_spec(stream['title'])})"
+    #if availability:
+    indexer = stream.get('indexer', 'Cached')
+    name = f"+{indexer} ({detect_quality(stream['title'])} - {detect_quality_spec(stream['title'])})"
     #else:
     #    indexer = stream.get('indexer', 'Cached')
     #    name = f"-{indexer} ({detect_quality(stream['title'])} - {detect_quality_spec(stream['title'])})"

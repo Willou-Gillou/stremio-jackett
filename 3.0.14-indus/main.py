@@ -100,7 +100,6 @@ async def get_manifest():
         }
     }
 
-
 formatter = logging.Formatter('[%(asctime)s] p%(process)s {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s',
                               '%m-%d %H:%M:%S')
 
@@ -170,42 +169,14 @@ async def get_results(config: str, stream_type: str, stream_id: str):
         stream_list = process_results(filtered_cached_results, True, stream_type,
                                       name['season'] if stream_type == "series" else None,
                                       name['episode'] if stream_type == "series" else None, config=config)
-        #stream_list_str = json.dumps(stream_list, indent=4)
-        logger.info("Processed cached results :results: " + str(len(stream_list)) + ")")
+        logger.info("Processed cached results : " + str(len(stream_list)) + ")")
         if len(stream_list) == 0:
             logger.info("No results found")
             return NO_RESULTS
         return {"streams": stream_list}
     else:
+        logger.info("No results found")
         return NO_RESULTS
-#    else:
-#        logger.info("No cached results found")
-#        logger.info("Searching for results on Jackett")
-#        search_results = []
-#        if stream_type == "movie":
-#            search_results = search({"type": name['type'], "title": name['title'], "year": name['year']},
-#                                    config=config)
- #       elif stream_type == "series":
- #           search_results = search(
- #               {"type": name['type'], "title": name['title'], "season": name['season'],
- #                "episode": name['episode']},
- #               config=config)
- #       logger.info("Got " + str(len(search_results)) + " results from Jackett")
- #       logger.info("Filtering results")
- #       filtered_results = filter_items(search_results, stream_type, config=config)
- #       logger.info("Filtered results")
- #       logger.info("Checking availability")
- #       results = availability(filtered_results, config=config) + filtered_cached_results
- #       logger.info("Checked availability (results: " + str(len(results)) + ")")
- #       logger.info("Processing results")
- #       stream_list = process_results(results, False, stream_type,
- #                                     name['season'] if stream_type == "series" else None,
-  #                                    name['episode'] if stream_type == "series" else None, config=config)
-  #      logger.info("Processed results (results: " + str(len(stream_list)) + ")")
-  #      if len(stream_list) == 0:
-  #          logger.info("No results found")
-  #          return NO_RESULTS
-   #     return {"streams": stream_list}
 
 
 @app.get("/playback/{config}/{query}/{title}")
@@ -239,52 +210,6 @@ async def get_playback(config: str, query: str, title: str, request: Request):
     except Exception as e:
         logger.error('An error occured %s', 'division', exc_info=e)
         raise HTTPException(status_code=500, detail="An error occurred while processing the request.")
-
-
-# async def update_app():
-#     try:
-#         if not isDev:
-#             current_version = "v" + VERSION
-#             url = "https://api.github.com/repos/aymene69/stremio-jackett/releases/latest"
-#             response = requests.get(url)
-#             data = response.json()
-#             latest_version = data['tag_name']
-#             if (latest_version != current_version):
-#                 logger.info("New version available: " + latest_version)
-#                 logger.info("Updating...")
-#                 logger.info("Getting update zip...")
-#                 update_zip = requests.get(data['zipball_url'])
-#                 with open("update.zip", "wb") as file:
-#                     file.write(update_zip.content)
-#                 logger.info("Update zip downloaded")
-#                 logger.info("Extracting update...")
-#                 with zipfile.ZipFile("update.zip", 'r') as zip_ref:
-#                     zip_ref.extractall("update")
-#                 logger.info("Update extracted")
-#
-#                 extracted_folder = os.listdir("update")[0]
-#                 extracted_folder_path = os.path.join("update", extracted_folder)
-#                 for item in os.listdir(extracted_folder_path):
-#                     s = os.path.join(extracted_folder_path, item)
-#                     d = os.path.join(".", item)
-#                     if os.path.isdir(s):
-#                         shutil.copytree(s, d, dirs_exist_ok=True)
-#                     else:
-#                         shutil.copy2(s, d)
-#                 logger.info("Files copied")
-#
-#                 logger.info("Cleaning up...")
-#                 shutil.rmtree("update")
-#                 os.remove("update.zip")
-#                 logger.info("Cleaned up")
-#                 logger.info("Updated !")
-#     except Exception as e:
-#         logger.error(f"Error during update: {e}")
-
-
-# @crontab("* * * * *", start=not isDev)
-# async def schedule_task():
-#     await update_app()
 
 
 async def main():

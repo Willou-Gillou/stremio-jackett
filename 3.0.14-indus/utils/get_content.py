@@ -51,20 +51,20 @@ def get_name(id, type, config):
             data_log += str(key) + ": " + str(value) + "\n"
         
         #data_log = "\n******* $results :\n" + "\n\n".join(str(key) + " " + [str(data) for key, value in data.items()])
-        logger.info("\n" + 
-            "----------------------------------------------------------------------" + "\n" +
-            "05 - GET_NAME function launched, sending request to TheMovieDataBase API :\n" +
-            "----------------------------------------------------------------------" + "\n" +
-            "******* stream_type: " + type + "\n" +
-            "******* stream_id: " + id + "\n" +
-            "******* language from config: " + str(config['language']) + "\n" +
-            "******* response from TheMovieDataBase :\n " + data_log + "\n\n" +
-            
-            "-------------------------------------------------------------------------" + "\n" +
-            "06 - Extracting only Title, year, type and Language values  :\n" +
-            "-------------------------------------------------------------------------" + "\n" +
-            "******* result : " + str(result) + "\n" +
-            "******* returning result as $name in main.py \n\n") 
+        #logger.info("\n" + 
+        #    "----------------------------------------------------------------------" + "\n" +
+        #    "05 - GET_NAME function launched, sending request to TheMovieDataBase API :\n" +
+        #    "----------------------------------------------------------------------" + "\n" +
+        #    "******* stream_type: " + type + "\n" +
+        #    "******* stream_id: " + id + "\n" +
+        #    "******* language from config: " + str(config['language']) + "\n" +
+        #    "******* response from TheMovieDataBase :\n " + data_log + "\n\n" +
+        #    
+        #    "-------------------------------------------------------------------------" + "\n" +
+        #    "06 - Extracting only Title, year, type and Language values  :\n" +
+        #    "-------------------------------------------------------------------------" + "\n" +
+        #    "******* result : " + str(result) + "\n" +
+        #    "******* returning result as $name in main.py \n\n") 
         return result
     
     else:
@@ -83,18 +83,18 @@ def get_name(id, type, config):
         data_log = ""
         for key, value in data.items():
             data_log += str(key) + ": " + str(value) + "\n"
-        logger.info("\n" + 
-            "----------------------------------------------------------------------" + "\n" +
-            "05 - GET_NAME function launched, sending request to TheMovieDataBase API :\n" +
-            "----------------------------------------------------------------------" + "\n" +
-            "******* stream_type: " + type + "\n" +
-            "******* stream_id: " + id + "\n" +
-            "******* language from config: " + str(config['language']) + "\n" +
-            "******* response from TheMovieDataBase :\n " + data_log + "\n\n" +
-            
-            "-------------------------------------------------------------------------" + "\n" +
-            "06 - Extracting only Title, year, type and Language values  :\n" +
-            "-------------------------------------------------------------------------" + "\n" +
-            "******* result : " + str(result) + "\n" +
-            "******* returning result as $name in main.py \n\n") 
+        #logger.info("\n" + 
+        #    "----------------------------------------------------------------------" + "\n" +
+        #    "05 - GET_NAME function launched, sending request to TheMovieDataBase API :\n" +
+        #    "----------------------------------------------------------------------" + "\n" +
+        #    "******* stream_type: " + type + "\n" +
+        #    "******* stream_id: " + id + "\n" +
+        #    "******* language from config: " + str(config['language']) + "\n" +
+        #    "******* response from TheMovieDataBase :\n " + data_log + "\n\n" +
+        #    
+        #    "-------------------------------------------------------------------------" + "\n" +
+        #    "06 - Extracting only Title, year, type and Language values  :\n" +
+        #    "-------------------------------------------------------------------------" + "\n" +
+        #    "******* result : " + str(result) + "\n" +
+        #    "******* returning result as $name in main.py \n\n") 
         return result

@@ -87,14 +87,13 @@ async def configure(request: Request):
 async def get_manifest():
     return {
         "id": "community.aymene69.jackett",
-        "icon": "https://i.imgur.com/tVjqEJP.png",
+        "icon": "https://elfhosted.com/images/logo.png",
         "version": VERSION,
         "catalogs": [],
         "resources": ["stream"],
         "types": ["movie", "series"],
-        "name": "Jackett" + (" (Dev)" if isDev else ""),
-        "description": "Elevate your Stremio experience with seamless access to Jackett torrent links, effortlessly "
-                       "fetching torrents for your selected movies within the Stremio interface.",
+        "name": "WG-Cached",
+        "description": "Search for available links from https://stremio-jackett-cacher.elfhosted.com/ .",
         "behaviorHints": {
             "configurable": True,
         }

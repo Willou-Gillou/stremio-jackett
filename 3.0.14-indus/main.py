@@ -109,10 +109,11 @@ logger.info("\n" +
 
 @app.get("/{config}/stream/{stream_type}/{stream_id}")
 async def get_results(config: str, stream_type: str, stream_id: str):
+    
     config1=config
     stream_id = stream_id.replace(".json", "")
     config = json.loads(base64.b64decode(config).decode('utf-8'))
-    #config['exclusion'].append('Unknown')
+    config['exclusion'].append('Unknown')
     config_en=config.copy()
     config_en['language'] = 'en'
 
@@ -135,37 +136,22 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     
     name = get_name(stream_id, stream_type, config=config)
     name_en = get_name(stream_id, stream_type, config=config_en)
-  
-    # Extraire uniquement les titres
-    titles = [name.get('title', 'No Title') for result in name]
-    logger.info("********** Titles :" + str(titles))
-    logger.info("********** Titles0:" + titles[0])
-    now = datetime.now()
-    date_time = now.strftime("%Y-%m-%d %H:%M:%S")
-    # Écrire les titres dans un fichier .txt
-    try:
-        with open('cache_results.txt', 'a') as file:
-            file.write(date_time + ' - ' + titles[0] + '\n')
-#            file.write(titles[0] + '\n')
-        logger.info("Cache results successfully written to cache_results.txt")
-    except IOError as e:
-        logger.error(f"Failed to write cache results to file: {e}") 
 
-   # if config['cache']:
-    logger.info("\n" + 
-    "---------------------------------------------------------------------------------------------------------------" + "\n" +
-    "07 - Calling SEARCH_CACHE function located in ./utils/get_cached.py with $name (title, year, type and language) " + "\n" +
-    "---------------------------------------------------------------------------------------------------------------" + "\n")
-    cached_results = search_cache(name)
-    cached_results_en = search_cache(name_en)
-    cached_results_all= cached_results + cached_results_en
+    if config['cache']:
+        logger.info("\n" + 
+        "---------------------------------------------------------------------------------------------------------------" + "\n" +
+        "07 - Calling SEARCH_CACHE function located in ./utils/get_cached.py with $name (title, year, type and language) " + "\n" +
+        "---------------------------------------------------------------------------------------------------------------" + "\n")
+        cached_results = search_cache(name)
+        cached_results_en = search_cache(name_en)
+        cached_results_all= cached_results + cached_results_en
+        
+        if len(cached_results_all) == 0:
+            logger.info("Processed cached results : 0")
+            return NO_RESULT
     
-    if len(cached_results_all) == 0:
-        logger.info("Processed cached results : 0")
-        return NO_RESULT
-    
-   # else:
-   #     cached_results_all = []
+    else:
+        cached_results_all = []
     
     logger.info("\n" + 
     "------------------------------------------------------------------------------------------------------------------------------------------------------" + "\n" +

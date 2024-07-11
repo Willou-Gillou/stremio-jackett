@@ -22,10 +22,10 @@ from debrid.alldebrid import get_stream_link_ad
 from debrid.premiumize import get_stream_link_pm
 from debrid.realdebrid import get_stream_link_rd
 from utils.filter_results import filter_items
-from utils.get_availability import availability
+#from utils.get_availability import availability
 from utils.get_cached import search_cache
 from utils.get_content import get_name
-from utils.jackett import search
+#from utils.jackett import search
 from utils.logger import setup_logger
 from utils.process_results import process_results
 

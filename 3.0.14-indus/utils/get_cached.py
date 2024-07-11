@@ -44,15 +44,15 @@ def search_cache(query):
 
 
     # Extraire uniquement les titres
-    titles = [result.get('title', 'No Title') for result in cache_results]
+    #titles = [result.get('title', 'No Title') for result in cache_results]
     
     # Écrire les titres dans un fichier .txt
-    try:
-        with open('cache_results.txt', 'w') as file:
-            for title in titles:
-                file.write(title + '\n')
-        logger.info("Cache results successfully written to cache_results.txt")
-    except IOError as e:
-        logger.error(f"Failed to write cache results to file: {e}") 
+   # try:
+   #     with open('cache_results.txt', 'w') as file:
+   #         for title in titles:
+   #             file.write(title + '\n')
+   #     logger.info("Cache results successfully written to cache_results.txt")
+   # except IOError as e:
+   #     logger.error(f"Failed to write cache results to file: {e}") 
 
     return cache_results

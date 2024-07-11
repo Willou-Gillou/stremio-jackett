@@ -148,7 +148,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
         cached_results_all= cached_results + cached_results_en
         
         if len(cached_results_all) == 0:
-            logger.info("rien en cache")
+            logger.info("Processed cached results :" + len(cached_results_all))
             return NO_RESULT
     
     else:

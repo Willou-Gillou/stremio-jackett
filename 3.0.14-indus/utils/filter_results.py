@@ -43,13 +43,17 @@ def filter_items(items, item_type=None, config=None, cached=False, season=None, 
     "----------------------------------------------------------------" + "\n")
     if cached :
         if item_type == "series":
-            logger.info("Started filtering series")
+            logger.info("starting series filtering")
             items = filter_season_episode(items, season, episode, config)
         if config['exclusion'] is not None:
+            logger.info("starting quality exclusion")
+            logger.info(f"Exclusion qualities: {config['exclusion']}")
             items = quality_exclusion(items, config)
         if config['exclusionKeywords'] is not None and len(config['exclusionKeywords']) > 0:
+            logger.info("starting keywords exclusion")
             logger.info(f"Exclusion keywords: {config['exclusionKeywords']}")
             items = exclusion_keywords(items, config)
+        logger.info("starting sorting results")
         items = items_sort(items, config)
     return items
 
@@ -59,7 +63,7 @@ def series_file_filter(files, season, episode):
     return files
 
 def quality_exclusion(streams, config):
-    logger.info("Started filtering quality")
+#    logger.info("Quality filtering started")
     RIPS = ["HDRIP", "BRRIP", "BDRIP", "WEBRIP", "TVRIP", "VODRIP", "HDRIP"]
     CAMS = ["CAM", "TS", "TC", "R5", "DVDSCR", "HDTV", "PDTV", "DSR", "WORKPRINT", "VHSRIP", "HDCAM"]
 

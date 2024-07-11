@@ -11,6 +11,7 @@
 
 
 curl -o main.py https://raw.githubusercontent.com/Willou-Gillou/stremio-jackett/main/3.0.14-indus/main.py
+curl -o index.html https://raw.githubusercontent.com/Willou-Gillou/stremio-jackett/main/3.0.14-indus/index.html
 cd utils
 curl -o get_content.py https://raw.githubusercontent.com/Willou-Gillou/stremio-jackett/main/3.0.14-indus/utils/get_content.py
 curl -o get_cached.py https://raw.githubusercontent.com/Willou-Gillou/stremio-jackett/main/3.0.14-indus/utils/get_cached.py

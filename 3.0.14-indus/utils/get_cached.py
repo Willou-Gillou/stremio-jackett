@@ -7,6 +7,24 @@ from utils.logger import setup_logger
 
 logger = setup_logger(__name__)
 
+def search_cache2(query, config):
+    logger.info("Started getting Real-Debrid link")
+    
+    headers = {
+        "Authorization": f"Bearer {config['debridKey']}"
+    }
+    params = {
+        'query': query,
+        'limit': 10  # Limite de résultats, vous pouvez ajuster ce nombre
+    }
+    response = requests.get('https://api.real-debrid.com/rest/1.0/torrents/search', headers=headers, params=params)
+
+    if response.status_code == 200:
+        return response.json()
+    else:
+        logger.info(f"Erreur: {response.status_code} - {response.text}")
+        return None
+
 
 def search_cache(query):
     #logger.info(query)

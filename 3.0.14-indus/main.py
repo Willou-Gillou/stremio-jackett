@@ -136,17 +136,30 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     name = get_name(stream_id, stream_type, config=config)
     name_en = get_name(stream_id, stream_type, config=config_en)
 
+    # Vérifier si `name` contient des résultats
+    if name:
+        # Obtenir le premier titre
+        premier_titre = name[0].get('title', 'No Title')
+
+        # Ajouter le résultat au fichier texte existant
+        try:
+            with open('fichier_destination.txt', 'a', encoding='utf-8') as f_destination:
+                f_destination.write(premier_titre + '\n')
+            print(f"Premier titre ajouté avec succès à fichier_destination.txt: {premier_titre}")
+        except IOError as e:
+            print(f"Erreur lors de l'ajout du premier titre au fichier: {e}")
+
     # Extraire uniquement les titres
-    titles = [result.get('title', 'No Title') for result in name]
+    #titles = [name.get('title', 'No Title') for result in name]
     
     # Écrire les titres dans un fichier .txt
-    try:
-        with open('cache_results.txt', 'w') as file:
-            for title in titles:
-                file.write(title + '\n')
-        logger.info("Cache results successfully written to cache_results.txt")
-    except IOError as e:
-        logger.error(f"Failed to write cache results to file: {e}") 
+    #try:
+    #    with open('cache_results.txt', 'w') as file:
+    #        for title in titles:
+    #            file.write(title + '\n')
+    #    logger.info("Cache results successfully written to cache_results.txt")
+    #except IOError as e:
+    #    logger.error(f"Failed to write cache results to file: {e}") 
 
    # if config['cache']:
     logger.info("\n" + 

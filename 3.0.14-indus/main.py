@@ -147,8 +147,12 @@ async def get_results(config: str, stream_type: str, stream_id: str):
         cached_results_en = search_cache(name_en)
         cached_results_all= cached_results + cached_results_en
         
+        if len(cached_results_all) == 0:
+            logger.info("rien en cache")
+            return NO_RESULT
+    
     else:
-        cached_results = []
+        cached_results_all = []
     
     logger.info("\n" + 
     "------------------------------------------------------------------------------------------------------------------------------------------------------" + "\n" +

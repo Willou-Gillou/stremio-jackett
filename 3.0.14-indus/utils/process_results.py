@@ -76,10 +76,7 @@ def process_stream(stream, cached, stream_type, season, episode, config):
 
 def process_results(items, cached, stream_type, season=None, episode=None, config=None):
     stream_list = []
-    logger.info("\n" + 
-    "---------------------------------------------------------------------------" + "\n" +
-    "13 - PROCESS_RESULTS function launched, calling PROCESS_STREAM function" + "\n" +
-    "---------------------------------------------------------------------------" + "\n")
+    logger.info("PROCESS_RESULTS function launched, calling PROCESS_STREAM function")
     with concurrent.futures.ThreadPoolExecutor() as executor:
         results = list(executor.map(process_stream, items, [cached] * len(items), [stream_type] * len(items),
                                [season] * len(items), [episode] * len(items), [config] * len(items)))

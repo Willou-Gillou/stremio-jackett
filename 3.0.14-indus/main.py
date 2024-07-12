@@ -106,7 +106,7 @@ formatter = logging.Formatter('[%(asctime)s] p%(process)s {%(pathname)s:%(lineno
 
 logger.info("\n" + 
 "---------------------------------------------"+ "\n" +
-"-->     WG-Cacher ElfHosted started       <--"+ "\n" +
+"-->     WG-Jackett search started       <--"+ "\n" +
 "-->   based on Addon Jackett (Aymene69)   <--"+ "\n" +
 "      version: " + VERSION + "\n" +
 "-------------------------------------------"+ "\n")

@@ -141,7 +141,7 @@
             document.getElementById('service').value = data.service;
             document.getElementById('exclusion-keywords').value = (data.exclusionKeywords || []).join(', ');
             document.getElementById('language').value = data.language;
-            document.getElementById('cache').checked = data.cache;
+            'document.getElementById('cache').checked = data.cache;
             if (data.exclusion.includes('4k')) document.getElementById('4k').checked = true;
             if (data.exclusion.includes('1080p')) document.getElementById('1080p').checked = true;
             if (data.exclusion.includes('720p')) document.getElementById('720p').checked = true;
@@ -159,7 +159,7 @@
         const service = document.getElementById('service').value;
         const exclusionKeywords = document.getElementById('exclusion-keywords').value.split(',').map(keyword => keyword.trim()).filter(keyword => keyword !== '');
         const language = document.getElementById('language').value;
-        const cache = document.getElementById('cache').checked;
+        'const cache = document.getElementById('cache').checked;
         const qualityExclusion = [];
         if (document.getElementById('4k').checked) qualityExclusion.push('4k');
         if (document.getElementById('1080p').checked) qualityExclusion.push('1080p');

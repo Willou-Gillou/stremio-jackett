@@ -137,21 +137,21 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     name = get_name(stream_id, stream_type, config=config)
     name_en = get_name(stream_id, stream_type, config=config_en)
 
-    if config['cache']:
-        logger.info("\n" + 
-        "---------------------------------------------------------------------------------------------------------------" + "\n" +
-        "07 - Calling SEARCH_CACHE function located in ./utils/get_cached.py with $name (title, year, type and language) " + "\n" +
-        "---------------------------------------------------------------------------------------------------------------" + "\n")
-        cached_results = search_cache(name)
-        cached_results_en = search_cache(name_en)
-        cached_results_all= cached_results + cached_results_en
-        
-        if len(cached_results_all) == 0:
-            logger.info("Processed cached results : 0")
-            return NO_RESULT
+    #if config['cache']:
+    logger.info("\n" + 
+    "---------------------------------------------------------------------------------------------------------------" + "\n" +
+    "07 - Calling SEARCH_CACHE function located in ./utils/get_cached.py with $name (title, year, type and language) " + "\n" +
+    "---------------------------------------------------------------------------------------------------------------" + "\n")
+    cached_results = search_cache(name)
+    cached_results_en = search_cache(name_en)
+    cached_results_all= cached_results + cached_results_en
     
-    else:
-        cached_results_all = []
+    if len(cached_results_all) == 0:
+        logger.info("Processed cached results : 0")
+        return NO_RESULTS
+
+    #else:
+    #    cached_results_all = []
     
     logger.info("\n" + 
     "------------------------------------------------------------------------------------------------------------------------------------------------------" + "\n" +

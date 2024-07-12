@@ -23,7 +23,7 @@ def search_cache(query):
 
     num_results = len(cache_results)
 
-    logger.WARNING("SEARCH_CACHE function launched, sending request to https://stremio-jackett-cacher.elfhosted.com/ ")
+    logger.info("SEARCH_CACHE function launched, sending request to https://stremio-jackett-cacher.elfhosted.com/ ")
     logger.info("******* formating & storing cache URL in $url: "+ str(url)+ "\n")
     logger.info("******* recall of $query value : "+ str(query)+ "\n")
     logger.info("******* sending request : requests.get(url, json=query)"+ "\n")

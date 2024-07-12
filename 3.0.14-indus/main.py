@@ -48,7 +48,7 @@ class LogFilterMiddleware:
         request = Request(scope, receive)
         path = request.url.path
         sensible_path = re.sub(r'/ey.*?/', '/<SENSITIVE_DATA>/', path)
-        logger.WARNING(f"Info recieved from Addon, middleware initiated\n")
+        logger.info(f"Info recieved from Addon, middleware initiated\n")
         logger.info(f"******* Request method : {request.method} - " + str(path) + "\n")
         logger.info(f"******* path :" + str(path) + "\n")
         return await self.app(scope, receive, send)
@@ -121,19 +121,19 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     config_en=config.copy()
     config_en['language'] = 'en'
 
-    logger.WARNING("GET_RESULT function launched, data collected :\n")
+    logger.info("GET_RESULT function launched, data collected :\n")
     logger.info("******* stream_id: "+ stream_id + "\n")
     logger.info("******* stream_type: "+ stream_type + "\n")
     logger.info("******* config: "+ config1[:20] + "...\n\n")
     logger.info("******* decrypted Config: "+ str(config)+ "\n\n")
     
-    logger.WARNING("Calling GET_NAME function located in ./utils/get_content.py with $stream_id,$stream_type and decrypted $config info \n")
+    logger.info("Calling GET_NAME function located in ./utils/get_content.py with $stream_id,$stream_type and decrypted $config info \n")
     
     name = get_name(stream_id, stream_type, config=config)
     name_en = get_name(stream_id, stream_type, config=config_en)
 
     #if config['cache']:
-    logger.WARNING("Calling SEARCH_CACHE function located in ./utils/get_cached.py with $name (title, year, type and language) " + "\n")
+    logger.info("Calling SEARCH_CACHE function located in ./utils/get_cached.py with $name (title, year, type and language) " + "\n")
     cached_results = search_cache(name)
     cached_results_en = search_cache(name_en)
     cached_results_all= cached_results + cached_results_en
@@ -145,7 +145,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     #else:
     #    cached_results_all = []
     
-    logger.WARNING("Calling FILTER_ITEMS function located in ./utils/filter_results.py with $cache_results, $stream_type, $config +  $season & $episode only if serie" + "\n")
+    logger.info("Calling FILTER_ITEMS function located in ./utils/filter_results.py with $cache_results, $stream_type, $config +  $season & $episode only if serie" + "\n")
 
     filtered_cached_results = filter_items(cached_results_all, stream_type, config=config, cached=True,
                                            season=name['season'] if stream_type == "series" else None,
@@ -153,7 +153,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
 
 
     if len(filtered_cached_results) > 0:
-        logger.WARNING("Calling PROCESS_RESULTS function located in ./utils/process_results.py with $filtered_cached_results, $stream_type +  $season & $episode only if serie" + "\n")
+        logger.info("Calling PROCESS_RESULTS function located in ./utils/process_results.py with $filtered_cached_results, $stream_type +  $season & $episode only if serie" + "\n")
 
         stream_list = process_results(filtered_cached_results, True, stream_type,
                                       name['season'] if stream_type == "series" else None,

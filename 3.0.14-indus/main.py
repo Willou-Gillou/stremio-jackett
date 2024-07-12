@@ -36,7 +36,7 @@ if root_path and not root_path.startswith("/"):
     root_path = "/" + root_path
 app = FastAPI(root_path=root_path)
 
-VERSION = "3.2.14"
+VERSION = "3.4.14"
 isDev = os.getenv("NODE_ENV") == "development"
 
 
@@ -89,13 +89,13 @@ async def configure(request: Request):
 async def get_manifest():
     return {
         "id": "community.aymene69.jackett",
-        "icon": "https://elfhosted.com/images/logo.png",
+        "icon": "https://furansujapon.com/wp-content/uploads/2023/04/Yggtorrent-logo.jpg",
         "version": VERSION,
         "catalogs": [],
         "resources": ["stream"],
         "types": ["movie", "series"],
-        "name": "WG-Cacher",
-        "description": "Search for available links from https://stremio-jackett-cacher.elfhosted.com/ .",
+        "name": "WG-Jackett Searcher",
+        "description": "Search for available links from https://www.yggtorrent.re/ .",
         "behaviorHints": {
             "configurable": True,
         }

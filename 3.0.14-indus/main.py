@@ -134,17 +134,16 @@ async def get_results(config: str, stream_type: str, stream_id: str):
 
     logger.info("******* name returned : %s \n", name)
 
-    # Extraire uniquement les titres
-    titles = [name.get('title', 'No Title') for result in cache_results]
     now = datetime.now()
     date_time = now.strftime("%Y-%m-%d %H:%M:%S")
-    
+    titles = name.get('title', 'No Title')
+
     # Écrire les titres dans un fichier .txt
     try:
-        with open('cache_results.txt', 'a') as file:
-            #file.write(date_time + ' - ' + titles[0] + '\n')
-            file.write(titles[0] + '\n') 
-        logger.info("Cache results successfully written to cache_results.txt")
+        with open('cache_results.txt', 'a', encoding='utf-8') as file:
+            if titles:  # Vérifiez si la liste de titres n'est pas vide
+                file.write(date_time + ' - ' + titles[0] + '\n')
+            logger.info("Cache results successfully written to cache_results.txt")
     except IOError as e:
         logger.error(f"Failed to write cache results to file: {e}")
 

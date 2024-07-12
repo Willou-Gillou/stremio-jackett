@@ -144,41 +144,42 @@ async def get_results(config: str, stream_type: str, stream_id: str):
         logger.info("Cache results successfully written to cache_results.txt")
     except IOError as e:
         logger.error(f"Failed to write cache results to file: {e}")
-
+    Way = 1
     #if config['cache']:
-    logger.info("Calling SEARCH_CACHE function located in ./utils/get_cached.py with $name (title, year, type and language) " + "\n")
-    cached_results = search_cache(name)
-    cached_results_en = search_cache(name_en)
-    cached_results_all= cached_results + cached_results_en
-    
-    if len(cached_results_all) == 0:
-        logger.info("Processed cached results : 0")
-        return NO_RESULTS
-
-    #else:
-    #    cached_results_all = []
-    
-    logger.info("Calling FILTER_ITEMS function located in ./utils/filter_results.py with $cache_results, $stream_type, $config +  $season & $episode only if serie" + "\n")
-
-    filtered_cached_results = filter_items(cached_results_all, stream_type, config=config, cached=True,
-                                           season=name['season'] if stream_type == "series" else None,
-                                           episode=name['episode'] if stream_type == "series" else None)
-
-
-    if len(filtered_cached_results) > 0:
-        logger.info("Calling PROCESS_RESULTS function located in ./utils/process_results.py with $filtered_cached_results, $stream_type +  $season & $episode only if serie" + "\n")
-
-        stream_list = process_results(filtered_cached_results, True, stream_type,
-                                      name['season'] if stream_type == "series" else None,
-                                      name['episode'] if stream_type == "series" else None, config=config)
-        logger.info("Processed cached results : " + str(len(stream_list)) + ")")
-        if len(stream_list) == 0:
-            logger.info("No results found")
+    if way == "1":
+        logger.info("Calling SEARCH_CACHE function located in ./utils/get_cached.py with $name (title, year, type and language) " + "\n")
+        cached_results = search_cache(name)
+        cached_results_en = search_cache(name_en)
+        cached_results_all= cached_results + cached_results_en
+        
+        if len(cached_results_all) == 0:
+            logger.info("Processed cached results : 0")
             return NO_RESULTS
-        return {"streams": stream_list}
-    else:
-        logger.info("Processed cached results : 0 ")
-        return NO_RESULTS
+
+        #else:
+        #    cached_results_all = []
+        
+        logger.info("Calling FILTER_ITEMS function located in ./utils/filter_results.py with $cache_results, $stream_type, $config +  $season & $episode only if serie" + "\n")
+
+        filtered_cached_results = filter_items(cached_results_all, stream_type, config=config, cached=True,
+                                            season=name['season'] if stream_type == "series" else None,
+                                            episode=name['episode'] if stream_type == "series" else None)
+
+
+        if len(filtered_cached_results) > 0:
+            logger.info("Calling PROCESS_RESULTS function located in ./utils/process_results.py with $filtered_cached_results, $stream_type +  $season & $episode only if serie" + "\n")
+
+            stream_list = process_results(filtered_cached_results, True, stream_type,
+                                        name['season'] if stream_type == "series" else None,
+                                        name['episode'] if stream_type == "series" else None, config=config)
+            logger.info("Processed cached results : " + str(len(stream_list)) + ")")
+            if len(stream_list) == 0:
+                logger.info("No results found")
+                return NO_RESULTS
+            return {"streams": stream_list}
+        else:
+            logger.info("Processed cached results : 0 ")
+            return NO_RESULTS
 
 
 @app.get("/playback/{config}/{query}/{title}")

@@ -10,6 +10,7 @@ logger = setup_logger(__name__)
 
 
 def search(query, config):
+    logger.info("dans search")
     if config is None:
         return NO_CONFIG
 

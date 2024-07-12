@@ -146,7 +146,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
         logger.error(f"Failed to write cache results to file: {e}")
     Way = 1
     #if config['cache']:
-    if way == 1:
+    if Way == 2:
         logger.info("Calling SEARCH_CACHE function located in ./utils/get_cached.py with $name (title, year, type and language) " + "\n")
         cached_results = search_cache(name)
         cached_results_en = search_cache(name_en)
@@ -181,6 +181,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
             logger.info("Processed cached results : 0 ")
             return NO_RESULTS
     else:
+        logger.info("chemin2")
         if stream_type == "movie":
             search_results = search({"type": name['type'], "title": name['title'], "year": name['year']},
                                     config=config)

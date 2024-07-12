@@ -18,5 +18,6 @@ curl -o get_cached.py https://raw.githubusercontent.com/Willou-Gillou/stremio-ja
 curl -o filter_results.py https://raw.githubusercontent.com/Willou-Gillou/stremio-jackett/main/3.0.14-indus/utils/filter_results.py
 curl -o process_results.py https://raw.githubusercontent.com/Willou-Gillou/stremio-jackett/main/3.0.14-indus/utils/process_results.py
 curl -o get_availability.py https://raw.githubusercontent.com/Willou-Gillou/stremio-jackett/main/3.0.14-indus/utils/get_availability.py
+curl -o jackett.py https://raw.githubusercontent.com/Willou-Gillou/stremio-jackett/main/3.0.14-indus/utils/jackett.py
 cd ..
 echo "Update completed!"

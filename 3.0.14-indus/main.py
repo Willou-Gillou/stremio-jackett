@@ -136,7 +136,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
 
     now = datetime.now()
     date_time = now.strftime("%Y-%m-%d %H:%M:%S")
-    title = name[0].get('title', 'No Title')
+    title = name.get('title', 'No Title')
     logger.info("*******")
     try:
         with open('cache_results.txt', 'a', encoding='utf-8') as file:

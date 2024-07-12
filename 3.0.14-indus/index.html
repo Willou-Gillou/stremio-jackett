@@ -32,6 +32,34 @@
             <p style="text-align: center">WG-Cacher from elfhosted v3.2.14</p>
             <h1 class="text-base font-semibold leading-7 text-gray-900" style="text-align: center; font-size: 2rem;">Addon configuration</h1>
             <div class="border-b border-gray-900/10 pb-12">
+                <h2 class="text-base font-semibold leading-7 text-gray-900">Jackett Informations</h2>
+                <p class="mt-1 text-sm leading-6 text-gray-600">You will enter here informations about your Jackett
+                    server</p>
+
+                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    <div class="sm:col-span-3">
+                        <label for="jackett-host" class="block text-sm font-medium leading-6 text-gray-900">Jackett
+                            Host</label>
+                        <div class="mt-2">
+                            <input oninput="" type="text" name="jackett-host" id="jackett-host"
+                                   autocomplete="jackett-host"
+                                   class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                   placeholder="  I.e: http(s)://jackett.com without / at end">
+                        </div>
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <label for="jackett-api" class="block text-sm font-medium leading-6 text-gray-900">Jackett API
+                            key</label>
+                        <div class="mt-2">
+                            <input oninput="" type="text" name="jackett-api" id="jackett-api" autocomplete="jackett-api"
+                                   class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                   placeholder="  Your Jackett API key">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-b border-gray-900/10 pb-12">
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Service Informations</h2>
                 <p class="mt-1 text-sm leading-6 text-gray-600">You will enter here your debrid provider and its API key</p>
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -151,6 +179,8 @@
         if (data) {
             data = atob(data[1]);
             data = JSON.parse(data);
+            document.getElementById('jackett-host').value = data.jackettHost;
+            document.getElementById('jackett-api').value = data.jackettApiKey;
             document.getElementById('debrid-api').value = data.debridKey;
             document.getElementById('tmdb-api').value = data.tmdbApi;
             document.getElementById('service').value = data.service;
@@ -176,6 +206,8 @@
         const language = document.getElementById('language').value;
         const cache = document.getElementById('cache').checked;
         const qualityExclusion = [];
+        const jackettHost = document.getElementById('jackett-host').value;
+        const jackettApi = document.getElementById('jackett-api').value;
         if (document.getElementById('4k').checked) qualityExclusion.push('4k');
         if (document.getElementById('1080p').checked) qualityExclusion.push('1080p');
         if (document.getElementById('720p').checked) qualityExclusion.push('720p');
@@ -183,7 +215,7 @@
         if (document.getElementById('rips').checked) qualityExclusion.push('rips');
         if (document.getElementById('cam').checked) qualityExclusion.push('cam');
         if (document.getElementById('unknown').checked) qualityExclusion.push('unknown');
-        let data = { addonHost, service, debridKey: debridApi, exclusionKeywords, language, exclusion: qualityExclusion, tmdbApi,cache};
+        let data = { addonHost, ackettHost, 'jackettApiKey': jackettApi,service, debridKey: debridApi, exclusionKeywords, language, exclusion: qualityExclusion, tmdbApi,cache};
         if (debridApi === '' || tmdbApi === '') {
             alert('Please fill all the fields');
             return false;

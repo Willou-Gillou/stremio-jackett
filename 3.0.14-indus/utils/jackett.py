@@ -17,7 +17,7 @@ def search(query, config):
     logger.info("Started Jackett search for " + query['type'] + " " + query['title'])
 
     if query['type'] == "movie":
-
+        logger.info("dans movie de search")
         url = (f"{config['jackettHost']}/api/v2.0/indexers/all/results/torznab/api?apikey={config['jackettApiKey']}"
                f"&t=movie&cat=2000&q={query['title']}&year={query['year']}")
         try:

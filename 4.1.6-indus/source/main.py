@@ -38,7 +38,7 @@ if root_path and not root_path.startswith("/"):
     root_path = "/" + root_path
 app = FastAPI(root_path=root_path)
 
-VERSION = "4.1.6"
+VERSION = "4.11.6"
 isDev = os.getenv("NODE_ENV") == "development"
 COMMUNITY_VERSION = True if os.getenv("IS_COMMUNITY_VERSION") == "true" else False
 
@@ -98,17 +98,15 @@ async def function(file_path: str):
 async def get_manifest():
     return {
         "id": "community.aymene69.jackett",
-        "icon": "https://i.imgur.com/tVjqEJP.png",
+        "icon": "https://furansujapon.com/wp-content/uploads/2023/04/Yggtorrent-logo.jpg",
         "version": VERSION,
         "catalogs": [],
         "resources": ["stream"],
         "types": ["movie", "series"],
-        "name": "Jackett" + (" Community" if COMMUNITY_VERSION else "") + (" (Dev)" if isDev else ""),
-        "description": "Elevate your Stremio experience with seamless access to Jackett torrent links, effortlessly "
-                       "fetching torrents for your selected movies within the Stremio interface.",
+        "name": "WG-Jackett Searcher",
+        "description": "Search for available links from https://www.yggtorrent.re/ .",
         "behaviorHints": {
             "configurable": True,
-            # "configurationRequired": True
         }
     }
 
@@ -116,7 +114,12 @@ async def get_manifest():
 formatter = logging.Formatter('[%(asctime)s] p%(process)s {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s',
                               '%m-%d %H:%M:%S')
 
-logger.info("Started Jackett Addon")
+logger.info("\n" + 
+"---------------------------------------------"+ "\n" +
+"-->     WG-Jackett searcher started       <--"+ "\n" +
+"-->   based on Addon Jackett (Aymene69)   <--"+ "\n" +
+"      version: " + VERSION + "\n" +
+"---------------------------------------------"+ "\n")
 
 
 @app.get("/{config}/stream/{stream_type}/{stream_id}")
@@ -124,10 +127,15 @@ async def get_results(config: str, stream_type: str, stream_id: str, request: Re
     start = time.time()
     stream_id = stream_id.replace(".json", "")
 
+    logger.info("stream_id: "+ stream_id + "\n")
+    logger.info("stream_type: "+ stream_type + "\n")   
+    
+    logger.info("Getting stream_id")
     config = parse_config(config)
-    logger.info(stream_type + " request")
+    config1=config
+    logger.info("config: "+ config1[:20] + "...\n")
 
-    logger.info(f"Getting media from {config['metadataProvider']}")
+    logger.info(f"Getting media info from {config['metadataProvider']}")
     if config['metadataProvider'] == "tmdb" and config['tmdbApi']:
         metadata_provider = TMDB(config)
     else:
@@ -138,36 +146,36 @@ async def get_results(config: str, stream_type: str, stream_id: str, request: Re
     debrid_service = get_debrid_service(config)
 
     search_results = []
-    if COMMUNITY_VERSION or config['cache']:
-        logger.info("Getting cached results")
-        cached_results = search_cache(media)
-        cached_results = [JackettResult().from_cached_item(torrent, media) for torrent in cached_results]
-        logger.info("Got " + str(len(cached_results)) + " cached results")
+    #if COMMUNITY_VERSION or config['cache']:
+    #    logger.info("Getting cached results")
+    #    cached_results = search_cache(media)
+    #    cached_results = [JackettResult().from_cached_item(torrent, media) for torrent in cached_results]
+    #    logger.info("Got " + str(len(cached_results)) + " cached results")
 
-        if len(cached_results) > 0:
-            logger.info("Filtering cached results")
-            search_results = filter_items(cached_results, media, config=config)
-            logger.info("Filtered cached results")
+    #    if len(cached_results) > 0:
+    #        logger.info("Filtering cached results")
+    #        search_results = filter_items(cached_results, media, config=config)
+    #        logger.info("Filtered cached results")
 
     # TODO: if we have results per quality set, most of the time we will not have enough cached results AFTER filtering them
     # because we will have less results than the maxResults, so we will always have to search for new results
 
-    if not COMMUNITY_VERSION and config['jackett'] and len(search_results) < int(config['maxResults']):
-        if len(search_results) > 0 and config['cache']:
-            logger.info("Not enough cached results found (results: " + str(len(search_results)) + ")")
-        elif config['cache']:
-            logger.info("No cached results found")
+    #if not COMMUNITY_VERSION and config['jackett'] and len(search_results) < int(config['maxResults']):
+    #    if len(search_results) > 0 and config['cache']:
+    #        logger.info("Not enough cached results found (results: " + str(len(search_results)) + ")")
+    #    elif config['cache']:
+    #        logger.info("No cached results found")
 
-        logger.info("Searching for results on Jackett")
-        jackett_service = JackettService(config)
-        jackett_search_results = jackett_service.search(media)
-        logger.info("Got " + str(len(jackett_search_results)) + " results from Jackett")
+    logger.info("Searching for results on Jackett")
+    jackett_service = JackettService(config)
+    jackett_search_results = jackett_service.search(media)
+    logger.info("Got " + str(len(jackett_search_results)) + " results from Jackett")
 
-        logger.info("Filtering Jackett results")
-        filtered_jackett_search_results = filter_items(jackett_search_results, media, config=config)
-        logger.info("Filtered Jackett results")
+    logger.info("Filtering Jackett results")
+    filtered_jackett_search_results = filter_items(jackett_search_results, media, config=config)
+    logger.info("Filtered Jackett results")
 
-        search_results.extend(filtered_jackett_search_results)
+    search_results.extend(filtered_jackett_search_results)
 
     logger.debug("Converting result to TorrentItems (results: " + str(len(search_results)) + ")")
     torrent_service = TorrentService()

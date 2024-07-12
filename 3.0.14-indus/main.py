@@ -5,12 +5,12 @@ import json
 import logging
 import os
 import re
-import shutil
-import zipfile
+#import shutil
+#import zipfile
 
-import requests
+#import requests
 import starlette.status as status
-from aiocron import crontab
+#from aiocron import crontab
 from dotenv import load_dotenv
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -117,31 +117,21 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     config_en=config.copy()
     config_en['language'] = 'en'
 
-    logger.info("\n" + 
-    "---------------------------------------------------" + "\n" +
-    "02 - GET_RESULT function launched, data collected :\n" +
-    "---------------------------------------------------" + "\n" +
-    "******* stream_id: "+ stream_id + "\n" +
-    "******* stream_type: "+ stream_type + "\n" +
-    "******* config: "+ config1[:20] + "...\n\n" +
+    logger.info("02 - GET_RESULT function launched, data collected :\n")
+    logger.info("******* stream_id: "+ stream_id + "\n")
+    logger.info("******* stream_type: "+ stream_type + "\n")
+    logger.info("******* config: "+ config1[:20] + "...\n\n")
     
-    "------------------------" + "\n" +
-    "03 - Decrypting $config :" + "\n" +
-    "------------------------" + "\n" +
-    "******* decrypted Config: "+ str(config)+ "\n\n" +
+    logger.info("03 - Decrypting $config :" + "\n")
+    logger.info("******* decrypted Config: "+ str(config)+ "\n\n")
     
-    "-----------------------------------------------------------------------------------------------------------------------" + "\n" +
-    "04 - Calling GET_NAME function located in ./utils/get_content.py with $stream_id,$stream_type and decrypted $config info \n" +
-    "-----------------------------------------------------------------------------------------------------------------------" + "\n\n")
+    logger.info("04 - Calling GET_NAME function located in ./utils/get_content.py with $stream_id,$stream_type and decrypted $config info \n")
     
     name = get_name(stream_id, stream_type, config=config)
     name_en = get_name(stream_id, stream_type, config=config_en)
 
     #if config['cache']:
-    logger.info("\n" + 
-    "---------------------------------------------------------------------------------------------------------------" + "\n" +
-    "07 - Calling SEARCH_CACHE function located in ./utils/get_cached.py with $name (title, year, type and language) " + "\n" +
-    "---------------------------------------------------------------------------------------------------------------" + "\n")
+    logger.info("07 - Calling SEARCH_CACHE function located in ./utils/get_cached.py with $name (title, year, type and language) " + "\n")
     cached_results = search_cache(name)
     cached_results_en = search_cache(name_en)
     cached_results_all= cached_results + cached_results_en
@@ -153,10 +143,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     #else:
     #    cached_results_all = []
     
-    logger.info("\n" + 
-    "------------------------------------------------------------------------------------------------------------------------------------------------------" + "\n" +
-    "09 - Calling FILTER_ITEMS function located in ./utils/filter_results.py with $cache_results, $stream_type, $config +  $season & $episode only if serie" + "\n" +
-    "------------------------------------------------------------------------------------------------------------------------------------------------------" + "\n")
+    logger.info("09 - Calling FILTER_ITEMS function located in ./utils/filter_results.py with $cache_results, $stream_type, $config +  $season & $episode only if serie" + "\n")
 
     filtered_cached_results = filter_items(cached_results_all, stream_type, config=config, cached=True,
                                            season=name['season'] if stream_type == "series" else None,
@@ -164,10 +151,7 @@ async def get_results(config: str, stream_type: str, stream_id: str):
 
 
     if len(filtered_cached_results) > 0:
-        logger.info("\n" + 
-            "-----------------------------------------------------------------------------------------------------------------------------------------------------------" + "\n" +
-            "12 - Calling PROCESS_RESULTS function located in ./utils/process_results.py with $filtered_cached_results, $stream_type +  $season & $episode only if serie" + "\n" +
-            "-----------------------------------------------------------------------------------------------------------------------------------------------------------" + "\n")
+        logger.info("12 - Calling PROCESS_RESULTS function located in ./utils/process_results.py with $filtered_cached_results, $stream_type +  $season & $episode only if serie" + "\n")
 
         stream_list = process_results(filtered_cached_results, True, stream_type,
                                       name['season'] if stream_type == "series" else None,

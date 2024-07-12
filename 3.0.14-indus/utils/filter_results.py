@@ -14,11 +14,8 @@ def sort_quality_and_size(item):
     return (quality_order, -size)  # sort by quality, then by size in descending order
 
 def items_sort(items, config):
-    logger.info("\n" + 
-    "-------------------------------------------------------------" + "\n" +
-    "11 - ITEMS_SORT launched, sorting $items by quality_and_size " + "\n" +
-    "-------------------------------------------------------------" + "\n" +
-    "******* returning result as $filtered_cached_results to main" + "\n")
+    logger.info("11 - ITEMS_SORT launched, sorting $items by quality_and_size\n")
+    logger.info("returning result as $filtered_cached_results to main")
     return sorted(items, key=sort_quality_and_size)
 
 def filter_season_episode(items, season, episode, config):
@@ -37,10 +34,7 @@ def filter_season_episode(items, season, episode, config):
     return filtered_items
 
 def filter_items(items, item_type=None, config=None, cached=False, season=None, episode=None):
-    logger.info("\n" + 
-    "----------------------------------------------------------------" + "\n" +
-    "10 - FILTER_ITEMS function launched, calling ITEMS_SORT function" + "\n" +
-    "----------------------------------------------------------------" + "\n")
+    logger.info("10 - FILTER_ITEMS function launched, calling ITEMS_SORT function\n")
     if cached :
         if item_type == "series":
             logger.info("starting series filtering")
@@ -53,6 +47,7 @@ def filter_items(items, item_type=None, config=None, cached=False, season=None, 
             logger.info("starting keywords exclusion")
             logger.info(f"Exclusion keywords: {config['exclusionKeywords']}")
             items = exclusion_keywords(items, config)
+        logger.info("number of matches after filtering : " + len(items))
         logger.info("starting sorting results")
         items = items_sort(items, config)
     return items

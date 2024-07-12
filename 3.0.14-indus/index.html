@@ -25,7 +25,7 @@
     </style>
 </head>
 <body>
-<div id="container" style="display: flex; justify-content: center; align-items: center; width: 100%;">
+<div id="container" style="display: block;justify-content: center;align-items: center; width: 100%;">
     <form style="background-color: rgba(255,255,255,0.68); padding: 2rem; border-radius: 1rem">
         <img src="https://elfhosted.com/images/logo.png" alt="logo" style="width: 100px;height: 100px;">
         <div class="space-y-12">
@@ -33,25 +33,28 @@
             <h1 class="text-base font-semibold leading-7 text-gray-900" style="text-align: center; font-size: 2rem;">Addon configuration</h1>
             <div class="border-b border-gray-900/10 pb-12">
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Jackett Informations</h2>
-                <p class="mt-1 text-sm leading-6 text-gray-600">You will enter here informations about your Jackett server</p>
+                <p class="mt-1 text-sm leading-6 text-gray-600">You will enter here informations about your Jackett
+                    server</p>
 
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div class="sm:col-span-3">
-                        <label for="jackett-host" class="block text-sm font-medium leading-6 text-gray-900">Jackett Host</label>
+                        <label for="jackett-host" class="block text-sm font-medium leading-6 text-gray-900">Jackett
+                            Host</label>
                         <div class="mt-2">
                             <input oninput="" type="text" name="jackett-host" id="jackett-host"
                                    autocomplete="jackett-host"
                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                   placeholder="I.e: http(s)://jackett.com without / at end">
+                                   placeholder="  I.e: http(s)://jackett.com without / at end">
                         </div>
                     </div>
 
                     <div class="sm:col-span-3">
-                        <label for="jackett-api" class="block text-sm font-medium leading-6 text-gray-900">Jackett API key</label>
+                        <label for="jackett-api" class="block text-sm font-medium leading-6 text-gray-900">Jackett API
+                            key</label>
                         <div class="mt-2">
                             <input oninput="" type="text" name="jackett-api" id="jackett-api" autocomplete="jackett-api"
                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                   placeholder="Your Jackett API key">
+                                   placeholder="  Your Jackett API key">
                         </div>
                     </div>
                 </div>
@@ -75,18 +78,14 @@
                 <div class="sm:col-span-3">
                     <label for="debrid-api" class="block text-sm font-medium leading-6 text-gray-900">Debrid API key</label>
                     <div class="mt-2">
-                        <input oninput="" type="text" name="debrid-api" id="debrid-api" autocomplete="debrid-api"
-                               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                               placeholder="Your Debrid API key">
+                        <input oninput="" type="text" name="debrid-api" id="debrid-api" autocomplete="debrid-api" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="  Your Debrid API key">
                     </div>
                 </div>
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div class="col-span-full">
                         <label for="tmdb-api" class="block text-sm font-medium leading-6 text-gray-900">TMDB API key</label>
                         <div class="mt-2">
-                            <input oninput="" type="text" name="tmdb-api" id="tmdb-api" autocomplete="tmdb-api"
-                                   class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                   placeholder="Your TMDB API key">
+                            <input oninput="" type="text" name="tmdb-api" id="tmdb-api" autocomplete="tmdb-api" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="  Your TMDB API key">
                         </div>
                     </div>
                 </div>
@@ -129,48 +128,110 @@
                 <fieldset>
                     <legend class="text-sm font-semibold leading-6 text-gray-900">Quality Exclusion</legend>
                     <div class="mt-6 space-y-6">
-                        <div class="relative flex gap-x-3">
-                            <div class="flex h-6 items-center">
-                                <input oninput="" id="exclude_cam" name="exclude_cam" value="exclude_cam" type="checkbox"
-                                       class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" checked>
-                            </div>
-                            <div class="text-sm leading-6">
-                                <label for="exclude_cam" class="font-medium text-gray-900">Exclude CAM quality</label>
-                            </div>
+                        <div class="flex items-center gap-x-3">
+                            <input oninput="" id="4k" name="4k" type="checkbox" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                            <label for="4k" class="block text-sm font-medium leading-6 text-gray-900">4k</label>
                         </div>
-                        <div class="relative flex gap-x-3">
-                            <div class="flex h-6 items-center">
-                                <input oninput="" id="exclude_ts" name="exclude_ts" value="exclude_ts" type="checkbox"
-                                       class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" checked>
-                            </div>
-                            <div class="text-sm leading-6">
-                                <label for="exclude_ts" class="font-medium text-gray-900">Exclude TS quality</label>
+                        <div class="flex items-center gap-x-3">
+                            <input oninput="" id="1080p" name="1080p" type="checkbox" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                            <label for="1080p" class="block text-sm font-medium leading-6 text-gray-900">1080p</label>
+                        </div>
+                        <div class="flex items-center gap-x-3">
+                            <input oninput="" id="720p" name="720p" type="checkbox" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                            <label for="720p" class="block text-sm font-medium leading-6 text-gray-900">720p</label>
+                        </div>
+                        <div class="flex items-center gap-x-3">
+                            <input oninput="" id="480p" name="480p" type="checkbox" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                            <label for="480p" class="block text-sm font-medium leading-6 text-gray-900">480p</label>
+                        </div>
+                        <div class="flex items-center gap-x-3">
+                            <input oninput="" id="rips" name="rips" type="checkbox" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                            <label for="rips" class="block text-sm font-medium leading-6 text-gray-900">RIPs (HDRip, WEBRip, etc.)</label>
+                        </div>
+                        <div class="flex items-center gap-x-3">
+                            <input oninput="" id="cam" name="cam" type="checkbox" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                            <label for="cam" class="block text-sm font-medium leading-6 text-gray-900">CAMs (CAM, TS, etc.)</label>
+                        </div>
+                        <div class="flex items-center gap-x-3">
+                            <input oninput="" id="unknown" name="unknown" type="checkbox" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                            <label for="unknown" class="block text-sm font-medium leading-6 text-gray-900">Unknown</label>
+                        </div>
+                        <div>
+                            <label for="exclusion-keywords" class="block text-sm font-medium leading-6 text-gray-900">Exclusion Keywords</label>
+                            <div class="mt-2">
+                                <input oninput="" type="text" name="exclusion-keywords" id="exclusion-keywords" autocomplete="exclusion-keywords" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="  keyword1, keyword2, keyword3">
                             </div>
                         </div>
                     </div>
                 </fieldset>
             </div>
         </div>
-        <div style="text-align: center; margin-top: 1rem">
-            <button type="button" style="background-color: #4CAF50; color: white; padding: 0.5rem 1rem; border: none; border-radius: 0.25rem; cursor: pointer;" onclick="submitForm()">Submit</button>
+        <div class="mt-6 flex items-center justify-center gap-x-6">
+            <a id="install" onclick="return getLink('link')" class="cursor-pointer rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg--500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Install</a>
+            <a id="copy" onclick="return getLink('copy')" class="cursor-pointer rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg--500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Copy</a>
         </div>
     </form>
 </div>
 <script>
-    function submitForm() {
-        const form = document.querySelector('form');
-        const formData = new FormData(form);
-        fetch('/submit-form', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert('Form submitted successfully!');
-        })
-        .catch(error => {
-            console.error('Error submitting form:', error);
-        });
+    function loadData() {
+        var currentUrl = window.location.href;
+        var data = currentUrl.match(/\/([^\/]+)\/configure$/);
+        if (data) {
+            data = atob(data[1]);
+            data = JSON.parse(data);
+            document.getElementById('debrid-api').value = data.debridKey;
+            document.getElementById('tmdb-api').value = data.tmdbApi;
+            document.getElementById('service').value = data.service;
+            document.getElementById('exclusion-keywords').value = (data.exclusionKeywords || []).join(', ');
+            document.getElementById('language').value = data.language;
+            document.getElementById('cache').checked = data.cache;
+            if (data.exclusion.includes('4k')) document.getElementById('4k').checked = true;
+            if (data.exclusion.includes('1080p')) document.getElementById('1080p').checked = true;
+            if (data.exclusion.includes('720p')) document.getElementById('720p').checked = true;
+            if (data.exclusion.includes('480p')) document.getElementById('480p').checked = true;
+            if (data.exclusion.includes('rips')) document.getElementById('rips').checked = true;
+            if (data.exclusion.includes('cam')) document.getElementById('cam').checked = true;
+            if (data.exclusion.includes('unknown')) document.getElementById('unknown').checked = true;
+        }
+    }
+    loadData();
+    function getLink(method) {
+        const addonHost = new URL(window.location.href).protocol.replace(':', '') + "://" + new URL(window.location.href).host;
+        const debridApi = document.getElementById('debrid-api').value;
+        const tmdbApi = document.getElementById('tmdb-api').value;
+        const service = document.getElementById('service').value;
+        const exclusionKeywords = document.getElementById('exclusion-keywords').value.split(',').map(keyword => keyword.trim()).filter(keyword => keyword !== '');
+        const language = document.getElementById('language').value;
+        const cache = document.getElementById('cache').checked;
+        const qualityExclusion = [];
+        if (document.getElementById('4k').checked) qualityExclusion.push('4k');
+        if (document.getElementById('1080p').checked) qualityExclusion.push('1080p');
+        if (document.getElementById('720p').checked) qualityExclusion.push('720p');
+        if (document.getElementById('480p').checked) qualityExclusion.push('480p');
+        if (document.getElementById('rips').checked) qualityExclusion.push('rips');
+        if (document.getElementById('cam').checked) qualityExclusion.push('cam');
+        if (document.getElementById('unknown').checked) qualityExclusion.push('unknown');
+        let data = { addonHost, service, debridKey: debridApi, exclusionKeywords, language, exclusion: qualityExclusion, tmdbApi,cache};
+        if (debridApi === '' || tmdbApi === '') {
+            alert('Please fill all the fields');
+            return false;
+        }
+        let stremio_link = `${window.location.host}/${btoa(JSON.stringify(data))}/manifest.json`;
+        if (method === 'link') {
+            window.open(`stremio://${stremio_link}`, "_blank");
+        } else if (method === 'copy') {
+            const link = window.location.protocol + '//' + stremio_link;
+            if (!navigator.clipboard) {
+                alert('Your browser does not support clipboard');
+                console.log(link);
+                return;
+            }
+            navigator.clipboard.writeText(link).then(() => {
+                alert('Link copied to clipboard');
+            }, () => {
+                alert('Error copying link to clipboard');
+            });
+        }
     }
 </script>
 </body>

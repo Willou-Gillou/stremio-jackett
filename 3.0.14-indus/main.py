@@ -132,6 +132,22 @@ async def get_results(config: str, stream_type: str, stream_id: str):
     name = get_name(stream_id, stream_type, config=config)
     name_en = get_name(stream_id, stream_type, config=config_en)
 
+    logger.info("******* name returned : %s \n", name)
+
+    # Extraire uniquement les titres
+    titles = [name.get('title', 'No Title') for result in cache_results]
+    now = datetime.now()
+    date_time = now.strftime("%Y-%m-%d %H:%M:%S")
+    
+    # Écrire les titres dans un fichier .txt
+    try:
+        with open('cache_results.txt', 'a') as file:
+            file.write(date_time + ' - ' + titles[0] + '\n')
+            #file.write(titles[0] + '\n') 
+        logger.info("Cache results successfully written to cache_results.txt")
+    except IOError as e:
+        logger.error(f"Failed to write cache results to file: {e}")
+
     #if config['cache']:
     logger.info("Calling SEARCH_CACHE function located in ./utils/get_cached.py with $name (title, year, type and language) " + "\n")
     cached_results = search_cache(name)

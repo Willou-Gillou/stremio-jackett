@@ -47,7 +47,9 @@ def filter_items(items, item_type=None, config=None, cached=False, season=None, 
             logger.info("starting keywords exclusion")
             logger.info(f"Exclusion keywords: {config['exclusionKeywords']}")
             items = exclusion_keywords(items, config)
-        logger.info("number of matches after filtering : " + len(items))
+        #new
+        logger.info("number of matches after filtering : " + len(str(items)))
+        #***
         logger.info("starting sorting results")
         items = items_sort(items, config)
     return items
@@ -58,7 +60,7 @@ def series_file_filter(files, season, episode):
     return files
 
 def quality_exclusion(streams, config):
-#    logger.info("Quality filtering started")
+    logger.info("Quality filtering started")
     RIPS = ["HDRIP", "BRRIP", "BDRIP", "WEBRIP", "TVRIP", "VODRIP", "HDRIP"]
     CAMS = ["CAM", "TS", "TC", "R5", "DVDSCR", "HDTV", "PDTV", "DSR", "WORKPRINT", "VHSRIP", "HDCAM"]
 

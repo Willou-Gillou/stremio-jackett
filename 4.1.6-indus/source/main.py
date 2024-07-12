@@ -133,7 +133,7 @@ async def get_results(config: str, stream_type: str, stream_id: str, request: Re
     logger.info("Getting stream_id")
     config = parse_config(config)
     config1=config
-    logger.info("config: "+ config1[:20] + "...\n")
+    #logger.info("config: "+ config1[:20] + "...\n")
 
     logger.info(f"Getting media info from {config['metadataProvider']}")
     if config['metadataProvider'] == "tmdb" and config['tmdbApi']:

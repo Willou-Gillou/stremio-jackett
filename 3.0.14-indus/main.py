@@ -48,7 +48,9 @@ class LogFilterMiddleware:
         request = Request(scope, receive)
         path = request.url.path
         sensible_path = re.sub(r'/ey.*?/', '/<SENSITIVE_DATA>/', path)
-        logger.info(f"\n---------------------------------------------------\n01 - Info recieved from Addon, middleware initiated : \n---------------------------------------------------\n******* Data received : {request.method} - " + str(path) + "\n")
+        logger.info(f"01 - Info recieved from Addon, middleware initiated\n")
+        logger.info(f"******* Request method : {request.method} - " + str(path) + "\n")
+        logger.info(f"******* path :" + str(path) + "\n")
         return await self.app(scope, receive, send)
 
 
@@ -103,9 +105,11 @@ formatter = logging.Formatter('[%(asctime)s] p%(process)s {%(pathname)s:%(lineno
                               '%m-%d %H:%M:%S')
 
 logger.info("\n" + 
-"-------------------------------"+ "\n" +
-"->   Jackett Addon started   <-"+ "\n" +
-"-------------------------------"+ "\n")
+"-------------------------------------------"+ "\n" +
+"-->     WG-Cach ElfHosted started       <--"+ "\n" +
+"-->   based on Addon Jackett (Aymene69) <--"+ "\n" +
+"      version: " + VERSION + "\n" +
+"-------------------------------------------"+ "\n")
 
 @app.get("/{config}/stream/{stream_type}/{stream_id}")
 async def get_results(config: str, stream_type: str, stream_id: str):

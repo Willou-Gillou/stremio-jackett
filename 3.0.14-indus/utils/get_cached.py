@@ -23,16 +23,13 @@ def search_cache(query):
 
     num_results = len(cache_results)
 
-    logger.info("\n" + 
-    "---------------------------------------------------------------------------------------------------------------" + "\n" +
-    "08 - SEARCH_CACHE function launched, sending request to https://stremio-jackett-cacher.elfhosted.com/ " + "\n" +
-    "---------------------------------------------------------------------------------------------------------------" + "\n" +
-    "******* formating & storing cache URL in $url: "+ str(url)+ "\n" + 
-    "******* recall of $query value : "+ str(query)+ "\n" + 
-    "******* sending request : requests.get(url, json=query)"+ "\n" +
-    "******* number of matches : "+ str(num_results) + "\n" +
+    logger.info("08 - SEARCH_CACHE function launched, sending request to https://stremio-jackett-cacher.elfhosted.com/ ")
+    logger.info("******* formating & storing cache URL in $url: "+ str(url)+ "\n")
+    logger.info("******* recall of $query value : "+ str(query)+ "\n")
+    logger.info("******* sending request : requests.get(url, json=query)"+ "\n")
+    logger.info("******* number of matches : "+ str(num_results) + "\n")
 #    "******* full response from cacher.elfhosted : \n"+ str(cache_results) + "\n" +
-    "******* returning response to main.py \n\n")
+    logger.info("******* returning response to main.py \n\n")
 
 # Écrire les résultats dans un fichier .txt
 #    try:

@@ -34,7 +34,8 @@ def filter_season_episode(items, season, episode, config):
     return filtered_items
 
 def filter_items(items, item_type=None, config=None, cached=False, season=None, episode=None):
-    logger.info("10 - FILTER_ITEMS function launched, calling ITEMS_SORT function\n")
+    logger.info("10 - FILTER_ITEMS function launched, calling ITEMS_SORT function")
+    logger.info(f"number of matches before filtering: {len(items)}")
     if cached :
         if item_type == "series":
             logger.info("starting series filtering")
@@ -47,9 +48,7 @@ def filter_items(items, item_type=None, config=None, cached=False, season=None, 
             logger.info("starting keywords exclusion")
             logger.info(f"Exclusion keywords: {config['exclusionKeywords']}")
             items = exclusion_keywords(items, config)
-        #new
-        logger.info("number of matches after filtering : " + len(str(items)))
-        #***
+        logger.info(f"number of matches after filtering: {len(items)}")
         logger.info("starting sorting results")
         items = items_sort(items, config)
     return items

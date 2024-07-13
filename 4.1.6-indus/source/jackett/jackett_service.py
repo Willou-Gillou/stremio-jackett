@@ -151,9 +151,9 @@ class JackettService:
             url_title = f"{self.__base_url}/indexers/{indexer.id}/results/torznab/api"
             url_title += '?' + '&'.join([f'{k}={v}' for k, v in params.items()])
 
-            url_season = f"{self.__base_url}/indexers/{indexer.id}/results/torznab/api"
-            params['season'] = season
-            url_season += '?' + '&'.join([f'{k}={v}' for k, v in params.items()])
+            #url_season = f"{self.__base_url}/indexers/{indexer.id}/results/torznab/api"
+            #params['season'] = season
+            #url_season += '?' + '&'.join([f'{k}={v}' for k, v in params.items()])
 
             url_ep = f"{self.__base_url}/indexers/{indexer.id}/results/torznab/api"
             params['ep'] = episode
@@ -165,8 +165,8 @@ class JackettService:
                 response_ep = self.__session.get(url_ep)
                 response_ep.raise_for_status()
 
-                response_season = self.__session.get(url_season)
-                response_season.raise_for_status()
+                #response_season = self.__session.get(url_season)
+                #response_season.raise_for_status()
 
                 data_ep = self.__get_torrent_links_from_xml(response_ep.text)
                 data_season = self.__get_torrent_links_from_xml(response_season.text)

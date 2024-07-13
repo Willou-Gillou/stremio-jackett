@@ -7,6 +7,7 @@ import xml.etree.ElementTree as ET
 import requests
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import List, Union
 
 from jackett.jackett_indexer import JackettIndexer
 from jackett.jackett_result import JackettResult
@@ -109,6 +110,11 @@ class JackettService:
                 response = self.__session.get(url)
                 response.raise_for_status()
                 results.append(self.__get_torrent_links_from_xml(response.text))
+            except requests.exceptions.HTTPError as e:
+                if e.response.status_code == 500:
+                    self.logger.error(f"Internal Server Error (500) occurred while searching with indexer {indexer.title} and language {lang}. URL: {url}")
+                else:
+                    self.logger.exception(f"HTTP error occurred while searching with indexer {indexer.title} and language {lang}. URL: {url}")
             except Exception:
                 self.logger.exception(
                     f"An exception occurred while searching for a {media_type} on Jackett with indexer {indexer.title} and language {lang}.")

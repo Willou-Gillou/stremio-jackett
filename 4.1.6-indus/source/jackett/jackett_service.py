@@ -88,20 +88,20 @@ class JackettService:
         results = []
 
         for index, lang in enumerate(languages):
+            search_query = titles[index]
+            if media_type == 'series':
+                search_query += f" S{str(int(media.season.replace('S', ''))).zfill(2)}E{str(int(media.episode.replace('E', ''))).zfill(2)}"
+
             params = {
                 'apikey': self.__api_key,
                 't': media_type,
                 'cat': '2000' if media_type == 'movie' else '5000',
-                'q': titles[index],
+                'q': search_query,
                 'year': getattr(media, 'year', None),
             }
 
             if has_imdb_search_capability:
                 params['imdbid'] = media.id
-
-            if media_type == 'series':
-                params['season'] = str(int(media.season.replace('S', '')))
-                params['ep'] = str(int(media.episode.replace('E', '')))
 
             url = f"{self.__base_url}/indexers/{indexer.id}/results/torznab/api"
             url += '?' + '&'.join([f'{k}={v}' for k, v in params.items()])

@@ -201,8 +201,7 @@ async def get_results(config: str, stream_type: str, stream_id: str, request: Re
     logger.debug("Got best matching results (results: " + str(len(best_matching_results)) + ")")
 
     logger.info("Processing results")
-    stream_list = best_matching_results
-    #stream_list = parse_to_stremio_streams(best_matching_results, config)
+    stream_list = parse_to_stremio_streams(best_matching_results, config)
     logger.info("Processed results (results: " + str(len(stream_list)) + ")")
 
     logger.info("Total time: " + str(time.time() - start) + "s")

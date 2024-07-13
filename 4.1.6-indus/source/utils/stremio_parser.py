@@ -10,7 +10,9 @@ from utils.string_encoding import encodeb64
 logger = setup_logger(__name__)
 
 INSTANTLY_AVAILABLE = "[⚡]"
+DOWNLOAD_REQUIRED = "[⬇️]"
 DIRECT_TORRENT = "[🏴‍☠️]"
+
 
 # TODO: Languages
 def get_emoji(language):
@@ -54,6 +56,7 @@ def parse_to_debrid_stream(torrent_item: TorrentItem, configb64, config, results
 
     size_in_gb = round(int(torrent_item.size) / 1024 / 1024 / 1024, 2)
 
+
     title += f"👥 {torrent_item.seeders}   💾 {size_in_gb}GB   🔍 {torrent_item.indexer}\n"
 
     for language in torrent_item.languages:
@@ -61,24 +64,26 @@ def parse_to_debrid_stream(torrent_item: TorrentItem, configb64, config, results
     title = title[:-1]
 
     if config['debrid']:
-        if torrent_item.availability:
+        if torrent_item.availability == True:
             name = f"{INSTANTLY_AVAILABLE}\n"
-            name += f"{torrent_item.quality}\n"
-            if len(torrent_item.quality_spec) > 0 and torrent_item.quality_spec[0] != "Unknown" and \
-                    torrent_item.quality_spec[0] != "":
-                name += f"({'|'.join(torrent_item.quality_spec)})"
+        else:
+            name = f"{DOWNLOAD_REQUIRED}\n"
+        name += f"{torrent_item.quality}\n"
+        if len(torrent_item.quality_spec) > 0 and torrent_item.quality_spec[0] != "Unknown" and \
+                torrent_item.quality_spec[0] != "":
+            name += f"({'|'.join(torrent_item.quality_spec)})"
 
-            queryb64 = encodeb64(json.dumps(torrent_item.to_debrid_stream_query())).replace('=', '%3D')
+        queryb64 = encodeb64(json.dumps(torrent_item.to_debrid_stream_query())).replace('=', '%3D')
 
-            results.put({
-                "name": name,
-                "description": title,
-                "url": f"{config['addonHost']}/playback/{configb64}/{queryb64}",
-                "behaviorHints": {
-                    "bingeGroup": f"stremio-jackett-{torrent_item.info_hash}",
-                    "filename": torrent_item.file_name if torrent_item.file_name is not None else torrent_item.title
-                }
-            })
+        results.put({
+            "name": name,
+            "description": title,
+            "url": f"{config['addonHost']}/playback/{configb64}/{queryb64}",
+            "behaviorHints":{
+                "bingeGroup": f"stremio-jackett-{torrent_item.info_hash}",
+                "filename": torrent_item.file_name if torrent_item.file_name is not None else torrent_item.title
+            }
+        })
 
     if config['torrenting'] and torrent_item.privacy != "private":
         name = f"{DIRECT_TORRENT}\n{torrent_item.quality}\n"
@@ -90,7 +95,7 @@ def parse_to_debrid_stream(torrent_item: TorrentItem, configb64, config, results
             "description": title,
             "infoHash": torrent_item.info_hash,
             "fileIdx": int(torrent_item.file_index) if torrent_item.file_index else None,
-            "behaviorHints": {
+            "behaviorHints":{
                 "bingeGroup": f"stremio-jackett-{torrent_item.info_hash}",
                 "filename": torrent_item.file_name if torrent_item.file_name is not None else torrent_item.title
             }

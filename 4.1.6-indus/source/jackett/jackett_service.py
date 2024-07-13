@@ -118,10 +118,9 @@ class JackettService:
         season = str(int(series.season.replace('S', '')))
         episode = str(int(series.episode.replace('E', '')))
 
-
         has_imdb_search_capability = (os.getenv("DISABLE_JACKETT_IMDB_SEARCH") != "true"
-                                      and indexer.tv_search_capatabilities is not None
-                                      and 'imdbid' in indexer.tv_search_capatabilities)
+                                    and indexer.tv_search_capatabilities is not None
+                                    and 'imdbid' in indexer.tv_search_capatabilities)
         if has_imdb_search_capability:
             languages = ['en']
             index_of_language = [index for index, lang in enumerate(series.languages) if lang == 'en'][0]
@@ -131,7 +130,7 @@ class JackettService:
             titles = series.titles
         else:
             index_of_language = [index for index, lang in enumerate(series.languages) if
-                                 lang == indexer.language or lang == 'en']
+                                lang == indexer.language or lang == 'en']
             languages = [series.languages[index] for index in index_of_language]
             titles = [series.titles[index] for index in index_of_language]
 
@@ -151,32 +150,26 @@ class JackettService:
             url_title = f"{self.__base_url}/indexers/{indexer.id}/results/torznab/api"
             url_title += '?' + '&'.join([f'{k}={v}' for k, v in params.items()])
 
-            #url_season = f"{self.__base_url}/indexers/{indexer.id}/results/torznab/api"
-            #params['season'] = season
-            #url_season += '?' + '&'.join([f'{k}={v}' for k, v in params.items()])
-
             url_ep = f"{self.__base_url}/indexers/{indexer.id}/results/torznab/api"
             params['ep'] = episode
             url_ep += '?' + '&'.join([f'{k}={v}' for k, v in params.items()])
 
             try:
-                # Current functionality is that it returns if the season, episode search was successful. This is subject to change
-                # TODO: what should we prioritize? season, episode or title?
                 response_ep = self.__session.get(url_ep)
                 response_ep.raise_for_status()
-
-                #response_season = self.__session.get(url_season)
-                #response_season.raise_for_status()
-
                 data_ep = self.__get_torrent_links_from_xml(response_ep.text)
-                data_season = self.__get_torrent_links_from_xml(response_season.text)
-
                 if data_ep:
                     results.append(data_ep)
-                if data_season:
-                    results.append(data_season)
 
-                if not data_ep and not data_season:
+                # Optionally check for season if you uncomment this part
+                # response_season = self.__session.get(url_season)
+                # response_season.raise_for_status()
+                # data_season = self.__get_torrent_links_from_xml(response_season.text)
+                # if data_season:
+                #     results.append(data_season)
+
+                # If no data found in episode search, search by title
+                if not data_ep:
                     response_title = self.__session.get(url_title)
                     response_title.raise_for_status()
                     data_title = self.__get_torrent_links_from_xml(response_title.text)
@@ -184,7 +177,7 @@ class JackettService:
                         results.append(data_title)
             except Exception:
                 self.logger.exception(
-                    f"An exception occured while searching for a series on Jackett with indexer {indexer.title} and language {lang}.")
+                    f"An exception occurred while searching for a series on Jackett with indexer {indexer.title} and language {lang}.")
 
         return results
 

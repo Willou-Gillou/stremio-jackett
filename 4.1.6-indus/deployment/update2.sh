@@ -6,6 +6,7 @@ curl -o jackett_service.py https://raw.githubusercontent.com/Willou-Gillou/strem
 cd ..
 cd utils
 curl -o filter_results.py https://raw.githubusercontent.com/Willou-Gillou/stremio-jackett/main/4.1.6-indus/source/utils/filter_results.py
+curl -o stremio_parser.py https://raw.githubusercontent.com/Willou-Gillou/stremio-jackett/main/4.1.6-indus/source/utils/stremio_parser.py
 cd ..
 
 echo "Update completed!"

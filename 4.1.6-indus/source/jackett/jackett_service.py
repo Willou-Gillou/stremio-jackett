@@ -67,30 +67,13 @@ class JackettService:
         return self.__post_process_results(flatten_results, media)
 
     def __search_indexer(self, media: Union[Movie, Series], indexer: JackettIndexer, media_type: str) -> List[JackettResult]:
-        has_imdb_search_capability = (
-            os.getenv("DISABLE_JACKETT_IMDB_SEARCH") != "true" 
-            and ((indexer.movie_search_capatabilities if media_type == 'movie' else indexer.tv_search_capatabilities) is not None) 
-            and 'imdbid' in (indexer.movie_search_capatabilities if media_type == 'movie' else indexer.tv_search_capatabilities)
-        )
-
-        if has_imdb_search_capability:
-            languages = ['en']
-            index_of_language = [index for index, lang in enumerate(media.languages) if lang == 'en'][0]
-            titles = [media.titles[index_of_language]]
-        elif indexer.language == "en":
-            languages = media.languages
-            titles = media.titles
-        else:
-            index_of_language = [index for index, lang in enumerate(media.languages) if lang == indexer.language or lang == 'en']
-            languages = [media.languages[index] for index in index_of_language]
-            titles = [media.titles[index] for index in index_of_language]
+        languages = [indexer.language] if indexer.language != 'en' else media.languages
+        titles = media.titles
 
         results = []
 
         for index, lang in enumerate(languages):
             search_query = titles[index]
-            if media_type == 'series':
-                search_query += f" S{str(int(media.season.replace('S', ''))).zfill(2)}E{str(int(media.episode.replace('E', ''))).zfill(2)}"
 
             params = {
                 'apikey': self.__api_key,
@@ -99,9 +82,6 @@ class JackettService:
                 'q': search_query,
                 'year': getattr(media, 'year', None),
             }
-
-            if has_imdb_search_capability:
-                params['imdbid'] = media.id
 
             url = f"{self.__base_url}/indexers/{indexer.id}/results/torznab/api"
             url += '?' + '&'.join([f'{k}={v}' for k, v in params.items()])
